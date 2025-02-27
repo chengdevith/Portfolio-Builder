@@ -1,15 +1,20 @@
 import React from 'react'
-import { Card } from "flowbite-react";
+import Card from './components/CardComponent'
 const App = () => {
+
+  const Data = {
+    image: 'https://colorlib.com/wp/wp-content/uploads/sites/2/knuford-free-template-408x322.jpg.avif',
+    title: 'Knuford',
+    categories: 'Business, Agency',
+    template: 'Portfolio',
+  };
   return (
-    <Card href="#" className="max-w-sm">
-    <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-      Noteworthy technology acquisitions 2021
-    </h5>
-    <p className="font-normal text-gray-700 dark:text-gray-400">
-      Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.
-    </p>
-  </Card>
+    <>
+    <div className="flex justify-center items-center h-screen bg-gray-100">
+      <Card {...Data} />
+    </div>
+    </>
+
   )
 }
 
