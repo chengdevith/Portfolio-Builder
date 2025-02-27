@@ -1,3 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  .btn {
+    @apply hover:!bg-color-secondary  !bg-color-primary;
+  }
+  .title {
+    @apply text-3xl md:text-4xl font-bold leading-snug;
+  }
+  .nav-link{
+    @apply text-color-description hover:!text-color-primary ;
+  }
+  *{
+    @apply font-opensans ;
+  }
+  h1,h2,h3,h4,h4,h6{
+    @apply font-bold
+  }
+  h1{
+    @apply text-[40px] ;
+  }
+  h2{
+    @apply text-[36px] ;
+  }
+  h3{
+    @apply text-[32px] ;
+  }
+  h4{
+    @apply text-[28px];
+  }
+  h5{
+    @apply text-[24px];
+  }
+  h6{
+    @apply text-[20px];
+  }
+  .description{ 
+    @apply !text-[20px] !text-color-description;
+  }
+}
