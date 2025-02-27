@@ -1,15 +1,18 @@
 import React from 'react'
-import { Card } from "flowbite-react";
+import NavComponent from './components/NavComponent';
+import FooterComponent from './components/FooterComponent';
 const App = () => {
   return (
-    <Card href="#" className="max-w-sm">
-    <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-      Noteworthy technology acquisitions 2021
-    </h5>
-    <p className="font-normal text-gray-700 dark:text-gray-400">
-      Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.
-    </p>
-  </Card>
+    <section >
+      <NavComponent/>
+      <FooterComponent/>
+      <h1>helow</h1>
+      <h2>helow</h2>
+      <h3>helow</h3>
+      <h4>helow</h4>
+      <h5>helow</h5>
+      <p className='description'>From intuitive design features to built-in marketing tools, discover the complete solution for building an online portfolio that stands out.</p>
+    </section>
   )
 }
 
