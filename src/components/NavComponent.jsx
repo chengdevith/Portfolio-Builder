@@ -7,7 +7,7 @@ import {
   NavbarLink,
   NavbarToggle,
 } from "flowbite-react";
-import UserProfileComponent from "./UserProfileComponent";
+import DropDownProfile from "./DropDownProfile";
 const NavComponent = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
@@ -28,7 +28,7 @@ const NavComponent = () => {
           Log in{" "}
         </Button>
         <Button className="btn">Get started</Button>
-        <UserProfileComponent />
+        <DropDownProfile/>
         <NavbarToggle />
       </div>
       <NavbarCollapse>
