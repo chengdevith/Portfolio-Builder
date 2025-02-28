@@ -39,8 +39,14 @@
   h6{
     @apply text-[20px];
   }
+  small{
+    @apply text-[16px];
+  }
   .description{ 
     @apply !text-[20px] !text-color-description;
+  }
+  .sub-description{
+    @apply !text-[12px] !text-color-description;
   }
 }
 /* Reset and Global Styles */
