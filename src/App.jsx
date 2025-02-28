@@ -1,16 +1,12 @@
-import React from 'react'
-import NavComponent from './components/NavComponent';
-import FooterComponent from './components/FooterComponent';
-import Home from './pages/Home';
-import ImageSlider from './components/homeComponents/ImageSilder';
+import React from "react";
+import Home from "./pages/Home";
+
 const App = () => {
   return (
-    <section  >
-      <Home/>
-      {/* <ImageSlider/> */}
-      {/* <FooterComponent/> */}
+    <section>
+      <Home />
     </section>
-  )
-}
+  );
+};
 
-export default App
+export default App;

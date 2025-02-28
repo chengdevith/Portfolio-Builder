@@ -3,8 +3,7 @@ import { motion } from "framer-motion";
 import slide1 from "../../assets/slide1.png";
 import slide2 from "../../assets/slide2.png";
 import slide3 from "../../assets/slide3.png";
-import { IoChevronBackOutline } from "react-icons/io5";
-import { IoIosArrowForward } from "react-icons/io";
+
 
 const ImageSlider = () => {
   const [positionIndexes, setPositionIndexes] = useState([0, 1, 2]);
