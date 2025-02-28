@@ -1,8 +1,5 @@
 import React, { useState } from "react";
 
-import { FaRegUser } from "react-icons/fa";
-import { IoIosArrowForward,IoIosNotificationsOutline,IoMdLogOut } from "react-icons/io";
-import { CiSettings } from "react-icons/ci";
 import ProfileComponent from "./ProfileComponent";
 
 function DropDownProfile() {
@@ -11,7 +8,7 @@ function DropDownProfile() {
     <div >
       <img
         onClick={() => setIsOpen(!isOpen)}
-        className="w-10 h-10 rounded-full"
+        className="w-10 h-10 rounded-full cursor-pointer"
         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4YreOWfDX3kK-QLAbAL4ufCPc84ol2MA8Xg&s"
         alt=""
       />

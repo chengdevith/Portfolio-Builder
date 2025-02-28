@@ -9,7 +9,7 @@ import { CiSettings } from "react-icons/ci";
 
 function ProfileComponent() {
   return (
-    <div className="w-96 bg-white  px-4 py-7 absolute left-7 top-[51px] duration-200 ease-out ">
+    <div className="w-96 bg-white  px-4 py-7 absolute left-7 top-[51px] duration-200 ease-out z-50">
       <div className="flex  items-center gap-3">
         <div className="w-16 h-16">
           <img

@@ -11,7 +11,7 @@ import DropDownProfile from "./DropDownProfile";
 const NavComponent = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <Navbar fluid rounded className="lg:!px-[150px] ">
+    <Navbar fluid rounded className="lg:!px-[150px] shadow-lg ">
       <NavbarBrand href="https://flowbite-react.com">
         <img
           onClick={() => setIsOpen(!isOpen)}
@@ -35,13 +35,13 @@ const NavComponent = () => {
         <NavbarLink href="/" className="nav-link">
           Home
         </NavbarLink>
-        <NavbarLink href="#" className="nav-link ">
+        <NavbarLink href="/template" className="nav-link ">
           Template
         </NavbarLink>
-        <NavbarLink href="#" className="nav-link">
+        <NavbarLink href="blog" className="nav-link">
           Blog
         </NavbarLink>
-        <NavbarLink href="#" className="nav-link">
+        <NavbarLink href="about" className="nav-link">
           About
         </NavbarLink>
       </NavbarCollapse>
