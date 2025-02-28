@@ -2,7 +2,6 @@ import React from "react";
 import NavComponent from "../components/NavComponent";
 import ImageSlider from "../components/homeComponents/ImageSilder";
 import FeatureCardComponent from "../components/homeComponents/FeatureCardComponent";
-import { image } from "framer-motion/client";
 import ChooseUsCard from "../components/homeComponents/ChooseUsCard";
 import {
   Button,
