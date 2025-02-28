@@ -24,9 +24,9 @@ const NavComponent = () => {
         </span>
       </NavbarBrand>
       <div className="flex md:order-2 gap-4 relative">
-        <Button className="bg-white  text-color-description  border-color-primary  hover:!bg-purple-100 ">
-          Log in{" "}
-        </Button>
+          {/* <Button className="bg-white  text-color-description  border-color-primary  hover:!bg-purple-100 ">
+            Log in
+          </Button> */}
         <Button className="btn">Get started</Button>
         <DropDownProfile/>
         <NavbarToggle />
