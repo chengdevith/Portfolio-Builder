@@ -15,11 +15,11 @@
   .nav-link{
     @apply text-color-description hover:!text-color-primary ;
   }
-  *{
+  :root{
     @apply font-opensans ;
   }
   h1,h2,h3,h4,h4,h6{
-    @apply font-bold
+    @apply font-bold leading-[50px]
   }
   h1{
     @apply text-[40px] ;

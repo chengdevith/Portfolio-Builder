@@ -1,7 +1,12 @@
 import React from "react";
-import Template from "./pages/Template";
+import Home from "./pages/Home";
+
 const App = () => {
-  return <div className="flex justify-center items-center h-screen"></div>;
+  return (
+    <section>
+      <Home />
+    </section>
+  );
 };
 
 export default App;
