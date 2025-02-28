@@ -1,10 +1,13 @@
 import React from "react";
 import Home from "./pages/Home";
-
+import Template from "./pages/Template";
+import About from "./pages/About";
 const App = () => {
   return (
     <section>
-      <Home />
+      <About />
+      {/* <Template /> */}
+      {/* <Home /> */}
     </section>
   );
 };
