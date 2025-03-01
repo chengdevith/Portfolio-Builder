@@ -1,8 +1,9 @@
 import React from "react";
 import Login from "./pages/auth/Login"
+import Template from "./pages/Template";
 const App = () => {
   return <section>
-    <Login/>
+    <Template/>
   </section>;
 };
 
