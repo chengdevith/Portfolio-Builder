@@ -1,5 +1,7 @@
 import React from "react";
 import { CardList } from "./helpers/CardList";
+import { ImEye } from "react-icons/im";
+import { FaRegEdit } from "react-icons/fa";
 
 export default function CardComponent() {
   return (
@@ -30,11 +32,11 @@ export default function CardComponent() {
             </div>
 
             <div className="absolute bottom-0 left-0 w-full h-40 bg-black/20 flex items-center justify-center gap-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-b-lg">
-              <button className="w-20 h-8 flex items-center justify-center bg-purple-500 hover:bg-orange-500 text-white text-xl rounded-xl shadow-lg hover:scale-110 transition-transform">
-                {/* <FontAwesomeIcon icon={faEye} /> */}
+              <button className="w-20 h-8 flex items-center justify-center bg-purple-500 hover:bg-color-secondary text-white text-xl rounded-xl shadow-lg hover:scale-110 transition-transform">
+                <ImEye />
               </button>
-              <button className="w-20 h-8 flex items-center justify-center bg-purple-500  hover:bg-orange-500 text-white text-xl rounded-xl shadow-lg hover:scale-110 transition-transform">
-                {/* <FontAwesomeIcon icon={faPenToSquare} /> */}
+              <button className="w-20 h-8 flex items-center justify-center bg-purple-500  hover:bg-color-secondary text-white text-xl rounded-xl shadow-lg hover:scale-110 transition-transform">
+                <FaRegEdit />
               </button>
             </div>
           </div>
