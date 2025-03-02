@@ -57,9 +57,6 @@ const chooseUSe = [
 function Home() {
   return (
     <>
-      <header>
-        <NavComponent />
-      </header>
       <main>
         {/* hero section */}
         <section className="bg-gradient-to-r from-[#634BA7] to-[#A632CD]  md:rounded-l-[50px] md:rounded-br-[200px] px-2 md:px-10 lg:px-36 py-10 lg:py-32 mb-20  ">
@@ -102,16 +99,16 @@ function Home() {
         {/* template */}
         <section className="each-section">
           <div className="text-center m-auto mb-12 ">
-            <h2 className="text-color-primary mb-2">Portfolio Showcasing Your Best work</h2>
+            <h2 className="text-color-primary mb-2">
+              Portfolio Showcasing Your Best work
+            </h2>
             <p className="description">
               Choose from 900+ customizable templates to start building your
               free portfolio website—and present your work the way it's meant to
               be seen.
             </p>
           </div>
-          <div>
-
-          </div>
+          <div></div>
         </section>
         <section className="each-section">
           <div className="text-center">
@@ -188,9 +185,6 @@ function Home() {
           </div>
         </section>
       </main>
-      <section>
-      <FooterComponent/>
-      </section>
     </>
   );
 }
