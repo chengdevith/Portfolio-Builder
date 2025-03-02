@@ -9,13 +9,11 @@ import Mentor from "../components/AboutComponents/Mentor";
 export default function About() {
   return (
     <>
-      <main>
-        <HeroBanner />
-        <About_Project />
-        <Our_Vision />
-        <Our_Mission />
-        <Mentor />
-      </main>
+      <HeroBanner />
+      <About_Project />
+      <Our_Vision />
+      <Our_Mission />
+      <Mentor />
     </>
   );
 }
