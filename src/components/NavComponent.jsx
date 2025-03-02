@@ -12,7 +12,7 @@ const NavComponent = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <Navbar fluid rounded className="lg:!px-[150px] shadow-lg ">
-      <NavbarBrand href="https://flowbite-react.com">
+      <NavbarBrand href="">
         <img
           onClick={() => setIsOpen(!isOpen)}
           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQltIAHUYT6u7GKhj-UIX_fU1Pf0sySCFH_aw&s"
