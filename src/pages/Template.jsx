@@ -8,10 +8,6 @@ import NavComponent from "../components/NavComponent";
 export default function Template() {
   return (
     <>
-      <header>
-        <NavComponent />
-      </header>
-
       <section>
         <div className="p-6 bg-gray-100 min-h-auto mb-20">
           <div className="max-w-4xl mx-auto text-center mb-12">
@@ -26,13 +22,12 @@ export default function Template() {
           <div className=" m-auto max-w-screen-lg flex justify-between items-center px-14">
             <div className="">
               <div className="flex space-x-4 items-center">
-
                 <ActiveButton />
 
                 {/* dropdown  */}
-                <ResumeComponent/>
-                
-                <PortfolioComponent/>
+                <ResumeComponent />
+
+                <PortfolioComponent />
               </div>
             </div>
 
@@ -81,10 +76,6 @@ export default function Template() {
       </section>
 
       <CardComponent />
-
-      {/* <footer>
-          <FooterComponent/>
-      </footer> */}
     </>
   );
 }
