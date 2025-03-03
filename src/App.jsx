@@ -6,7 +6,7 @@ import { Button } from "flowbite-react";
 import line from "./assets/homeImage/line.png";
 import lineBottom from "./assets/homeImage/line-bottom.png";
 import FaqComponent from "./components/homeComponents/FaqComponent";
-import CardComponent from "./components/TemplateComponents/CardComponent";
+import FilterComponent from "./components/TemplateComponents/FilterComponent";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import TitleSectionComponen from "./components/homeComponents/TitleSectionComponen";
 import feature from "./mock-data/feature";
@@ -62,7 +62,7 @@ function App() {
           }
         />
         <div>
-          <CardComponent />
+          <FilterComponent />
         </div>
         <div>
           <a

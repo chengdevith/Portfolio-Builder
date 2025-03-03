@@ -243,9 +243,8 @@
   transform: translateX(0);
 }
 
-.container.active .toggle-right {
-  transform: translateX(200%);
-}
+
+
 
 /* Responsive Design */
 @media (max-width: 768px) {
