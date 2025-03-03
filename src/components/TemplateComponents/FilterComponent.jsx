@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { Button, Dropdown, Card } from "flowbite-react";
-import { ImEye } from "react-icons/im";
-import { FaRegEdit } from "react-icons/fa";
 import { IoChevronDownOutline } from "react-icons/io5";
 import CardLists from "../../mock-data/cardList";
+import TemplateCardComponent from "./TemplateCardComponent";
 
 const FilterComponent = () => {
   const [filters, setFilters] = useState({ type: "", category: "" });
@@ -18,9 +17,12 @@ const FilterComponent = () => {
     return (
       (filters.type ? item.type === filters.type : true) &&
       (filters.category ? item.category === filters.category : true) &&
-      (searchTerm ? item.title.toLowerCase().includes(searchTerm.toLowerCase()) : true)&&
-      (searchTerm ? item.category.toLowerCase().includes(searchTerm.toLowerCase()) : true)
-
+      (searchTerm
+        ? item.title.toLowerCase().includes(searchTerm.toLowerCase())
+        : true) &&
+      (searchTerm
+        ? item.category.toLowerCase().includes(searchTerm.toLowerCase())
+        : true)
     );
   });
 
@@ -41,9 +43,7 @@ const FilterComponent = () => {
           dismissOnClick={false}
           inline
           renderTrigger={() => (
-            <Button
-              color={filters.type === "Resume" ? "purple" : "gray"}
-            >
+            <Button color={filters.type === "Resume" ? "purple" : "gray"}>
               Resume
               <IoChevronDownOutline className="w-4 h-4 ml-2" />
             </Button>
@@ -65,7 +65,9 @@ const FilterComponent = () => {
             Beginner
           </Dropdown.Item>
           <Dropdown.Item
-            onClick={() => setFilters({ type: "Resume", category: "Professional" })}
+            onClick={() =>
+              setFilters({ type: "Resume", category: "Professional" })
+            }
           >
             Professional
           </Dropdown.Item>
@@ -77,9 +79,7 @@ const FilterComponent = () => {
           dismissOnClick={false}
           inline
           renderTrigger={() => (
-            <Button
-              color={filters.type === "Portfolio" ? "purple" : "gray"}
-            >
+            <Button color={filters.type === "Portfolio" ? "purple" : "gray"}>
               Portfolio
               <IoChevronDownOutline className="w-4 h-4 ml-2" />
             </Button>
@@ -91,17 +91,23 @@ const FilterComponent = () => {
             All Fields of Portfolio
           </Dropdown.Item>
           <Dropdown.Item
-            onClick={() => setFilters({ type: "Portfolio", category: "Student" })}
+            onClick={() =>
+              setFilters({ type: "Portfolio", category: "Student" })
+            }
           >
             Student
           </Dropdown.Item>
           <Dropdown.Item
-            onClick={() => setFilters({ type: "Portfolio", category: "Beginner" })}
+            onClick={() =>
+              setFilters({ type: "Portfolio", category: "Beginner" })
+            }
           >
             Beginner
           </Dropdown.Item>
           <Dropdown.Item
-            onClick={() => setFilters({ type: "Portfolio", category: "Professional" })}
+            onClick={() =>
+              setFilters({ type: "Portfolio", category: "Professional" })
+            }
           >
             Professional
           </Dropdown.Item>
@@ -150,46 +156,20 @@ const FilterComponent = () => {
             </button>
           </div>
         </form>
-        
       </div>
 
       {/* Display Filtered Data */}
       <div className="max-w-screen-xl m-auto cardList grid xl:grid-cols-3 sm:grid-cols-2 gap-20">
-        {filteredData.map((item) => (
-          <div key={item.id} className="relative cardItem group hover:scale-110 overflow-hidden duration-300">
-            <div className="border border-gray-300 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 bg-gray-200 overflow-hidden">
-              <a href="#">
-                <img
-                  className="h-60 w-full rounded-t-lg bg-gray-200 transition-transform duration-300"
-                  src={item.image}
-                  alt={item.title}
-                />
-              </a>
-              <div className="px-5 py-3">
-                <a href="#">
-                  <h2 className="mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white">
-                    {item.title}
-                  </h2>
-                </a>
-                <a href="#">
-                  <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                    {item.category}
-                  </p>
-                </a>
-              </div>
-            </div>
-
-            {/* Hover Buttons */}
-            <div className="absolute bottom-24 left-0 w-full h-60 rounded-t-md bg-black/20 flex items-center justify-center gap-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <button className="w-20 h-8 flex items-center justify-center bg-purple-500 hover:bg-purple-600 text-white text-xl rounded-xl shadow-lg hover:scale-110 transition-transform">
-                <ImEye />
-              </button>
-              <button className="w-20 h-8 flex items-center justify-center bg-purple-500 hover:bg-purple-600 text-white text-xl rounded-xl shadow-lg hover:scale-110 transition-transform">
-                <FaRegEdit />
-              </button>
-            </div>
-          </div>
-        ))}
+        {CardList.map((e) => {
+          return (
+            <TemplateCardComponent
+              key={e.id}
+              image={e.image}
+              title={e.title}
+              category={e.category}
+            />
+          );
+        })}
       </div>
     </div>
   );

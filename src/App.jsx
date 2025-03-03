@@ -11,6 +11,9 @@ import { FaLongArrowAltRight } from "react-icons/fa";
 import TitleSectionComponen from "./components/homeComponents/TitleSectionComponen";
 import feature from "./mock-data/feature";
 import chooseUse from "./mock-data/chooseUse";
+import Template from "./pages/Template";
+import TemplateCardComponent from "./components/TemplateComponents/TemplateCardComponent";
+import CardList from "./mock-data/cardList";
 
 function App() {
   const [features, setFeature] = useState(feature);
@@ -61,8 +64,17 @@ function App() {
             "Choose from 900+ customizable templates to start building your free portfolio website and present your work the way it's meant to be seen."
           }
         />
-        <div>
-          <FilterComponent />
+        <div className="max-w-screen-xl m-auto cardList grid xl:grid-cols-3 sm:grid-cols-2 gap-20">
+          {CardList.map((e) => {
+            return (
+              <TemplateCardComponent
+                key={e.id}
+                image={e.image}
+                title={e.title}
+                category={e.category}
+              />
+            );
+          })}
         </div>
         <div>
           <a
