@@ -7,7 +7,7 @@ export default function CardComponent() {
   return (
     <section>
       <div className="max-w-screen-xl m-auto cardList grid xl:grid-cols-3 sm:grid-cols-2 gap-20">
-        {CardList.map((card) => (
+        {CardList.slice(0,6).map((card) => (
           <div key={card.id} className="relative cardItem group">
             <div className="border border-gray-300 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 bg-gray-200 overflow-hidden">
               <a href="#">

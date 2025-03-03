@@ -10,7 +10,11 @@ import saveTime from "../assets/homeImage/save_time.png";
 import line from "../assets/homeImage/line.png";
 import lineBottom from "../assets/homeImage/line-bottom.png";
 import FooterComponent from "../components/FooterComponent";
-// import FaqComponent from "../components/homeComponents/FaqComponent";
+import FaqComponent from "../components/homeComponents/FaqComponent";
+import CardComponent from "../components/TemplateComponents/CardComponent";
+import { FaLongArrowAltRight } from "react-icons/fa";
+import TitleSectionComponen from "../components/homeComponents/TitleSectionComponen";
+
 const feature = [
   {
     id: 1,
@@ -42,9 +46,9 @@ const chooseUSe = [
   {
     id: 2,
     image: template,
-    label: "Time",
-    title: "Save Your Time",
-    description: "Just few clicks to create your portfolio",
+    label: "Variety",
+    title: "Diverse Templates",
+    description: "Find the perfect fit for your style.",
   },
   {
     id: 3,
@@ -57,7 +61,7 @@ const chooseUSe = [
 function Home() {
   return (
     <>
-      <header>
+      <header className="sticky top-0 z-20">
         <NavComponent />
       </header>
       <main>
@@ -67,7 +71,7 @@ function Home() {
             <div className="flex flex-col items-center text-center md:text-start md:items-start">
               <h1>Showcase your work with a portfolio website</h1>
 
-              <p className="text-white my-8 text-xl ">
+              <p className="text-white my-8 text-xl line-clamp-4">
                 From intuitive design features to built-in marketing tools,
                 discover the complete solution for building an online portfolio
                 that stands out.
@@ -81,9 +85,7 @@ function Home() {
         </section>
         <section className=" each-section  text-center">
           <div>
-            <h2 className="text-color-primary mb-12">
-              Design your online portfolio
-            </h2>
+            <TitleSectionComponen title={"Design your online portfolio"} />
             <div className="flex flex-col md:flex-row  gap-3 lg:gap-10 justify-center items-center">
               {feature.map((e) => {
                 return (
@@ -100,27 +102,34 @@ function Home() {
           </div>
         </section>
         {/* template */}
-        <section className="each-section">
-          <div className="text-center m-auto mb-12 ">
-            <h2 className="text-color-primary mb-2">Portfolio Showcasing Your Best work</h2>
-            <p className="description">
-              Choose from 900+ customizable templates to start building your
-              free portfolio website—and present your work the way it's meant to
-              be seen.
-            </p>
+        <section className="each-section px-10">
+          <TitleSectionComponen
+            title={"Portfolio Showcasing Your Best work"}
+            description={
+              "Choose from 900+ customizable templates to start building your free portfolio website and present your work the way it's meant to be seen."
+            }
+          />
+          <div>
+            <CardComponent />
           </div>
           <div>
-
+            <a
+              href="#"
+              className="flex items-center justify-center  gap-2 underline mt-12"
+            >
+              <p>See All Template</p>
+              <FaLongArrowAltRight />
+            </a>
           </div>
         </section>
         <section className="each-section">
-          <div className="text-center">
-            <h2 className="text-color-primary mb-2">Why Choose Us?</h2>
-            <p className="description">
-              Because your portfolio deserves to be as fabulous as you are!
-            </p>
-          </div>
-          <div className="flex flex-col md:flex-row  gap-3 lg:gap-10 justify-center items-center mt-12">
+          <TitleSectionComponen
+            title={"Why Choose Us?"}
+            description={
+              "Because your portfolio deserves to be as fabulous as you are!"
+            }
+          />
+          <div className="flex flex-col md:flex-row  gap-3 lg:gap-10 justify-center items-center ">
             {chooseUSe.map((e) => {
               return (
                 <ChooseUsCard
@@ -137,10 +146,12 @@ function Home() {
         </section>
         <section className="each-section relative">
           <div>
-            <div className="text-center m-auto mb-12 ">
-              <h2 className="text-color-primary  mb-2">How It Works</h2>
-              <p className="description">Grow Up Your Money Saving</p>
-            </div>
+            <TitleSectionComponen
+              title={"How It Works"}
+              description={
+                "Your dream portfolio is just a click away! Join our community and start building today. Let’s make magic happen!"
+              }
+            />
             <div className="flex flex-col justify-between gap-6 md:flex-row">
               <div className="text-center cursor-pointer">
                 <div className="relative bg-white inline-block px-6 py-3 rounded-lg cursor-pointer hover:bg-color-primary hover:text-white ease-in duration-200">
@@ -153,9 +164,10 @@ function Home() {
                     />
                   </div>
                 </div>
-                <h5 className="  py-4">Expense Trackering</h5>
-                <p className="description">
-                  We use an application designed a testing gnose to keep away
+                <h5 className="line-clamp-1 py-4">Explore Templates</h5>
+                <p className="description line-clamp-2">
+                  Browse our extensive library of templates and find your
+                  perfect match.
                 </p>
               </div>
 
@@ -170,26 +182,48 @@ function Home() {
                     />
                   </div>
                 </div>
-                <h5 className="py-4">Expense Trackering</h5>
-                <p className="description">
-                  We use an application designed a testing gnose to keep away
+                <h5 className="py-4">Sign Up</h5>
+                <p className="description line-clamp-2">
+                  Create an account and unlock a world of possibilities. It's
+                  free and easy!
                 </p>
               </div>
               <div className="text-center cursor-pointer">
                 <div className="relative bg-white inline-block px-6 py-3 rounded-lg cursor-pointer hover:text-white hover:bg-color-primary ease-in duration-200">
                   <p className="text-5xl">3</p>
                 </div>
-                <h5 className=" py-4">Expense Trackering</h5>
-                <p className="description">
-                  We use an application designed a testing gnose to keep away
+                <h5 className=" py-4">Showcase Work</h5>
+                <p className="description line-clamp-2">
+                  Upload your work and let the world see your talent. Shine
+                  bright like a diamond!
                 </p>
               </div>
             </div>
           </div>
         </section>
+        {/* video */}
+        {/* <section className="each-section">
+          <iframe
+            className="m-auto rounded-lg"
+            width="760"
+            height="515"
+            src="https://www.youtube.com/embed/ZfG2p2gqHqE?si=jYJd3TqTjupMWW5M"
+            title="YouTube video player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share "
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen
+          ></iframe>
+        </section> */}
+        {/* FQA */}
+        <section className="each-section">
+          <TitleSectionComponen title={"Frequently Ask Question"} />
+          <div>
+            <FaqComponent />
+          </div>
+        </section>
       </main>
       <section>
-      <FooterComponent/>
+        <FooterComponent />
       </section>
     </>
   );
