@@ -8,10 +8,9 @@ import Portfolio6 from '../assets/Card_images/Portfolio/Portfolio-6.png';
 import Resume1 from '../assets/Card_images/Resume/Resume-1.png';
 import Resume2 from '../assets/Card_images/Resume/Resume-2.png';
 import Resume3 from '../assets/Card_images/Resume/Resume-3.png';
-import Resume4 from '../assets/Card_images/Resume/Resume-4.png';
 
 
-export const CardList = [
+const CardList = [
   {
     id: 1,
     image: Portfolio1,
@@ -76,3 +75,5 @@ export const CardList = [
     type: 'Resume',
   },
 ];
+
+export default CardList;
