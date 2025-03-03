@@ -10,7 +10,7 @@ import {
 import DropDownProfile from "./DropDownProfile";
 const NavComponent = () => {
   return (
-    <Navbar fluid rounded className="lg:!px-[150px] shadow-lg   ">
+    <Navbar fluid rounded className="lg:!px-[150px] shadow-lg sticky top-0 z-20">
       <NavbarBrand href="https://flowbite-react.com">
         <img
           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQltIAHUYT6u7GKhj-UIX_fU1Pf0sySCFH_aw&s"
