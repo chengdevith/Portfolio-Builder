@@ -1,5 +1,4 @@
 import React from "react";
-import NavComponent from "../components/NavComponent";
 import HeroBanner from "../components/AboutComponents/HeroBanner";
 import About_Project from "../components/AboutComponents/About_Project";
 import Our_Vision from "../components/AboutComponents/Our_Vision";

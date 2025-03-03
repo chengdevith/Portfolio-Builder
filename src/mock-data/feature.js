@@ -22,27 +22,4 @@ const FeatureData = [
     description: "Build & tweak anywhere, free—no downloads needed.",
   },
 ];
-const chooseUSe = [
-  {
-    id: 1,
-    image: friendly,
-    label: "Simplicity",
-    title: "User-Friendly Design",
-    description: "No tech skills? No problem!",
-  },
-  {
-    id: 2,
-    image: template,
-    label: "Time",
-    title: "Save Your Time",
-    description: "Just few clicks to create your portfolio",
-  },
-  {
-    id: 3,
-    image: saveTime,
-    label: "Simplicity",
-    title: "User-Friendly Design",
-    description: "No tech skills? No problem!",
-  },
-];
 export default FeatureData;

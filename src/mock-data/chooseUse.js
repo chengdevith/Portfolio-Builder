@@ -2,10 +2,8 @@ import friendly from "../assets/homeImage/friendly_img.png";
 import template from "../assets/homeImage/template.png";
 import saveTime from "../assets/homeImage/save_time.png";
 
-
-
-const ChooseUseData =[
- {
+const ChooseUseData = [
+  {
     id: 1,
     image: friendly,
     label: "Simplicity",
@@ -15,16 +13,16 @@ const ChooseUseData =[
   {
     id: 2,
     image: template,
-    label: "Time",
-    title: "Save Your Time",
-    description: "Just few clicks to create your portfolio",
+    label: "Variety",
+    title: "Diverse Templates",
+    description: "Find the perfect fit for your style.",
   },
   {
     id: 3,
     image: saveTime,
-    label: "Simplicity",
-    title: "User-Friendly Design",
-    description: "No tech skills? No problem!",
+    label: "Time",
+    title: "Save Your Time",
+    description: "Just few clicks to create your portfolio",
   },
-]
-export default ChooseUseData
+];
+export default ChooseUseData;
