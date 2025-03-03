@@ -8,9 +8,9 @@ const Details = () => {
   return (
     <section className="w-full md:min-h-screen  bg-gradient-to-r from-purple-300 to-purple-600 px-4 md:px-10 lg:px-36 py-16 flex flex-col md:flex-row items-center justify-center">
       {/* Left Content */}
-      <div className="w-full md:w-1/2 text-white text-center md:text-left">
+      <div className="w-full md:w-1/2 text-black text-center md:text-left">
         <h2 className="text-3xl md:text-5xl font-bold mb-6">What is PortfolioBuilder?</h2>
-        <p className="text-lg md:text-xl mb-6 leading-relaxed">
+        <p className="text-[12px] md:text-xl  text-color-description mb-6 leading-relaxed">
           PortfolioBuilder is not just another website; it's a revolution in how
           professionals, students, and creatives from all walks of life can
           present their achievements. Whether you're in engineering, teaching,

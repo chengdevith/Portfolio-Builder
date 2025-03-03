@@ -45,10 +45,10 @@ function Slide() {
           transition={{ duration: 1 }}
           className="text-center max-w-2xl px-6 mx-auto"
         >
-          <h2 className="text-[36px] md:text-4xl font-bold">
+          <h2 className="text-[36px] md:text-4xl font-bold font-opensans text-color-secondary">
             Our Journey So Far
           </h2>
-          <p className="text-lg mt-4">
+          <p className="text-[12px] mt-4 text-color-description">
             With over 10+ years of combined experience in the digital realm
           </p>
           <motion.button
@@ -74,7 +74,7 @@ function Slide() {
                       className="w-60 h-60 object-contain rounded-md"
                     />
                   </div>
-                  <div className="mt-4 p-4 bg-color-primary rounded-b-lg">
+                  <div className="mt-4 p-4 bg-color-primary hover:bg-color-secondary rounded-b-lg">
                     <p className="font-semibold text-black text-center text-lg">
                       {item.title}
                     </p>
