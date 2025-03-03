@@ -56,20 +56,7 @@ const ImageSlider = () => {
           />
         ))}
       </div>
-      {/* <div className="flex gap-6">
-        <button
-          className="text-white bg-transparent transition rounded-lg py-3 px-6"
-          onClick={handleBack}
-        >
-          <IoChevronBackOutline />
-        </button>
-        <button
-          className="text-white bg-transparent transition rounded-lg py-3 px-6"
-          onClick={handleNext}
-        >
-          <IoIosArrowForward />
-        </button>
-      </div> */}
+     
     </div>
   );
 };
