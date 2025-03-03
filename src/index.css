@@ -15,11 +15,11 @@
   .nav-link{
     @apply text-color-description hover:!text-color-primary ;
   }
-  *{
+  :root{
     @apply font-opensans ;
   }
-  h1,h2,h3,h4,h4,h6{
-    @apply font-bold
+  h1,h2,h3,h4,h4,h5,h6{
+    @apply font-bold leading-[50px]
   }
   h1{
     @apply text-[40px] ;
@@ -39,8 +39,17 @@
   h6{
     @apply text-[20px];
   }
+  small{
+    @apply text-[16px];
+  }
   .description{ 
     @apply !text-[20px] !text-color-description;
+  }
+  .sub-description{
+    @apply !text-[12px] !text-color-description;
+  }
+  .each-section{
+    @apply px-2 md:px-10 lg:px-36 pb-10 lg:pb-20 ;
   }
 }
 * {
@@ -235,6 +244,19 @@
 .container.active .toggle-right {
   transform: translateX(200%);
 }
+
+@keyframes heartbeat {
+  0% { transform: scale(1); }
+  30% { transform: scale(1.15); }
+  50% { transform: scale(1); }
+  70% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+
+.animate-heartbeat {
+  animation: heartbeat 3s infinite ease-in-out;
+}
+
 
 /* Responsive Design */
 @media (max-width: 768px) {
