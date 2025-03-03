@@ -154,7 +154,7 @@ const FilterComponent = () => {
       </div>
 
       {/* Display Filtered Data */}
-      <div className="max-w-screen-xl m-auto cardList grid xl:grid-cols-3 sm:grid-cols-2 gap-20">
+      <div className=" m-auto cardList grid xl:grid-cols-3 sm:grid-cols-2 gap-20 each-section">
         {filteredData.map((item) => (
           <div key={item.id} className="relative cardItem group hover:scale-110 overflow-hidden duration-300">
             <div className="border border-gray-300 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 bg-gray-200 overflow-hidden">
