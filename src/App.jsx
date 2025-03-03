@@ -8,9 +8,6 @@ import line from "./assets/homeImage/line.png";
 import lineBottom from "./assets/homeImage/line-bottom.png";
 import FeatureData from "./mock-data/feature";
 import ChooseUseData from "./mock-data/chooseUse";
-import Template from "./pages/Template";
-import About from "./pages/About";
-import FilterComponent from "./components/TemplateComponents/FilterComponent";
 
 function App() {
   const [feature, setFeature] = useState(FeatureData);

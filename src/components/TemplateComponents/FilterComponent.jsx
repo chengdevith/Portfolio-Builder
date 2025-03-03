@@ -18,7 +18,9 @@ const FilterComponent = () => {
     return (
       (filters.type ? item.type === filters.type : true) &&
       (filters.category ? item.category === filters.category : true) &&
-      (searchTerm ? item.title.toLowerCase().includes(searchTerm.toLowerCase()) : true)
+      (searchTerm ? item.title.toLowerCase().includes(searchTerm.toLowerCase()) : true)&&
+      (searchTerm ? item.category.toLowerCase().includes(searchTerm.toLowerCase()) : true)
+
     );
   });
 

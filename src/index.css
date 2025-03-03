@@ -18,7 +18,7 @@
   :root{
     @apply font-opensans ;
   }
-  h1,h2,h3,h4,h4,h6{
+  h1,h2,h3,h4,h4,h5,h6{
     @apply font-bold leading-[50px]
   }
   h1{
@@ -47,6 +47,9 @@
   }
   .sub-description{
     @apply !text-[12px] !text-color-description;
+  }
+  .each-section{
+    @apply px-2 md:px-10 lg:px-36 pb-10 lg:pb-20 ;
   }
 }
 /* Reset and Global Styles */
