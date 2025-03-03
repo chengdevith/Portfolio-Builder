@@ -20,7 +20,6 @@ const FilterComponent = () => {
       (filters.category ? item.category === filters.category : true) &&
       (searchTerm ? item.title.toLowerCase().includes(searchTerm.toLowerCase()) : true)&&
       (searchTerm ? item.category.toLowerCase().includes(searchTerm.toLowerCase()) : true)
-
     );
   });
 

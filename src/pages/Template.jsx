@@ -14,7 +14,6 @@ export default function Template() {
           </p>
         </div>
       </section>
-
       <FilterComponent />
     </>
   );
