@@ -6,7 +6,7 @@ const BlogBanner = () => {
     <div className="w-full">
       {/* Hero Banner Section */}
       <section
-        className="w-full md:min-h-screen bg-cover bg-center flex items-center justify-center text-white"
+        className="relative w-full md:min-h-screen bg-cover bg-center flex items-center justify-center text-white"
         style={{ backgroundImage: `url(${bannerImage})` }}
       >
         {/* Overlay */}
