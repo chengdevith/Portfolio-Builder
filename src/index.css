@@ -43,12 +43,10 @@
     @apply !text-[20px] !text-color-description;
   }
 }
-/* Reset and Global Styles */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Montserrat', sans-serif;
 }
 
 /* Main Container */
@@ -246,3 +244,25 @@
     border-radius: 15px;
   }
 }
+
+
+/* banner style*/
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up {
+  animation: slideUp 1.5s ease-out forwards;
+}
+
+
+
+
+ 

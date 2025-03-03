@@ -53,7 +53,7 @@ export default function Login() {
           <input type="email" placeholder="Email" />
           <input type="password" placeholder="Password" />
           <a href="#">Forget Your Password?</a>
-          <button type="submit">Sign In</button>
+          <button type="submit">Login</button>
         </form>
       </div>
 
@@ -63,7 +63,7 @@ export default function Login() {
           <div className="toggle-panel toggle-left">
             <h1>Welcome Back!</h1>
             <p>Enter your personal details to use all site features</p>
-            <button onClick={() => setIsActive(false)}>Sign In</button>
+            <button onClick={() => setIsActive(false)}>Login</button>
           </div>
           <div className="toggle-panel toggle-right">
             <h1>Hello, Friend!</h1>
