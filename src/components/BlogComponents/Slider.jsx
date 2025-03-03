@@ -45,7 +45,7 @@ function Slide() {
           transition={{ duration: 1 }}
           className="text-center max-w-2xl px-6 mx-auto"
         >
-          <h2 className="text-[36px] md:text-4xl font-bold font-opensans text-color-secondary">
+          <h2 className="text-[36px] md:text-4xl font-bold font-opensans text-color-primary">
             Our Journey So Far
           </h2>
           <p className="text-[12px] mt-4 text-color-description">
@@ -53,7 +53,7 @@ function Slide() {
           </p>
           <motion.button
             whileHover={{ scale: 1.05 }}
-            className="mt-6 bg-color-primary hover:bg-color-secondary text-white font-semibold text-lg py-3 px-6 rounded-full shadow-md transition duration-300"
+            className="mt-6 bg-color-primary hover:bg-color-secondary text-white font-opensans text-[20px] py-3 px-6 rounded-full shadow-md transition duration-300"
           >
             Create the Portfolio Now
           </motion.button>
@@ -66,7 +66,7 @@ function Slide() {
           <Slider {...settings}>
             {data.map((item, index) => (
               <div key={index} className="p-5">
-                <div className="bg-slate-50 rounded-lg shadow-lg p-4 ">
+                <div className="bg-slate-50 rounded-lg shadow-lg p-4  ">
                   <div className="flex justify-center">
                     <img
                       src={item.image}

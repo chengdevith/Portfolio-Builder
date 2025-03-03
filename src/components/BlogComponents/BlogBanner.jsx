@@ -1,5 +1,5 @@
 import React from 'react';
-import bannerImage from '../../assets/images/banner.png';
+import bannerImage from '../../assets/images/banners.png';
 
 const BlogBanner = () => {
   return (
@@ -14,7 +14,7 @@ const BlogBanner = () => {
           <h2 className="text-3xl md:text-5xl font-bold leading-tight animate-slideInLeft">
             Introducing PortfolioBuilder: <br /> Crafting Digital Experiences <br /> with Passion
           </h2>
-          <p className="mt-4 text-[20px] text-color-description max-w-lg mx-auto animate-fadeIn">
+          <p className="mt-4 text-[20px] text-color-body max-w-lg mx-auto animate-fadeIn">
             Welcome to the launch of PortfolioBuilder, your new go-to platform for creating stunning, personal portfolios with ease.
           </p>
         </div>
