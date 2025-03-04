@@ -5,7 +5,7 @@ import Mission from '../../assets/GIF_images/Mission.gif';
 export default function Our_Mission() {
   return (
     <div>
-        <section className=" py-16 px-8 max-w-screen-xl m-auto">
+        <section className=" py-14 px-8 max-w-screen-xl m-auto">
             <div className="mx-auto grid grid-cols-1 md:grid-cols-2 items-center gap-8">
 
                 {/* left :Image */}
@@ -13,7 +13,7 @@ export default function Our_Mission() {
                     <img
                         src={Mission}
                         alt="About us"
-                        className="max-w-sm rounded-lg"
+                        className="max-w-sm rounded-lg "
                     />
                 </div>
 
