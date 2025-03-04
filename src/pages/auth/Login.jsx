@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
+import "./auth.css"
 export default function Login() {
   const [isActive, setIsActive] = useState(false);
 
