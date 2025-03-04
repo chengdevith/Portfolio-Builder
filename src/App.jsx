@@ -21,7 +21,7 @@ function App() {
   return (
     <>
       {/* hero section */}
-      <section className="bg-gradient-to-r from-[#634BA7] to-[#A632CD]  md:rounded-l-[50px] md:rounded-br-[200px] px-2 md:px-10 lg:px-36 py-10 lg:py-32 mb-20  ">
+      <section className="bg-gradient-to-r from-[#634BA7] to-[#A632CD]  md:rounded-l-[50px] h-[75vh]  md:rounded-br-[200px] px-2 md:px-10 lg:px-36 py-10 lg:py-32 mb-20 flex items-center">
         <div className="text-white grid grid-cols-1 md:grid-cols-3 justify-center items-center gap-4 ">
           <div className="flex flex-col items-center text-center md:text-start md:items-start">
             <h1>Showcase your work with a portfolio website</h1>
