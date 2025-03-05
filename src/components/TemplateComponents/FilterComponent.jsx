@@ -160,7 +160,7 @@ const FilterComponent = () => {
 
       {/* Display Filtered Data */}
       <div className="max-w-screen-xl m-auto cardList grid xl:grid-cols-3 sm:grid-cols-2 gap-20">
-        {CardList.map((e) => {
+        {filteredData.map((e) => {
           return (
             <TemplateCardComponent
               key={e.id}

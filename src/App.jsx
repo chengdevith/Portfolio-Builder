@@ -6,14 +6,13 @@ import { Button } from "flowbite-react";
 import line from "./assets/homeImage/line.png";
 import lineBottom from "./assets/homeImage/line-bottom.png";
 import FaqComponent from "./components/homeComponents/FaqComponent";
-import FilterComponent from "./components/TemplateComponents/FilterComponent";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import TitleSectionComponen from "./components/homeComponents/TitleSectionComponen";
 import feature from "./mock-data/feature";
 import chooseUse from "./mock-data/chooseUse";
-import Template from "./pages/Template";
 import TemplateCardComponent from "./components/TemplateComponents/TemplateCardComponent";
 import CardList from "./mock-data/cardList";
+import { OPTVerifyComponent } from "./components/OTPVerifyComponent";
 
 function App() {
   const [features, setFeature] = useState(feature);
@@ -65,7 +64,7 @@ function App() {
           }
         />
         <div className="max-w-screen-xl m-auto cardList grid xl:grid-cols-3 sm:grid-cols-2 gap-20">
-          {CardList.map((e) => {
+          {CardList.slice(0,6).map((e) => {
             return (
               <TemplateCardComponent
                 key={e.id}
