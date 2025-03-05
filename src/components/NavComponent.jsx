@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+
 import {
   Button,
   Navbar,
@@ -9,12 +9,10 @@ import {
 } from "flowbite-react";
 import DropDownProfile from "./DropDownProfile";
 const NavComponent = () => {
-  const [isOpen, setIsOpen] = useState(false);
   return (
-    <Navbar fluid rounded className="lg:!px-[150px] shadow-lg ">
-      <NavbarBrand href="">
+    <Navbar fluid rounded className="lg:!px-[150px] shadow-lg shadow-purple-200  sticky top-0 z-20">
+      <NavbarBrand href="https://flowbite-react.com">
         <img
-          onClick={() => setIsOpen(!isOpen)}
           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQltIAHUYT6u7GKhj-UIX_fU1Pf0sySCFH_aw&s"
           className="mr-3 h-6 sm:h-9"
           alt="Flowbite React Logo"
@@ -23,7 +21,7 @@ const NavComponent = () => {
           Portify
         </span>
       </NavbarBrand>
-      <div className="flex md:order-2 gap-4 relative">
+      <div className="flex md:order-2 gap-4 ">
           {/* <Button className="bg-white  text-color-description  border-color-primary  hover:!bg-purple-100 ">
             Log in
           </Button> */}

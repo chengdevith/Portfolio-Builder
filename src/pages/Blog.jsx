@@ -1,11 +1,18 @@
-import React from 'react'
+import React from 'react';
+import BlogBanner from '../components/BlogComponents/BlogBanner';
+import Slider from '../components/BlogComponents/Slider';
+import Detail from '../components/BlogComponents/Detail';
+import Design_Por from'../components/BlogComponents/Design_Por';
+import SingIn from'../components/BlogComponents/SingIn';
 
-const Blog = () => {
+export default function BlogPage() {
   return (
     <div>
-      <h1>Blog</h1>
+      <BlogBanner/>
+      <Slider/>
+      <Design_Por/>
+      <SingIn/>
+      <Detail/>
     </div>
-  )
+  );
 }
-
-export default Blog
