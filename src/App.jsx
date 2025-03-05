@@ -6,15 +6,18 @@ import { Button } from "flowbite-react";
 import line from "./assets/homeImage/line.png";
 import lineBottom from "./assets/homeImage/line-bottom.png";
 import FaqComponent from "./components/homeComponents/FaqComponent";
-import FilterComponent from "./components/TemplateComponents/FilterComponent";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import TitleSectionComponen from "./components/homeComponents/TitleSectionComponen";
 import feature from "./mock-data/feature";
 import chooseUse from "./mock-data/chooseUse";
-import Template from "./pages/Template";
 import TemplateCardComponent from "./components/TemplateComponents/TemplateCardComponent";
 import CardList from "./mock-data/cardList";
+<<<<<<< HEAD
 import Small_pices from "./assets/GIF_images/Small_pices.gif"
+=======
+import { OPTVerifyComponent } from "./components/OTPVerifyComponent";
+
+>>>>>>> 05dddc8ca178215469264b4b3fff392756d7ee61
 function App() {
   const [features, setFeature] = useState(feature);
   const [chooseUses, setChooseUse] = useState(chooseUse);
@@ -82,8 +85,13 @@ function App() {
             "Choose from 900+ customizable templates to start building your free portfolio website and present your work the way it's meant to be seen."
           }
         />
+<<<<<<< HEAD
         <div className="max-w-screen-xl m-auto cardList grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-12">
           {CardList.map((e) => {
+=======
+        <div className="max-w-screen-xl m-auto cardList grid xl:grid-cols-3 sm:grid-cols-2 gap-20">
+          {CardList.slice(0,6).map((e) => {
+>>>>>>> 05dddc8ca178215469264b4b3fff392756d7ee61
             return (
               <TemplateCardComponent
                 key={e.id}
