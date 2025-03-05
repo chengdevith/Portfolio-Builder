@@ -4,8 +4,8 @@ import { FaRegEdit } from "react-icons/fa";
 
 function TemplateCardComponent({ id, image, title, category }) {
   return (
-    <div className="relative cardItem group hover:scale-105 overflow-hidden duration-300 w-full mb-20 grid-auto-rows: 1fr">
-      <div className=" grid-auto-rows: 1fr border border-gray-300 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 bg-gray-200 overflow-hidden">
+    <div className=" relative cardItem group hover:scale-105 overflow-hidden duration-300 w-full mb-10">
+      <div className="border border-gray-300 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 bg-gray-200 overflow-hidden">
         {/* Image Container */}
         <div className="relative">
           <a href="#">
