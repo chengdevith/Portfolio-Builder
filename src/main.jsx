@@ -10,6 +10,7 @@ import Template from "./pages/Template.jsx";
 import Login from "./pages/auth/Login.jsx";
 import SignUp from "./pages/auth/SignUp.jsx";
 import { StrictMode } from "react";
+import { OTPVerifyComponent } from "./pages/auth/OTPVerifyComponent.jsx";
 
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
@@ -23,6 +24,7 @@ createRoot(document.getElementById("root")).render(
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/otp" element={<OTPVerifyComponent/>} />
       </Routes>
     </StrictMode>
   </BrowserRouter>
