@@ -9,10 +9,10 @@ export default function HeroBanner() {
             <div className="mx-auto grid grid-cols-1 md:grid-cols-2 items-center gap-8 mt-10">
                 {/* Left : Text Content */}
                 <div className="text-left">
-                    <h2 className="text-4xl font-bold text-color-primary">
+                    <h2 className="text-4xl font-bold text-color-primary leading-10">
                         Crafting Digital <br/> Experiences with Passion
                     </h2>
-                    <p className="text-color-description mt-9">
+                    <p className="description mt-9">
                         Transforming ideas into elegant solutions through creative design and innovative development
                     </p>
                     <div className="flex space-x-8 mt-9">

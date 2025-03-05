@@ -63,3 +63,8 @@
 .animate-heartbeat {
   animation: heartbeat 3s infinite ease-in-out;
 }
+
+@keyframes floatAnimation {
+  from { transform: translateY(0); }
+  to { transform: translateY(10px); }
+}
