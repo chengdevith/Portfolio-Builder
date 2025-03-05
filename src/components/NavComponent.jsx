@@ -36,10 +36,10 @@ const NavComponent = () => {
         <NavbarLink href="/template" className="nav-link ">
           Template
         </NavbarLink>
-        <NavbarLink href="blog" className="nav-link">
+        <NavbarLink href="/blog" className="nav-link">
           Blog
         </NavbarLink>
-        <NavbarLink href="about" className="nav-link">
+        <NavbarLink href="/about" className="nav-link">
           About
         </NavbarLink>
       </NavbarCollapse>
