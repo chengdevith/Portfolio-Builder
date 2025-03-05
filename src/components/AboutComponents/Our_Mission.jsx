@@ -20,7 +20,7 @@ export default function Our_Mission() {
                 {/* Right : Text Content */}
                 <div className="text-left">
                     <h2 className="text-4xl font-bold text-color-secondary flex justify-end"> Our Mission</h2>
-                    <p className="text-gray-600 mt-9 flex justify-end">
+                    <p className="description mt-9 flex justify-end">
                     To empower professionals and job seekers with beautifully designed, customizable portfolio and CV templates that help them showcase their skills and stand out in their careers.                    </p>
                 </div>
             </div>

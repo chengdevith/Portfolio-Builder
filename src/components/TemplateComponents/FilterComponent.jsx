@@ -33,7 +33,7 @@ const FilterComponent = () => {
         <Button
           color={filters.type === "" ? "purple" : "gray"}
           onClick={() => setFilters({ type: "", category: "" })}
-          className="w-full sm:w-auto"
+          className="w-full sm:w-auto "
         >
           All Fields
         </Button>
@@ -46,7 +46,7 @@ const FilterComponent = () => {
           renderTrigger={() => (
             <Button
               color={filters.type === "Resume" ? "purple" : "gray"}
-              className="w-full sm:w-auto"
+              className="w-full sm:w-auto border-2 border-purple-500"
             >
               Resume
               <IoChevronDownOutline className="w-4 h-4 ml-2" />
@@ -90,7 +90,7 @@ const FilterComponent = () => {
           renderTrigger={() => (
             <Button
               color={filters.type === "Portfolio" ? "purple" : "gray"}
-              className="w-full sm:w-auto"
+              className="w-full sm:w-auto border-2 border-purple-500"
             >
               Portfolio
               <IoChevronDownOutline className="w-4 h-4 ml-2" />
