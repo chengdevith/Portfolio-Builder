@@ -21,36 +21,40 @@ function App() {
   return (
     <>
       {/* hero section */}
-      <section className="bg-gradient-to-r from-[#634BA7] to-[#A632CD] md:rounded-l-[50px] h-[75vh] md:rounded-br-[200px] px-2 md:px-10 lg:px-36 py-10 lg:py-32 mb-20 flex items-center">
-      <div className="text-white grid grid-cols-1 md:grid-cols-3 justify-center items-center gap-4">
-        <div className="flex flex-col items-center text-center md:text-start md:items-start">
-          <h1 className="text-3xl md:text-5xl font-bold">
-            Showcase your work with a portfolio website
-          </h1>
+      <section className="overflow-hidden bg-gradient-to-r from-[#634BA7] to-[#A632CD] md:rounded-l-[50px] h-[75vh] md:rounded-br-[200px] px-2 md:px-10 lg:px-36 py-10 lg:py-32 mb-20 flex items-center">
+        <div className="text-white grid grid-cols-1 md:grid-cols-3 justify-center items-center gap-4 overflow-hidden">
+          <div className="flex flex-col items-center text-center md:text-start md:items-start">
+            <h1 className="text-3xl md:text-5xl font-bold">
+              Showcase your work with a portfolio website
+            </h1>
 
-          <p className="text-white my-8 text-xl line-clamp-4">
-            From intuitive design features to built-in marketing tools,
-            discover the complete solution for building an online portfolio
-            that stands out.
-          </p>
-          <Button className="btn w-32">Get started</Button>
-        </div>
-
-        <div className="md:col-span-2 flex justify-center items-center relative">
-          {/* Image Slider */}
-          <ImageSlider />
-        </div>
-                  {/* GIF Animation */}
-                  <div className="absolute left-16 top-0 z-10">
-            <img
-              src={Small_pices}
-              alt="Animation"
-              width={250}
-              height={250}
-              className="rounded-lg"
-            />
+            <p className="text-white my-8 text-xl line-clamp-4">
+              From intuitive design features to built-in marketing tools,
+              discover the complete solution for building an online portfolio
+              that stands out.
+            </p>
+            <Button className="btn w-32">Get started</Button>
           </div>
-      </div>
+
+          <div className="md:col-span-2 flex justify-center items-center relative">
+            {/* Image Slider */}
+            <ImageSlider />
+          </div>
+        {/* Animated Dots Effect */}
+        <div className="absolute inset-0 pointer-events-none h-auto mt-52 md:rounded-l-[50px]  md:rounded-br-[200px]">
+          {[...Array(100)].map((_, i) => (
+            <span
+              key={i}
+              className="absolute w-1 h-1 bg-purple-400 rounded-full opacity-70"
+              style={{
+                top: `${Math.random() * 70}%`,
+                left: `${Math.random() * 100}%`,
+                animation: `floatAnimation ${1 + Math.random() * 2}s ease-in-out infinite alternate`,
+              }}
+            ></span>
+          ))}
+        </div>
+        </div>
     </section>
       <section className=" each-section  text-center">
         <div>
