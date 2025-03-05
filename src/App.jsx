@@ -12,7 +12,6 @@ import feature from "./mock-data/feature";
 import chooseUse from "./mock-data/chooseUse";
 import TemplateCardComponent from "./components/TemplateComponents/TemplateCardComponent";
 import CardList from "./mock-data/cardList";
-import { OPTVerifyComponent } from "./components/OTPVerifyComponent";
 
 function App() {
   const [features, setFeature] = useState(feature);

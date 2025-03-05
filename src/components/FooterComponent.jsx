@@ -21,7 +21,7 @@ export default function FooterComponent() {
           {/* Services */}
           <div>
             <h3 className="font-semibold text-lg mb-3">Services</h3>
-            <ul className="space-y-2 text-sm">
+            <ul className="space-y-2 text-base">
               <li>Provide Templates</li>
               <li>Portfolio Builder</li>
               <li>Download CV</li>
@@ -31,7 +31,7 @@ export default function FooterComponent() {
           {/* Courses */}
           <div>
             <h3 className="font-semibold text-lg mb-3">Courses</h3>
-            <ul className="space-y-2 text-sm">
+            <ul className="space-y-2 text-base">
               <li>Web Design</li>
               <li>Java Programming</li>
               <li>Database Management</li>
@@ -41,7 +41,7 @@ export default function FooterComponent() {
           {/* Contact */}
           <div>
             <h3 className="font-semibold text-lg mb-3">Contact</h3>
-            <ul className="space-y-2 text-sm">
+            <ul className="space-y-2 text-base">
               <li>Email: laysokneang@gmail.com</li>
               <li>Phone: +123 456 7890</li>
             </ul>
