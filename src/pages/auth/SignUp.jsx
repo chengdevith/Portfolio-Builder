@@ -2,36 +2,56 @@ import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import React, { useEffect } from 'react';
-import 'aos/dist/aos.css'; // Import AOS styles
-import AOS from 'aos';
+import React, { useEffect } from "react";
+import "aos/dist/aos.css"; // Import AOS styles
+import AOS from "aos";
+import { useGetRegisterMutation } from "../../redux/services/authSlice";
 export default function SignUp() {
   useEffect(() => {
     AOS.init({
       duration: 1000, // Animation duration in milliseconds
-      once: true,     // Whether animation should happen only once
+      once: true, // Whether animation should happen only once
     });
   }, []);
+
+  const [getRegister, { isLoading, error }] = useGetRegisterMutation();
+
   const formik = useFormik({
     initialValues: {
+      username: "",
       email: "",
       password: "",
       confirmPassword: "",
     },
     validationSchema: Yup.object({
+      username: Yup.string().required("Must put username"),
       email: Yup.string().email("Invalid email").required("Must put email"),
-      password: Yup.string().min(8, "Password must be at least 8 characters").required("Password is required"),
-      confirmPassword: Yup.string().min(
-        8,
-        "Password must be at least 8 characters"
-      ).oneOf([Yup.ref("password"),null],"Passwords must match").required("Please confirm your password"),
+      password: Yup.string()
+        .min(8, "Password must be at least 8 characters")
+        .required("Password is required"),
+      confirmPassword: Yup.string()
+        .min(8, "Password must be at least 8 characters")
+        .oneOf([Yup.ref("password"), null], "Passwords must match")
+        .required("Please confirm your password"),
     }),
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+    onSubmit: async (values) => {
+      const signUpToken= await getRegister({
+        username: values?.username,
+        email: values?.email,
+        password: values?.password,
+        confirmPassword: values?.confirmPassword,
+      }).unwrap();
+      if(signUpToken.email){
+        localStorage.setItem("signUpToken",signUpToken?.email);
+        console.log(signUpToken.email)
+      }
     },
   });
   return (
-    <div data-aos="zoom-in" className="flex items-center justify-center min-h-screen bg-gray-100">
+    <div
+      data-aos="zoom-in"
+      className="flex items-center justify-center min-h-screen bg-gray-100"
+    >
       <div className="relative w-[1100px] h-[750px] bg-white shadow-2xl rounded-3xl overflow-hidden">
         {/* Forms Container */}
         <div
@@ -43,6 +63,22 @@ export default function SignUp() {
             className="w-1/2 flex flex-col items-center justify-center px-16"
           >
             <h2 className="text-4xl font-bold mb-8">Create Account</h2>
+            <input
+              type="text"
+              name="username"
+              id="username"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.username}
+              required
+              placeholder="Username"
+              className="w-full px-6 py-4 mb-6 border rounded-lg text-xl"
+            />
+            {formik.touched.username && formik.errors.username ? (
+              <div className="text-red-500 text-left">
+                {formik.errors.username}
+              </div>
+            ) : null}
             <input
               type="email"
               name="email"
@@ -93,7 +129,8 @@ export default function SignUp() {
               type="submit"
               className="w-full py-4 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg text-xl transition-colors"
             >
-              <Link to={"/otp"}>Sign Up</Link>
+              {/* <Link to={"/otp"}>Sign Up</Link> */}
+              Sign Up
             </button>
             <span className="text-gray-500 mt-8 text-base">
               Or sign up with
