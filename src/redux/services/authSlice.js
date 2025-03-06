@@ -8,7 +8,7 @@ export const authApi = createApi({
       const token = localStorage.getItem("accessToken");
       if (token) {
         headers.set("Authorization", `Bearer ${token}`);
-      }
+      } 
       return headers;
     },
   }),
@@ -27,10 +27,10 @@ export const authApi = createApi({
       }),
     }),
     getRegister: build.mutation({
-      query: ({ username, email, password, confirmPassword }) => ({
+      query: (body) => ({
         url: "/register/",
         method: "POST",
-        body: { username, email, password, confirmPassword },
+        body,
       }),
     }),
     getVerifyCode: build.mutation({
@@ -40,6 +40,20 @@ export const authApi = createApi({
         body: { email, otp_code },
       }),
     }),
+    getRequestResetPassword: build.mutation({
+      query: ({ email }) => ({
+        url: "/password-reset-request/",
+        method: "POST",
+        body: { email },
+      }),
+    }),
+    getResetPassword: build.mutation({
+      query: ({ email, otp_code, password, confirmPassword }) => ({
+        url: "/password-reset/",
+        method: "POST",
+        body: { email, otp_code, password, confirmPassword },
+      }),
+    }),
   }),
 });
 
@@ -47,5 +61,7 @@ export const {
   useGetLoginMutation,
   useGetUserProfileQuery,
   useGetRegisterMutation,
-  useGetVerifyCodeMutation
+  useGetVerifyCodeMutation,
+  useGetRequestResetPasswordMutation,
+  useGetResetPasswordMutation,
 } = authApi;

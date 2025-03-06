@@ -45,7 +45,7 @@ export default function Login() {
       }).unwrap();
       if (accessTokenData) {
         localStorage.setItem("accessToken", accessTokenData?.access);
-        window.location.reload()
+        window.location.reload();
       }
     },
   });
@@ -59,7 +59,7 @@ export default function Login() {
   });
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
-    window.location.reload()
+    window.location.reload();
   };
   if (dataOfUser) {
     return (
@@ -82,45 +82,54 @@ export default function Login() {
           {/* Sign In Form */}
           <form
             onSubmit={formik.handleSubmit}
-            className="w-1/2 flex flex-col items-center justify-center px-16"
+            className="w-1/2 flex flex-col items-center justify-center px-16 gap-5"
           >
             <h2 className="text-4xl font-bold mb-8"> Login</h2>
-            <input
-              type="email"
-              name="email"
-              id="email"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.email}
-              required
-              placeholder="Email"
-              className="w-full px-6 py-4 mb-6 border rounded-lg text-xl"
-            />
-            {formik.touched.email && formik.errors.email ? (
-              <div className="text-red-500 text-left">
-                {formik.errors.email}
-              </div>
-            ) : null}
-            <input
-              type="password"
-              name="password"
-              id="password"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.password}
-              required
-              placeholder="Password"
-              className="w-full px-6 py-4 mb-4 border rounded-lg text-xl"
-            />
-            {formik.touched.password && formik.errors.password ? (
-              <div className="text-red-500">{formik.errors.password}</div>
-            ) : null}
-            <a
-              href="#"
-              className="text-base text-gray-500 mb-6 hover:text-purple-600 transition-colors"
-            >
-              Forgot Your Password?
-            </a>
+            <div className="w-full">
+              <input
+                type="email"
+                name="email"
+                id="email"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.email}
+                required
+                placeholder="Email"
+                className="w-full px-6 py-4  border rounded-lg text-xl"
+              />
+              {formik.touched.email && formik.errors.email ? (
+                <div className="text-red-500 pl-3 mt-2">
+                  {formik.errors.email}
+                </div>
+              ) : null}
+            </div>
+            <div className="w-full">
+              <input
+                type="password"
+                name="password"
+                id="password"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.password}
+                required
+                placeholder="Password"
+                className="w-full px-6 py-4 border rounded-lg text-xl"
+              />
+              {formik.touched.password && formik.errors.password ? (
+                <div className="text-red-500 pl-3 mt-2">
+                  {formik.errors.password}
+                </div>
+              ) : null}
+            </div>
+
+            <div className="w-full flex justify-end">
+              <Link
+               to={"/request-reset-password"}
+                className="text-base text-gray-500  hover:text-purple-600 transition-colors "
+              >
+                Forgot Your Password?
+              </Link>
+            </div>
             <button
               type="submit"
               className="w-full py-4 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg text-xl transition-colors"
