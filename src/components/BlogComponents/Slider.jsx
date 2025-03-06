@@ -74,8 +74,8 @@ function Slide() {
                       className="w-60 h-60 object-contain rounded-md"
                     />
                   </div>
-                  <div className="mt-4 p-4 bg-color-primary hover:bg-color-secondary rounded-b-lg">
-                    <p className="font-semibold text-black text-center text-lg">
+                  <div className="mt-4 p-4 bg-color-primary rounded-b-lg">
+                    <p className="font-semibold text-white text-center text-lg">
                       {item.title}
                     </p>
                   </div>
