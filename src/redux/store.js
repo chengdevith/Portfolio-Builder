@@ -3,15 +3,17 @@ import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { userApi } from "./services/userSlice";
 import { authApi } from "./services/authSlice";
+import { contactApi } from "./services/contactSlide";
 
 export const store = configureStore({
   reducer: {
     [userApi.reducerPath]: userApi.reducer,
-    [authApi.reducerPath]:authApi.reducer
+    [authApi.reducerPath]:authApi.reducer,
+    [contactApi.reducerPath]:authApi.reducer
   },
 
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(userApi.middleware,authApi.middleware),
+    getDefaultMiddleware().concat(userApi.middleware,authApi.middleware,contactApi.middleware),
 });
 
 setupListeners(store.dispatch);
