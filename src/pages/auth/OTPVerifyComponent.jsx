@@ -18,7 +18,7 @@ export function OTPVerifyComponent() {
   const handleSubmit = async (values) => {
     try{
       const otp_code = values.otp.join("");
-      const email = localStorage.getItem("signUpToken")
+      const email = 
       console.log(email)
       const response = await verifyCode({email,otp_code}).unwrap()
       alert("OPT Verified Successfully: " + JSON.stringify(response))
