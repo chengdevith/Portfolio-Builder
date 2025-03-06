@@ -9,7 +9,6 @@ import {
   useGetLoginMutation,
   useGetUserProfileQuery,
 } from "../../redux/services/authSlice";
-import { h1 } from "framer-motion/client";
 
 export default function Login() {
   useEffect(() => {
@@ -26,7 +25,7 @@ export default function Login() {
     error: myError,
   } = useGetUserProfileQuery();
 
-  const [dataOfUser,setUserData]= useState();
+  const [dataOfUser, setUserData] = useState();
 
   const formik = useFormik({
     initialValues: {
@@ -46,6 +45,7 @@ export default function Login() {
       }).unwrap();
       if (accessTokenData) {
         localStorage.setItem("accessToken", accessTokenData?.access);
+        window.location.reload()
       }
     },
   });
@@ -53,12 +53,21 @@ export default function Login() {
     async function Verify() {
       const userData = await userProfile;
       console.log(userData);
-      setUserData(userData)
+      setUserData(userData);
     }
     Verify();
   });
-  if(dataOfUser){
-    return <h1>Login sucessed</h1>
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    window.location.reload()
+  };
+  if (dataOfUser) {
+    return (
+      <>
+        <h1>Login sucessed</h1>
+        <button onClick={handleLogout}>Logout</button>
+      </>
+    );
   }
   return (
     <div

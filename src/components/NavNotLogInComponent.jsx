@@ -7,7 +7,7 @@ import {
   NavbarLink,
   NavbarToggle,
 } from "flowbite-react";
-import DropDownProfile from "./DropDownProfile";
+import { Link } from "react-router-dom";
 
 const NavNotLogInComponent = () => {
   const location = useLocation();
@@ -31,7 +31,7 @@ const NavNotLogInComponent = () => {
         </span>
       </NavbarBrand>
       <div className="flex md:order-2 gap-4">
-        <Button className="!bg-transparent text-color-primary !border-color-primary hover:!bg-purple-100">Log In</Button>
+        <Button className="!bg-transparent text-color-primary !border-color-primary hover:!bg-purple-100"><Link to={"/login"}>Login</Link></Button>
         <Button className="!bg-color-primary hover:!bg-color-secondary">Get started</Button>
         <NavbarToggle />
       </div>
