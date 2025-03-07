@@ -9,8 +9,7 @@ import { useLocation } from "react-router-dom";
 export function OTPVerifyComponent() {
   const inputRefs = useRef([]);
   const location = useLocation();
-  const email = location.state;
-  console.log("email :>> ", email);
+  const email = location.state?.email || ""; 
   const [verifyCode, { isLoading, error }] = useGetVerifyCodeMutation();
 
   const otpSchema = Yup.object().shape({
@@ -23,18 +22,6 @@ export function OTPVerifyComponent() {
       ),
   });
 
-  // const handleSubmit = async (values) => {
-  //   try {
-  //     const otp_code = values.otp.join("");
-  //     const email = localStorage.getItem("signUpToken");
-  //     console.log(email);
-  //     const response = await verifyCode({ email, otp_code }).unwrap();
-  //     alert("OPT Verified Successfully: " + JSON.stringify(response));
-  //   } catch (error) {
-  //     console.error("Verification failed", error);
-  //   }
-  // };
-
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <motion.div
@@ -45,22 +32,29 @@ export function OTPVerifyComponent() {
       >
         <h2 className="text-4xl font-bold mb-6">Enter OTP</h2>
         <p className="text-lg text-gray-600 mb-8">
-          We've sent a code to your email
+          We've sent a code to {email || "your email"}
         </p>
         <Formik
           initialValues={{ email: email, otp: new Array(6).fill("") }}
           validationSchema={otpSchema}
-          onSubmit={(value)=> {
-            const otp_code = value.otp.join("");
-            const finalValue = {
-              ...value,
-              otp_code
+          onSubmit={async (values, { setSubmitting }) => {
+            try {
+              const otp_code = values.otp.join("");
+              const finalValue = {
+                email: values.email,
+                otp_code,
+              };
+              await verifyCode(finalValue).unwrap();
+              // Handle success (e.g., redirect)
+            } catch (err) {
+              console.error("Verification failed:", err);
+            } finally {
+              setSubmitting(false);
             }
-            verifyCode(finalValue).unwrap()
           }}
         >
-          {({ values, setFieldValue, errors, touched }) => (
-            <Form>
+          {({ values, setFieldValue, errors, touched, handleSubmit }) => (
+            <Form onSubmit={handleSubmit}>
               <div className="flex justify-center gap-4">
                 {values.otp.map((digit, index) => (
                   <Field
@@ -69,7 +63,10 @@ export function OTPVerifyComponent() {
                     type="text"
                     maxLength={1}
                     innerRef={(el) => (inputRefs.current[index] = el)}
-                    className="w-16 h-16 text-2xl text-center border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className={`w-16 h-16 text-2xl text-center border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                      touched.otp && errors.otp ? "border-red-500" : ""
+                    }`}
+                    value={values.otp[index]}
                     onChange={(e) => {
                       const value = e.target.value;
                       if (/^[0-9]?$/.test(value)) {
@@ -95,11 +92,17 @@ export function OTPVerifyComponent() {
               {touched.otp && errors.otp && (
                 <div className="text-red-500 mt-2">{errors.otp}</div>
               )}
+              {error && (
+                <div className="text-red-500 mt-2">
+                  {error.data?.message || "Verification failed"}
+                </div>
+              )}
               <Button
                 type="submit"
                 className="w-full mt-6 !bg-blue-600 text-lg h-14"
+                disabled={isLoading}
               >
-                Verify OTP
+                {isLoading ? "Verifying..." : "Verify OTP"}
               </Button>
             </Form>
           )}

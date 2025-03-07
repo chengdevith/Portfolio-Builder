@@ -36,15 +36,9 @@ export default function SignUp() {
         .required("Please confirm your password"),
     }),
     onSubmit: async (values, { resetForm }) => {
-      // console.log("click")
-      // console.log('email :>> ', values.email);
-      // navigate("/otp", { state: values.email });
       try {
-        const signUpToken = await getRegister(values).unwrap();
+        await getRegister(values).unwrap();
         navigate("/otp", { state: values.email });
-        if (signUpToken) {
-          localStorage.setItem("signUpToken", signUpToken?.email);
-        }
       } catch (e) {
         console.log("error :>> ", e);
       } finally {
@@ -134,7 +128,6 @@ export default function SignUp() {
               type="submit"
               className="w-full py-4 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg text-xl transition-colors"
             >
-              
               Sign Up
             </button>
             <span className="text-gray-500 mt-8 text-base">
