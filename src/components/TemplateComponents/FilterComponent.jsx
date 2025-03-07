@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Dropdown } from "flowbite-react";
+import { Button, Dropdown, Card } from "flowbite-react";
 import { IoChevronDownOutline } from "react-icons/io5";
 import CardLists from "../../mock-data/cardList";
 import TemplateCardComponent from "./TemplateCardComponent";
@@ -27,13 +27,12 @@ const FilterComponent = () => {
   });
 
   return (
-    <div className="m-auto px-4 sm:px-6 lg:px-8">
-      <div className="flex flex-col sm:flex-row gap-4 mb-10 sm:mb-20 justify-center items-center">
+    <div className=" m-auto">
+      <div className="flex gap-4 mb-20 justify-center items-center">
         {/* All Fields Button */}
         <Button
           color={filters.type === "" ? "purple" : "gray"}
           onClick={() => setFilters({ type: "", category: "" })}
-          className="w-full sm:w-auto "
         >
           All Fields
         </Button>
@@ -44,31 +43,24 @@ const FilterComponent = () => {
           dismissOnClick={false}
           inline
           renderTrigger={() => (
-            <Button
-              color={filters.type === "Resume" ? "purple" : "gray"}
-              className="w-full sm:w-auto border-2 border-purple-500"
-            >
+            <Button color={filters.type === "Resume" ? "purple" : "gray"}>
               Resume
               <IoChevronDownOutline className="w-4 h-4 ml-2" />
             </Button>
           )}
-          className="min-w-[200px] bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700"
         >
           <Dropdown.Item
             onClick={() => setFilters({ type: "Resume", category: "" })}
-            className="hover:bg-gray-100 dark:hover:bg-gray-700"
           >
             All Fields of Resume
           </Dropdown.Item>
           <Dropdown.Item
             onClick={() => setFilters({ type: "Resume", category: "Student" })}
-            className="hover:bg-gray-100 dark:hover:bg-gray-700"
           >
             Student
           </Dropdown.Item>
           <Dropdown.Item
             onClick={() => setFilters({ type: "Resume", category: "Beginner" })}
-            className="hover:bg-gray-100 dark:hover:bg-gray-700"
           >
             Beginner
           </Dropdown.Item>
@@ -76,7 +68,6 @@ const FilterComponent = () => {
             onClick={() =>
               setFilters({ type: "Resume", category: "Professional" })
             }
-            className="hover:bg-gray-100 dark:hover:bg-gray-700"
           >
             Professional
           </Dropdown.Item>
@@ -88,19 +79,14 @@ const FilterComponent = () => {
           dismissOnClick={false}
           inline
           renderTrigger={() => (
-            <Button
-              color={filters.type === "Portfolio" ? "purple" : "gray"}
-              className="w-full sm:w-auto border-2 border-purple-500"
-            >
+            <Button color={filters.type === "Portfolio" ? "purple" : "gray"}>
               Portfolio
               <IoChevronDownOutline className="w-4 h-4 ml-2" />
             </Button>
           )}
-          className="min-w-[200px] bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700"
         >
           <Dropdown.Item
             onClick={() => setFilters({ type: "Portfolio", category: "" })}
-            className="hover:bg-gray-100 dark:hover:bg-gray-700"
           >
             All Fields of Portfolio
           </Dropdown.Item>
@@ -108,7 +94,6 @@ const FilterComponent = () => {
             onClick={() =>
               setFilters({ type: "Portfolio", category: "Student" })
             }
-            className="hover:bg-gray-100 dark:hover:bg-gray-700"
           >
             Student
           </Dropdown.Item>
@@ -116,7 +101,6 @@ const FilterComponent = () => {
             onClick={() =>
               setFilters({ type: "Portfolio", category: "Beginner" })
             }
-            className="hover:bg-gray-100 dark:hover:bg-gray-700"
           >
             Beginner
           </Dropdown.Item>
@@ -124,14 +108,13 @@ const FilterComponent = () => {
             onClick={() =>
               setFilters({ type: "Portfolio", category: "Professional" })
             }
-            className="hover:bg-gray-100 dark:hover:bg-gray-700"
           >
             Professional
           </Dropdown.Item>
         </Dropdown>
 
         {/* Custom Search Bar */}
-        <form className="w-full sm:w-1/2" onSubmit={handleSearch}>
+        <form className="w-1/2" onSubmit={handleSearch}>
           <label
             htmlFor="default-search"
             className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
@@ -167,7 +150,7 @@ const FilterComponent = () => {
             />
             <button
               type="submit"
-              className="pt-1 text-white absolute end-2.5 bottom-2 bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              className="pt-1 text-white absolute end-2.5 bottom-2.5 bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
               Search
             </button>
@@ -176,7 +159,7 @@ const FilterComponent = () => {
       </div>
 
       {/* Display Filtered Data */}
-      <div className="max-w-screen-xl m-auto cardList grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-12 mb-10 sm:px-1 px-7">
+      <div className="max-w-screen-xl m-auto cardList grid xl:grid-cols-3 sm:grid-cols-2 gap-20 e">
         {filteredData.map((e) => {
           return (
             <TemplateCardComponent

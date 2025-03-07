@@ -7,13 +7,13 @@
 
 @layer base {
   .btn {
-    @apply hover:!bg-color-secondary  !bg-color-primary;
+    @apply hover:!bg-color-secondary-dark  !bg-color-secondary;
   }
   .title {
     @apply text-3xl md:text-4xl font-bold leading-snug;
   }
   .nav-link{
-    @apply text-color-description hover:!text-color-primary ;
+    @apply text-color-description hover:!text-color-primary text-base;
   }
   :root{
     @apply font-opensans ;
