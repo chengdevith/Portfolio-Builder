@@ -9,7 +9,6 @@ import { useGetResetPasswordMutation } from "../../redux/services/authSlice";
 export default function ResetPassword() {
   const navigate = useNavigate();
   const location = useLocation();
-  const email = location.state?.email || ""; // Safely handle missing email
   const inputRefs = useRef([]);
   const [resetPassword, { isLoading, error }] = useGetResetPasswordMutation();
 
@@ -22,7 +21,6 @@ export default function ResetPassword() {
 
   const formik = useFormik({
     initialValues: {
-      email: email,
       otp: new Array(6).fill(""),
       password: "",
       confirmPassword: "",
@@ -47,9 +45,10 @@ export default function ResetPassword() {
       try {
         const otp_code = values.otp.join("");
         const finalValue = {
-          email: values.email,
+          email: location.state,
           otp_code,
           password: values.password,
+          confirmPassword: values.confirmPassword,
         };
         await resetPassword(finalValue).unwrap();
         navigate("/login"); // Redirect to login on success

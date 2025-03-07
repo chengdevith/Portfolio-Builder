@@ -1,6 +1,9 @@
 import { useRef, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useGetVerifyCodeMutation } from "../../redux/services/authSlice";
+import {
+  useGetResendOtpMutation,
+  useGetVerifyCodeMutation,
+} from "../../redux/services/authSlice";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import "aos/dist/aos.css";
@@ -11,6 +14,7 @@ export function OTPVerifyComponent() {
   const location = useLocation();
   const navigate = useNavigate();
   const [verifyCode, { isLoading, error }] = useGetVerifyCodeMutation();
+  const [resendCode] = useGetResendOtpMutation();
 
   useEffect(() => {
     AOS.init({
@@ -19,6 +23,10 @@ export function OTPVerifyComponent() {
     });
   }, []);
 
+  const handleResendCode = async () => {
+    await resendCode({ email: location.state });
+  };
+
   const formik = useFormik({
     initialValues: {
       otp: new Array(6).fill(""),
@@ -26,16 +34,18 @@ export function OTPVerifyComponent() {
     validationSchema: Yup.object({
       otp: Yup.array()
         .of(Yup.string().matches(/^[0-9]$/, "Only numbers are allowed"))
-        .test("otp-length", "OTP must be 6 digits", (value) => 
-          value.filter(Boolean).length === 6
+        .test(
+          "otp-length",
+          "OTP must be 6 digits",
+          (value) => value.filter(Boolean).length === 6
         ),
     }),
     onSubmit: async (values) => {
       try {
         const otp_code = values.otp.join("");
         const email = location.state;
-        const response = await verifyCode({ email, otp_code }).unwrap();
-        navigate("/login")
+        await verifyCode({ email, otp_code }).unwrap();
+        navigate("/login");
       } catch (error) {
         console.error("Verification failed", error);
       }
@@ -47,7 +57,7 @@ export function OTPVerifyComponent() {
       const newOtp = [...formik.values.otp];
       newOtp[index] = value;
       formik.setFieldValue("otp", newOtp);
-      
+
       if (value && index < 5) {
         inputRefs.current[index + 1]?.focus();
       }
@@ -106,9 +116,9 @@ export function OTPVerifyComponent() {
             </button>
             <span className="text-gray-500 mt-8 text-base">
               Didn't receive the code?{" "}
-              <span className="text-purple-500 cursor-pointer font-medium">
+              <button onClick={handleResendCode} className="text-purple-500 cursor-pointer font-medium">
                 Resend
-              </span>
+              </button>
             </span>
           </form>
 

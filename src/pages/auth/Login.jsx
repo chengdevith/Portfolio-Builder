@@ -2,15 +2,17 @@ import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import "aos/dist/aos.css"; // Import AOS styles
 import AOS from "aos";
+import { useNavigate } from "react-router-dom";
 import {
   useGetLoginMutation,
   useGetUserProfileQuery,
 } from "../../redux/services/authSlice";
 
 export default function Login() {
+  const navigate = useNavigate()
   useEffect(() => {
     AOS.init({
       duration: 1000, // Animation duration in milliseconds
@@ -25,7 +27,7 @@ export default function Login() {
     error: myError,
   } = useGetUserProfileQuery();
 
-  const [dataOfUser, setUserData] = useState();
+  // const [dataOfUser, setUserData] = useState();
 
   const formik = useFormik({
     initialValues: {
@@ -39,36 +41,40 @@ export default function Login() {
         .required("Password is required"),
     }),
     onSubmit: async (values) => {
-      const accessTokenData = await getLogin({
-        email: values?.email,
-        password: values?.password,
-      }).unwrap();
-      if (accessTokenData) {
-        localStorage.setItem("accessToken", accessTokenData?.access);
-        window.location.reload();
+      try {
+        const accessTokenData = await getLogin({
+          email: values?.email,
+          password: values?.password,
+        }).unwrap();
+        if (accessTokenData) {
+          localStorage.setItem("accessToken", accessTokenData?.access);
+        }
+        navigate("/")
+      } catch (error) {
+        console.error("Verification failed", error)
       }
     },
   });
-  useEffect(() => {
-    async function Verify() {
-      const userData = await userProfile;
-      console.log(userData);
-      setUserData(userData);
-    }
-    Verify();
-  });
-  const handleLogout = () => {
-    localStorage.removeItem("accessToken");
-    window.location.reload();
-  };
-  if (dataOfUser) {
-    return (
-      <>
-        <h1>Login sucessed</h1>
-        <button onClick={handleLogout}>Logout</button>
-      </>
-    );
-  }
+  // useEffect(() => {
+  //   async function Verify() {
+  //     const userData = await userProfile;
+  //     console.log(userData);
+  //     setUserData(userData);
+  //   }
+  //   Verify();
+  // });
+  // const handleLogout = () => {
+  //   localStorage.removeItem("accessToken");
+  //   window.location.reload();
+  // };
+  // if (dataOfUser) {
+  //   return (
+  //     <>
+  //       <h1>Login sucessed</h1>
+  //       <button onClick={handleLogout}>Logout</button>
+  //     </>
+  //   );
+  // }
   return (
     <div
       data-aos="zoom-in"

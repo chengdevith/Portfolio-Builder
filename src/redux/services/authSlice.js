@@ -54,6 +54,13 @@ export const authApi = createApi({
         body: { email, otp_code, password, confirmPassword },
       }),
     }),
+    getResendOtp:build.mutation({
+      query:({email})=>({
+        url:"/resend-otp/",
+        method:"POST",
+        body:{email}
+      })
+    })
   }),
 });
 
@@ -64,4 +71,5 @@ export const {
   useGetVerifyCodeMutation,
   useGetRequestResetPasswordMutation,
   useGetResetPasswordMutation,
+  useGetResendOtpMutation
 } = authApi;

@@ -7,6 +7,10 @@ import {
 import { CiSettings } from "react-icons/ci";
 
 function ProfileComponent() {
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    window.location.reload();
+  };
   return (
     <div className="w-30 lg:w-72 bg-white  px-4 py-7 absolute right-1 top-16 duration-200 ease-out z-50 rounded-lg">
       <div className="flex  items-center gap-3">
@@ -41,10 +45,10 @@ function ProfileComponent() {
         </div>
         
 
-        <div className="flex gap-2 items-center bg-white p-2 rounded-l hover:bg-slate-100">
+        <button onClick={handleLogout} className="flex gap-2 items-center bg-white p-2 rounded-l hover:bg-slate-100">
           <IoMdLogOut className="text-xl" />
           <p>Log out</p>
-        </div>
+        </button>
       </div>
     </div>
   );

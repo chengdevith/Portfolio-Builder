@@ -19,7 +19,11 @@ const NavComponent = () => {
   };
 
   return (
-    <Navbar fluid rounded className="lg:!px-[150px] shadow-lg shadow-purple-200 sticky top-0 z-20">
+    <Navbar
+      fluid
+      rounded
+      className="lg:!px-[150px] shadow-lg shadow-purple-200 sticky top-0 z-20"
+    >
       <NavbarBrand href="/">
         <img
           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQltIAHUYT6u7GKhj-UIX_fU1Pf0sySCFH_aw&s"
@@ -31,7 +35,9 @@ const NavComponent = () => {
         </span>
       </NavbarBrand>
       <div className="flex md:order-2 gap-4">
-        <Button className="!bg-color-primary hover:!bg-color-secondary">Get started</Button>
+        <Button className="!bg-color-primary hover:!bg-color-secondary">
+          Get started
+        </Button>
         <DropDownProfile />
         <NavbarToggle />
       </div>
@@ -39,13 +45,22 @@ const NavComponent = () => {
         <NavbarLink href="/" className={`nav-link ${getActiveClass("/")}`}>
           Home
         </NavbarLink>
-        <NavbarLink href="/template" className={`nav-link ${getActiveClass("/template")}`}>
+        <NavbarLink
+          href="/template"
+          className={`nav-link ${getActiveClass("/template")}`}
+        >
           Template
         </NavbarLink>
-        <NavbarLink href="/blog" className={`nav-link ${getActiveClass("/blog")}`}>
+        <NavbarLink
+          href="/blog"
+          className={`nav-link ${getActiveClass("/blog")}`}
+        >
           Blog
         </NavbarLink>
-        <NavbarLink href="/about" className={`nav-link ${getActiveClass("/about")}`}>
+        <NavbarLink
+          href="/about"
+          className={`nav-link ${getActiveClass("/about")}`}
+        >
           About
         </NavbarLink>
       </NavbarCollapse>
