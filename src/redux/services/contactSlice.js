@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const contactApi = createApi({
-  reducerPath: "authApi",
+  reducerPath: "contactApi",
   baseQuery: fetchBaseQuery({
     baseUrl: import.meta.env.VITE_API_PORTIFY_ENDPOINT,
     prepareHeaders: (headers) => {
@@ -17,7 +17,7 @@ export const contactApi = createApi({
       query: (data) => ({
         url: "/contacts/",
         method: "POST",
-        body: { data },
+        body:  data ,
       }),
     }),
     getContact: build.query({
@@ -26,6 +26,9 @@ export const contactApi = createApi({
         method: "GET",
       }),
     }),
+    getContactById: build.query({
+      query : (id)=> `/${id}`
+    })
   }),
 });
 
