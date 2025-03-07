@@ -1,5 +1,5 @@
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import React, { useEffect } from "react";
@@ -7,6 +7,7 @@ import "aos/dist/aos.css"; // Import AOS styles
 import AOS from "aos";
 import { useGetRegisterMutation } from "../../redux/services/authSlice";
 export default function SignUp() {
+  const navigate = useNavigate();
   useEffect(() => {
     AOS.init({
       duration: 1000, // Animation duration in milliseconds
@@ -34,16 +35,20 @@ export default function SignUp() {
         .oneOf([Yup.ref("password"), null], "Passwords must match")
         .required("Please confirm your password"),
     }),
-    onSubmit: async (values) => {
-      const signUpToken= await getRegister({
-        username: values?.username,
-        email: values?.email,
-        password: values?.password,
-        confirmPassword: values?.confirmPassword,
-      }).unwrap();
-      if(signUpToken.email){
-        localStorage.setItem("signUpToken",signUpToken?.email);
-        console.log(signUpToken.email)
+    onSubmit: async (values, { resetForm }) => {
+      // console.log("click")
+      // console.log('email :>> ', values.email);
+      // navigate("/otp", { state: values.email });
+      try {
+        const signUpToken = await getRegister(values).unwrap();
+        navigate("/otp", { state: values.email });
+        if (signUpToken) {
+          localStorage.setItem("signUpToken", signUpToken?.email);
+        }
+      } catch (e) {
+        console.log("error :>> ", e);
+      } finally {
+        resetForm();
       }
     },
   });
@@ -129,7 +134,7 @@ export default function SignUp() {
               type="submit"
               className="w-full py-4 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg text-xl transition-colors"
             >
-              {/* <Link to={"/otp"}>Sign Up</Link> */}
+              
               Sign Up
             </button>
             <span className="text-gray-500 mt-8 text-base">

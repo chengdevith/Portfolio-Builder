@@ -4,28 +4,36 @@ import { Button } from "flowbite-react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import { useGetVerifyCodeMutation } from "../../redux/services/authSlice";
 import * as Yup from "yup";
+import { useLocation } from "react-router-dom";
 
 export function OTPVerifyComponent() {
   const inputRefs = useRef([]);
+  const location = useLocation();
+  const email = location.state;
+  console.log("email :>> ", email);
   const [verifyCode, { isLoading, error }] = useGetVerifyCodeMutation();
 
   const otpSchema = Yup.object().shape({
     otp: Yup.array()
       .of(Yup.string().matches(/^[0-9]$/, "Only numbers are allowed"))
-      .test("otp-length", "OTP is required and must be 6 digits", (value) => value.filter(Boolean).length === 6),
+      .test(
+        "otp-length",
+        "OTP is required and must be 6 digits",
+        (value) => value.filter(Boolean).length === 6
+      ),
   });
 
-  const handleSubmit = async (values) => {
-    try{
-      const otp_code = values.otp.join("");
-      const email = localStorage.getItem("signUpToken")
-      console.log(email)
-      const response = await verifyCode({email,otp_code}).unwrap()
-      alert("OPT Verified Successfully: " + JSON.stringify(response))
-    }catch(error){
-      console.error("Verification failed",error)
-    }
-  };
+  // const handleSubmit = async (values) => {
+  //   try {
+  //     const otp_code = values.otp.join("");
+  //     const email = localStorage.getItem("signUpToken");
+  //     console.log(email);
+  //     const response = await verifyCode({ email, otp_code }).unwrap();
+  //     alert("OPT Verified Successfully: " + JSON.stringify(response));
+  //   } catch (error) {
+  //     console.error("Verification failed", error);
+  //   }
+  // };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
@@ -36,11 +44,20 @@ export function OTPVerifyComponent() {
         transition={{ duration: 0.3 }}
       >
         <h2 className="text-4xl font-bold mb-6">Enter OTP</h2>
-        <p className="text-lg text-gray-600 mb-8">We've sent a code to your email</p>
+        <p className="text-lg text-gray-600 mb-8">
+          We've sent a code to your email
+        </p>
         <Formik
-          initialValues={{ otp: new Array(6).fill("") }}
+          initialValues={{ email: email, otp: new Array(6).fill("") }}
           validationSchema={otpSchema}
-          onSubmit={handleSubmit}
+          onSubmit={(value)=> {
+            const otp_code = value.otp.join("");
+            const finalValue = {
+              ...value,
+              otp_code
+            }
+            verifyCode(finalValue).unwrap()
+          }}
         >
           {({ values, setFieldValue, errors, touched }) => (
             <Form>
@@ -63,7 +80,11 @@ export function OTPVerifyComponent() {
                       }
                     }}
                     onKeyDown={(e) => {
-                      if (e.key === "Backspace" && !values.otp[index] && index > 0) {
+                      if (
+                        e.key === "Backspace" &&
+                        !values.otp[index] &&
+                        index > 0
+                      ) {
                         setFieldValue(`otp[${index - 1}]`, "");
                         inputRefs.current[index - 1]?.focus();
                       }
@@ -74,7 +95,10 @@ export function OTPVerifyComponent() {
               {touched.otp && errors.otp && (
                 <div className="text-red-500 mt-2">{errors.otp}</div>
               )}
-              <Button type="submit" className="w-full mt-6 !bg-blue-600 text-lg h-14">
+              <Button
+                type="submit"
+                className="w-full mt-6 !bg-blue-600 text-lg h-14"
+              >
                 Verify OTP
               </Button>
             </Form>
@@ -82,7 +106,9 @@ export function OTPVerifyComponent() {
         </Formik>
         <p className="text-base text-gray-500 mt-6">
           Didn't receive the code?{" "}
-          <span className="text-blue-500 cursor-pointer font-medium">Resend</span>
+          <span className="text-blue-500 cursor-pointer font-medium">
+            Resend
+          </span>
         </p>
       </motion.div>
     </div>
