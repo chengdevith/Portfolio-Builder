@@ -8,13 +8,8 @@ export default function Contact_Us() {
         {/* Contact Form */}
         <div className="w-full lg:w-1/2 bg-gradient-to-b from-purple-900 to-purple-500 text-white p-10 rounded-lg shadow-lg">
           <h2 className="text-3xl font-bold text-center mb-4">Contact Us</h2>
-<<<<<<< HEAD
           <p className="text-center !text-gray-300 mb-6 description">
             Got a question? We’d love to hear from you. Send us a message and we’ll respond as soon as possible.
-=======
-          <p className="text-center text-gray-300 mb-6">
-            Got a question? We'd love to hear from you. Send us a message and we’ll respond as soon as possible.
->>>>>>> 05dddc8ca178215469264b4b3fff392756d7ee61
           </p>
           <form className="space-y-4">
             <div>
