@@ -5,8 +5,10 @@ import { CiLock } from "react-icons/ci";
 import "aos/dist/aos.css"; // Import AOS styles
 import AOS from "aos";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useGetRequestResetPasswordMutation } from "../../redux/services/authSlice";
 const RequestResetPassword = () => {
+  const navigate = useNavigate();
   useEffect(() => {
     AOS.init({
       duration: 1000, // Animation duration in milliseconds
@@ -24,9 +26,12 @@ const RequestResetPassword = () => {
       email: Yup.string().email("Invalid email").required("Must put email"),
     }),
     onSubmit: async (values) => {
-      getRequestReset({
-        email:values?.email
-      }).unwrap();
+      try {
+        getRequestReset({
+          email: values?.email,
+        }).unwrap();
+        navigate("/reset-password", { state: values.email });
+      } catch (error) {}
     },
   });
   return (

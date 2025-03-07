@@ -14,6 +14,7 @@ import { OTPVerifyComponent } from "./pages/auth/OTPVerifyComponent.jsx";
 import { Provider } from "react-redux";
 import { store } from "./redux/store.js";
 import RequestResetPassword from "./pages/auth/RequestResetPassword.jsx";
+import ResetPassword from "./pages/auth/ResetPassword.jsx";
 
 createRoot(document.getElementById("root")).render(
   <Provider store={store}>
@@ -30,6 +31,7 @@ createRoot(document.getElementById("root")).render(
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/otp" element={<OTPVerifyComponent />} />
           <Route path="/request-reset-password" element={<RequestResetPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
         </Routes>
       </StrictMode>
     </BrowserRouter>

@@ -124,7 +124,7 @@ export default function Login() {
 
             <div className="w-full flex justify-end">
               <Link
-               to={"/request-reset-password"}
+                to={"/request-reset-password"}
                 className="text-base text-gray-500  hover:text-purple-600 transition-colors "
               >
                 Forgot Your Password?

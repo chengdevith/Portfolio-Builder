@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { useAddContactMutation, useGetContactQuery } from "../redux/services/contactSlice";
+import { useAddContactMutation, useGetContactQuery } from "../../redux/services/contactSlice";
 
 function ContactForm() {
-  const [addNewContact, { isLoading, isError }] = useAddContactMutation();
+  console.log(getcontacts)
   const [formData, setFormData] = useState({
     address: "",
     contact_email: "",
@@ -20,7 +20,7 @@ function ContactForm() {
       const response = await addNewContact(formData).unwrap();
       console.log(response);
     } catch (error) {
-      alert(error);
+      console.log(error)
     }
   };
   return (
