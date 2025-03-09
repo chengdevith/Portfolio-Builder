@@ -10,7 +10,7 @@ export default function Our_Vision() {
                 {/* Left : Text Content */}
                 <div className="text-left">
                     <h2 className="text-4xl font-bold text-color-secondary">Our Vision</h2>
-                    <p className="text-color-description mt-9">
+                    <p className="description mt-9 ">
                         To become the leading platform for creating professional portfolios and resumes, inspiring individuals to achieve their career goals with confidence and creativity.
                     </p>
                 </div>

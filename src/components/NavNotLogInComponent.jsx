@@ -7,9 +7,9 @@ import {
   NavbarLink,
   NavbarToggle,
 } from "flowbite-react";
-import DropDownProfile from "./DropDownProfile";
+import { Link } from "react-router-dom";
 
-const NavComponent = () => {
+const NavNotLogInComponent = () => {
   const location = useLocation();
 
   const getActiveClass = (path) => {
@@ -19,14 +19,10 @@ const NavComponent = () => {
   };
 
   return (
-    <Navbar
-      fluid
-      rounded
-      className="lg:!px-[150px] shadow-lg shadow-purple-200 sticky top-0 z-20"
-    >
+    <Navbar fluid rounded className="lg:!px-[150px] shadow-lg shadow-purple-200 sticky top-0 z-20">
       <NavbarBrand href="/">
         <img
-          src="/"
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQltIAHUYT6u7GKhj-UIX_fU1Pf0sySCFH_aw&s"
           className="mr-3 h-6 sm:h-9"
           alt="Flowbite React Logo"
         />
@@ -35,32 +31,21 @@ const NavComponent = () => {
         </span>
       </NavbarBrand>
       <div className="flex md:order-2 gap-4">
-        <Button className="!bg-color-primary hover:!bg-color-secondary">
-          Get started
-        </Button>
-        <DropDownProfile />
+        <Button className="!bg-transparent text-color-primary !border-color-primary hover:!bg-purple-100"><Link to={"/login"}>Login</Link></Button>
+        <Button className="!bg-color-primary hover:!bg-color-secondary">Get started</Button>
         <NavbarToggle />
       </div>
       <NavbarCollapse>
         <NavbarLink href="/" className={`nav-link ${getActiveClass("/")}`}>
           Home
         </NavbarLink>
-        <NavbarLink
-          href="/template"
-          className={`nav-link ${getActiveClass("/template")}`}
-        >
+        <NavbarLink href="/template" className={`nav-link ${getActiveClass("/template")}`}>
           Template
         </NavbarLink>
-        <NavbarLink
-          href="/blog"
-          className={`nav-link ${getActiveClass("/blog")}`}
-        >
+        <NavbarLink href="/blog" className={`nav-link ${getActiveClass("/blog")}`}>
           Blog
         </NavbarLink>
-        <NavbarLink
-          href="/about"
-          className={`nav-link ${getActiveClass("/about")}`}
-        >
+        <NavbarLink href="/about" className={`nav-link ${getActiveClass("/about")}`}>
           About
         </NavbarLink>
       </NavbarCollapse>
@@ -68,4 +53,4 @@ const NavComponent = () => {
   );
 };
 
-export default NavComponent;
+export default NavNotLogInComponent;

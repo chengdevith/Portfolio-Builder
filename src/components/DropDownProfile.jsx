@@ -1,10 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
 import ProfileComponent from "./ProfileComponent";
+import { useGetUserProfileQuery } from "../redux/services/authSlice";
 
 function DropDownProfile() {
+  
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
-
+  const {data:profile} = useGetUserProfileQuery()
   useEffect(() => {
     function handleClickOutside(event) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -26,7 +28,7 @@ function DropDownProfile() {
       <img
         onClick={() => setIsOpen(!isOpen)}
         className="w-10 h-10 rounded-full cursor-pointer"
-        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4YreOWfDX3kK-QLAbAL4ufCPc84ol2MA8Xg&s"
+        src={profile.avatar}
         alt=""
       />
       {isOpen && <ProfileComponent />}
