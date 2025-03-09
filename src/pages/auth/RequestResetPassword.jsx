@@ -73,7 +73,7 @@ const RequestResetPassword = () => {
           </div>
           <button
             type="submit"
-            className="!mt-0 w-full py-5 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg text-2xl transition-colors"
+            className="!mt-0 w-full py-5 !bg-purple-600 hover:!bg-purple-700 text-white font-semibold rounded-lg text-2xl transition-colors"
           >
             Get 6-digit code
           </button>
