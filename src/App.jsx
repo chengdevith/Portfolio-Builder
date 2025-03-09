@@ -14,6 +14,10 @@ import TemplateCardComponent from "./components/TemplateComponents/TemplateCardC
 import CardList from "./mock-data/cardList";
 import Small_pices from "./assets/GIF_images/Small_pices.gif"
 import BlogFormComponent from "./components/inputField/BlogFormComponent";
+import WeForm from "./components/inputField/WeForm";
+import ContactForm from "./components/inputField/ContactForm";
+import FileUploadComponent from "./components/inputField/FileUploadComponent";
+
 function App() {
   const [features, setFeature] = useState(feature);
   const [chooseUses, setChooseUse] = useState(chooseUse);
@@ -183,19 +187,7 @@ function App() {
           </div>
         </div>
       </section>
-      {/* video */}
-      {/* <section className="each-section">
-          <iframe
-            className="m-auto rounded-lg"
-            width="760"
-            height="515"
-            src="https://www.youtube.com/embed/ZfG2p2gqHqE?si=jYJd3TqTjupMWW5M"
-            title="YouTube video player"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share "
-            referrerPolicy="strict-origin-when-cross-origin"
-            allowFullScreen
-          ></iframe>
-        </section> */}
+     
       {/* FQA */}
       <section className="each-section">
         <TitleSectionComponen title={"Frequently Ask Question"} />

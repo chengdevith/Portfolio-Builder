@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useAddContactMutation, useGetContactQuery } from "../../redux/services/contactSlice";
 
 function ContactForm() {
-  console.log(getcontacts)
+  const [addNewConact,{isLoading, isError}] = useAddContactMutation()
   const [formData, setFormData] = useState({
     address: "",
     contact_email: "",
@@ -17,7 +17,7 @@ function ContactForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await addNewContact(formData).unwrap();
+      const response = await addNewConact(formData).unwrap();
       console.log(response);
     } catch (error) {
       console.log(error)
@@ -85,7 +85,7 @@ function ContactForm() {
         className="w-full bg-color-secondary text-white p-2 rounded hover:bg-opacity-90"
         disabled={isLoading}
       >
-        {isLoading ? "Submitting..." : "Create Contact"}
+        {isLoading ? "submiting..." : "Create Contact"}
       </button>
     </form>
   );

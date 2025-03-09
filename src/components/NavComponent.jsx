@@ -26,7 +26,7 @@ const NavComponent = () => {
     >
       <NavbarBrand href="/">
         <img
-          src="/"
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQltIAHUYT6u7GKhj-UIX_fU1Pf0sySCFH_aw&s"
           className="mr-3 h-6 sm:h-9"
           alt="Flowbite React Logo"
         />
