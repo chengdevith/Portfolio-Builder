@@ -6,8 +6,10 @@ import React, { useEffect } from "react";
 import "aos/dist/aos.css"; // Import AOS styles
 import AOS from "aos";
 import { useGetRegisterMutation } from "../../redux/services/authSlice";
+import { useGoogleLogin } from "@react-oauth/google";
 export default function SignUp() {
   const navigate = useNavigate();
+  const [getRegister, { isLoading, error }] = useGetRegisterMutation();
   useEffect(() => {
     AOS.init({
       duration: 1000, // Animation duration in milliseconds
@@ -15,8 +17,47 @@ export default function SignUp() {
     });
   }, []);
 
-  const [getRegister, { isLoading, error }] = useGetRegisterMutation();
-
+  const handleLoginWithGoogle = useGoogleLogin({
+    onSuccess: async (res) => {
+      if (res) {
+        const accessToken = res.access_token;
+        try {
+          const userData = await fetch(
+            "https://www.googleapis.com/oauth2/v1/userinfo",
+            {
+              headers: {
+                Authorization: `Bearer ${accessToken}`,
+                Accept: "applicatoin/json",
+              },
+            }
+          ).then((data) => data.json());
+          console.log("userData :>> ", userData);
+          if (userData) {
+            try {
+              const submitValues = {
+                username: `${userData.family_name}${userData.given_name}`,
+                email: userData.email,
+                password: `${import.meta.env.VITE_SECRET_KEY}`,
+                confirmPassword: `${import.meta.env.VITE_SECRET_KEY}`,
+              };
+              await getRegister(submitValues).unwrap();
+              navigate("/otp", {
+                state: {
+                  email: submitValues.email,
+                  password: submitValues.password,
+                },
+              });
+            } catch (error) {
+              console.log(error);
+            }
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    },
+    onError: (error) => console.log("error :>> ", error),
+  });
   const formik = useFormik({
     initialValues: {
       username: "",
@@ -38,7 +79,12 @@ export default function SignUp() {
     onSubmit: async (values, { resetForm }) => {
       try {
         await getRegister(values).unwrap();
-        navigate("/otp", { state: values.email });
+        navigate("/otp", {
+          state: {
+            email: values.email,
+            password: values.password,
+          },
+        });
       } catch (e) {
         console.log("error :>> ", e);
       } finally {
@@ -133,7 +179,10 @@ export default function SignUp() {
             <span className="text-gray-500 mt-8 text-base">
               Or sign up with
             </span>
-            <button className="flex items-center gap-4 px-10 py-4 mt-6 border rounded-lg hover:bg-gray-50 transition-colors">
+            <button
+              onClick={handleLoginWithGoogle}
+              className="flex items-center gap-4 px-10 py-4 mt-6 border rounded-lg hover:bg-gray-50 transition-colors"
+            >
               <FcGoogle className="text-4xl" />{" "}
               <span className="text-xl">Google</span>
             </button>

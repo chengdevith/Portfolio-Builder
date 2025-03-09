@@ -1,6 +1,7 @@
 import { useRef, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
+  useGetLoginMutation,
   useGetResendOtpMutation,
   useGetVerifyCodeMutation,
 } from "../../redux/services/authSlice";
@@ -15,6 +16,7 @@ export function OTPVerifyComponent() {
   const navigate = useNavigate();
   const [verifyCode, { isLoading, error }] = useGetVerifyCodeMutation();
   const [resendCode] = useGetResendOtpMutation();
+  const [getLogin] = useGetLoginMutation();
 
   useEffect(() => {
     AOS.init({
@@ -24,7 +26,7 @@ export function OTPVerifyComponent() {
   }, []);
 
   const handleResendCode = async () => {
-    await resendCode({ email: location.state });
+    await resendCode({ email: location.state.email });
   };
 
   const formik = useFormik({
@@ -43,9 +45,14 @@ export function OTPVerifyComponent() {
     onSubmit: async (values) => {
       try {
         const otp_code = values.otp.join("");
-        const email = location.state;
+        const email = location.state.email;
+        const password = location.state.password;
         await verifyCode({ email, otp_code }).unwrap();
-        navigate("/login");
+        const accessTokenData = await getLogin({email,password,}).unwrap();
+        if (accessTokenData) {
+          localStorage.setItem("accessToken", accessTokenData?.access);
+        }
+        navigate("/");
       } catch (error) {
         console.error("Verification failed", error);
       }
@@ -116,7 +123,10 @@ export function OTPVerifyComponent() {
             </button>
             <span className="text-gray-500 mt-8 text-base">
               Didn't receive the code?{" "}
-              <button onClick={handleResendCode} className="text-purple-500 cursor-pointer font-medium">
+              <button
+                onClick={handleResendCode}
+                className="text-purple-500 cursor-pointer font-medium"
+              >
                 Resend
               </button>
             </span>

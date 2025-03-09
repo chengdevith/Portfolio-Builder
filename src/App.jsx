@@ -15,11 +15,13 @@ import Template from "./pages/Template";
 import TemplateCardComponent from "./components/TemplateComponents/TemplateCardComponent";
 import CardList from "./mock-data/cardList";
 import Small_pices from "./assets/GIF_images/Small_pices.gif"
+import BlogFormComponent from "./components/inputField/BlogFormComponent";
 function App() {
   const [features, setFeature] = useState(feature);
   const [chooseUses, setChooseUse] = useState(chooseUse);
   return (
     <>
+    <BlogFormComponent/>
       {/* hero section */}
       <section className="overflow-hidden bg-gradient-to-r from-[#634BA7] to-[#A632CD] md:rounded-l-[50px] h-[75vh] md:rounded-br-[200px] px-2 md:px-10 lg:px-36 py-10 lg:py-32 mb-20 flex items-center">
         <div className="text-white grid grid-cols-1 md:grid-cols-3 justify-center items-center gap-4 overflow-hidden">
@@ -82,7 +84,7 @@ function App() {
             "Choose from 900+ customizable templates to start building your free portfolio website and present your work the way it's meant to be seen."
           }
         />
-        <div className="max-w-screen-xl m-auto cardList grid xl:grid-cols-3 sm:grid-cols-2 gap-20">
+        <div className="max-w-screen-xl m-auto cardList grid xl:grid-cols-3 sm:grid-cols-2 gap-10">
           {CardList.slice(0,6).map((e) => {
             return (
               <TemplateCardComponent
@@ -96,7 +98,7 @@ function App() {
         </div>
         <div>
           <a
-            href="#"
+            href="/template"
             className="flex items-center justify-center  gap-2 underline mt-12"
           >
             <p>See All Template</p>

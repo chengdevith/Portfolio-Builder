@@ -5,26 +5,32 @@ import {
   IoMdLogOut,
 } from "react-icons/io";
 import { CiSettings } from "react-icons/ci";
+import { useGetUserProfileQuery } from "../redux/services/authSlice";
 
 function ProfileComponent() {
+   const {
+      data: userProfile,
+      isLoading: myLoading,
+      error: myError,
+    } = useGetUserProfileQuery();
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
     window.location.reload();
   };
   return (
-    <div className="w-30 lg:w-72 bg-white  px-4 py-7 absolute right-1 top-16 duration-200 ease-out z-50 rounded-lg">
+    <div className="w-30 lg:w-[300px] bg-white  px-4 py-7 absolute right-1 top-16 duration-200 ease-out z-50 rounded-lg">
       <div className="flex  items-center gap-3">
-        <div className="w-16 h-16">
+        <div className="">
           <img
-            className="w-full rounded-full"
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4YreOWfDX3kK-QLAbAL4ufCPc84ol2MA8Xg&s"
+            className="w-16  h-16 rounded-full cursor-pointer"
+            src={userProfile.avatar}
             alt="profile"
           />
         </div>
 
         <div>
-          <p>Your Name</p>
-          <p>example@gmail.com</p>
+          <p>{userProfile.username}</p>
+          <p>{userProfile.email}</p>
         </div>
       </div>
       <hr className="mt-3 mb-5 border-slate-300" />

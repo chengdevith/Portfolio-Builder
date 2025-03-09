@@ -12,7 +12,7 @@ import {
 } from "../../redux/services/authSlice";
 
 export default function Login() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   useEffect(() => {
     AOS.init({
       duration: 1000, // Animation duration in milliseconds
@@ -26,9 +26,6 @@ export default function Login() {
     isLoading: myLoading,
     error: myError,
   } = useGetUserProfileQuery();
-
-  // const [dataOfUser, setUserData] = useState();
-
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -49,32 +46,12 @@ export default function Login() {
         if (accessTokenData) {
           localStorage.setItem("accessToken", accessTokenData?.access);
         }
-        navigate("/")
+        navigate("/");
       } catch (error) {
-        console.error("Verification failed", error)
+        console.error("Verification failed", error);
       }
     },
   });
-  // useEffect(() => {
-  //   async function Verify() {
-  //     const userData = await userProfile;
-  //     console.log(userData);
-  //     setUserData(userData);
-  //   }
-  //   Verify();
-  // });
-  // const handleLogout = () => {
-  //   localStorage.removeItem("accessToken");
-  //   window.location.reload();
-  // };
-  // if (dataOfUser) {
-  //   return (
-  //     <>
-  //       <h1>Login sucessed</h1>
-  //       <button onClick={handleLogout}>Logout</button>
-  //     </>
-  //   );
-  // }
   return (
     <div
       data-aos="zoom-in"
