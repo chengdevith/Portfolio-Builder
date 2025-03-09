@@ -53,7 +53,7 @@ function Slide() {
           </p>
           <motion.button
             whileHover={{ scale: 1.05 }}
-            className="mt-6 bg-color-primary hover:bg-color-secondary text-white font-opensans text-[20px] py-3 px-6 rounded-full shadow-md transition duration-300"
+            className="mt-6 bg-color-primary  text-white font-opensans text-[20px] py-3 px-6 rounded-full shadow-md transition duration-300"
           >
             Create the Portfolio Now
           </motion.button>
