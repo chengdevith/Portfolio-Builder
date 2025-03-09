@@ -1,17 +1,14 @@
 import React from "react";
-import "./FolioStyle1/final.css";
-import "./FolioStyle1/output.css";
+import "./final.css";
+import "./output.css";
 import "aos/dist/aos.css"; // Import AOS styles
 import AOS from "aos";
 import { gsap } from "gsap";
 import { TextPlugin } from "gsap/TextPlugin";
 import { useEffect, useState } from "react";
-import Devith from "../../assets/Member_images/Devith.png";
+import Devith from "../../../assets/Member_images/Devith.png";
 
-const FolioHeaderComponents1 = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
-
+const FolioComponents1 = () => {
   useEffect(() => {
     // Register GSAP TextPlugin and animate quote
     gsap.registerPlugin(TextPlugin);
@@ -496,116 +493,124 @@ const FolioHeaderComponents1 = () => {
         </section>
         {/* Blog Section Start */}
         <section id="blog" className="bg-slate-100 pb-32 pt-36 dark:bg-dark">
-  <div className="continer">
-    <div className="w-full px-4" data-aos="zoom-in" data-aos-duration={1000}>
-      <div className="mx-auto mb-16 max-w-xl text-center">
-        <h4 className="mb-2 text-lg font-semibold text-primary">Blog</h4>
-        <h2 className="mb-4 text-3xl font-bold text-dark dark:text-white sm:text-4xl lg:text-5xl">
-          Recent Posts
-        </h2>
-        <p className="text-md font-medium text-secondary md:text-lg">
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptate ea
-          voluptates aspernatur labore?
-        </p>
-      </div>
-    </div>
-    <div className="flex flex-wrap justify-center">
-      <div className="w-full px-4 md:w-1/2 xl:w-1/3">
-        <div className="mb-10 overflow-hidden rounded-xl bg-white shadow-lg dark:bg-slate-800">
-          <img
-            src="https://media.geeksforgeeks.org/wp-content/cdn-uploads/20190813181110/7-Tips-and-Tricks-to-Learn-Programming-Faster.png"
-            alt="Programming"
-            className="h-[310px] w-full"
-          />
-          <div className="px-6 py-8">
-            <h3>
-              <a
-                href="#"
-                target="_blank"
-                className="mb-3 block truncate text-xl font-semibold text-dark hover:text-primary dark:text-white"
-              >
-                Programming Learning Tips
-              </a>
-            </h3>
-            <p className="mb-6 text-base font-medium text-secondary">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Necessitatibus pariatur quod iure quisquam molestias ex optio!
-            </p>
-            <a
-              href="#"
-              target="_blank"
-              className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:opacity-80"
+          <div className="continer">
+            <div
+              className="w-full px-4"
+              data-aos="zoom-in"
+              data-aos-duration={1000}
             >
-              Read More
-            </a>
+              <div className="mx-auto mb-16 max-w-xl text-center">
+                <h4 className="mb-2 text-lg font-semibold text-primary">
+                  Blog
+                </h4>
+                <h2 className="mb-4 text-3xl font-bold text-dark dark:text-white sm:text-4xl lg:text-5xl">
+                  Recent Posts
+                </h2>
+                <p className="text-md font-medium text-secondary md:text-lg">
+                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                  Voluptate ea voluptates aspernatur labore?
+                </p>
+              </div>
+            </div>
+            <div className="flex flex-wrap justify-center">
+              <div className="w-full px-4 md:w-1/2 xl:w-1/3">
+                <div className="mb-10 overflow-hidden rounded-xl bg-white shadow-lg dark:bg-slate-800">
+                  <img
+                    src="https://media.geeksforgeeks.org/wp-content/cdn-uploads/20190813181110/7-Tips-and-Tricks-to-Learn-Programming-Faster.png"
+                    alt="Programming"
+                    className="h-[310px] w-full"
+                  />
+                  <div className="px-6 py-8">
+                    <h3>
+                      <a
+                        href="#"
+                        target="_blank"
+                        className="mb-3 block truncate text-xl font-semibold text-dark hover:text-primary dark:text-white"
+                      >
+                        Programming Learning Tips
+                      </a>
+                    </h3>
+                    <p className="mb-6 text-base font-medium text-secondary">
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Necessitatibus pariatur quod iure quisquam molestias ex
+                      optio!
+                    </p>
+                    <a
+                      href="#"
+                      target="_blank"
+                      className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:opacity-80"
+                    >
+                      Read More
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div className="w-full px-4 md:w-1/2 xl:w-1/3">
+                <div className="mb-10 overflow-hidden rounded-xl bg-white shadow-lg dark:bg-slate-800">
+                  <img
+                    src="https://i.ytimg.com/vi/2oX0le-lyJI/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAzjd3h0GeVreDUksMjxxvn5lydmQ"
+                    alt="Mechanical Keyboard"
+                    className="h-[310px] w-full"
+                  />
+                  <div className="px-6 py-8">
+                    <h3>
+                      <a
+                        href="#"
+                        target="_blank"
+                        className="mb-3 block truncate text-xl font-semibold text-dark hover:text-primary dark:text-white"
+                      >
+                        Logitech Keyboard Review
+                      </a>
+                    </h3>
+                    <p className="mb-6 text-base font-medium text-secondary">
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Libero, illum eum quos suscipit voluptatem officiis
+                      nesciunt!
+                    </p>
+                    <a
+                      href="#"
+                      target="_blank"
+                      className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:opacity-80"
+                    >
+                      Read More
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div className="w-full px-4 md:w-1/2 xl:w-1/3">
+                <div className="mb-10 overflow-hidden rounded-xl bg-white shadow-lg dark:bg-slate-800">
+                  <img
+                    src="https://www.appventurez.com/wp-content/uploads/2020/06/timeline-of-machine-learning-1.jpg"
+                    alt="Machine Learning"
+                    className="h-[310px] w-full"
+                  />
+                  <div className="px-6 py-8">
+                    <h3>
+                      <a
+                        href="#"
+                        target="_blank"
+                        className="mb-3 block truncate text-xl font-semibold text-dark hover:text-primary dark:text-white"
+                      >
+                        History of Machine Learning
+                      </a>
+                    </h3>
+                    <p className="mb-6 text-base font-medium text-secondary">
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Cum quas ullam inventore commodi totam!
+                    </p>
+                    <a
+                      href="#"
+                      target="_blank"
+                      className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:opacity-80"
+                    >
+                      Read More
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      <div className="w-full px-4 md:w-1/2 xl:w-1/3">
-        <div className="mb-10 overflow-hidden rounded-xl bg-white shadow-lg dark:bg-slate-800">
-          <img
-            src="https://i.ytimg.com/vi/2oX0le-lyJI/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAzjd3h0GeVreDUksMjxxvn5lydmQ"
-            alt="Mechanical Keyboard"
-            className="h-[310px] w-full"
-          />
-          <div className="px-6 py-8">
-            <h3>
-              <a
-                href="#"
-                target="_blank"
-                className="mb-3 block truncate text-xl font-semibold text-dark hover:text-primary dark:text-white"
-              >
-                Logitech Keyboard Review
-              </a>
-            </h3>
-            <p className="mb-6 text-base font-medium text-secondary">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero,
-              illum eum quos suscipit voluptatem officiis nesciunt!
-            </p>
-            <a
-              href="#"
-              target="_blank"
-              className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:opacity-80"
-            >
-              Read More
-            </a>
-          </div>
-        </div>
-      </div>
-      <div className="w-full px-4 md:w-1/2 xl:w-1/3">
-        <div className="mb-10 overflow-hidden rounded-xl bg-white shadow-lg dark:bg-slate-800">
-          <img
-            src="https://www.appventurez.com/wp-content/uploads/2020/06/timeline-of-machine-learning-1.jpg"
-            alt="Machine Learning"
-            className="h-[310px] w-full"
-          />
-          <div className="px-6 py-8">
-            <h3>
-              <a
-                href="#"
-                target="_blank"
-                className="mb-3 block truncate text-xl font-semibold text-dark hover:text-primary dark:text-white"
-              >
-                History of Machine Learning
-              </a>
-            </h3>
-            <p className="mb-6 text-base font-medium text-secondary">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum quas
-              ullam inventore commodi totam!
-            </p>
-            <a
-              href="#"
-              target="_blank"
-              className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:opacity-80"
-            >
-              Read More
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+        </section>
 
         {/* Contact Section Start */}
         <section id="contact" className="pb-32 pt-36 dark:bg-slate-800">
@@ -899,4 +904,4 @@ const FolioHeaderComponents1 = () => {
   );
 };
 
-export default FolioHeaderComponents1;
+export default FolioComponents1;

@@ -16,7 +16,8 @@ import { store } from "./redux/store.js";
 import RequestResetPassword from "./pages/auth/RequestResetPassword.jsx";
 import ResetPassword from "./pages/auth/ResetPassword.jsx";
 import { GoogleOAuthProvider } from "@react-oauth/google";
-import FolioHeaderComponents1 from "./components/portfolioCompoenets/FolioComponents1.jsx";
+import FolioComponents1 from "./components/portfolioCompoenets/Folio1/FolioComponents1.jsx";
+import FolioComponents2 from "./components/portfolioCompoenets/Folio2/FolioComponents2.jsx";
 
 createRoot(document.getElementById("root")).render(
   <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
@@ -38,7 +39,8 @@ createRoot(document.getElementById("root")).render(
               element={<RequestResetPassword />}
             />
             <Route path="/reset-password" element={<ResetPassword />} />
-            <Route path="/p1" element={<FolioHeaderComponents1/>} />
+            <Route path="/p1" element={<FolioComponents1/>} />
+            <Route path="/p2" element={<FolioComponents2/>} />
           </Routes>
         </StrictMode>
       </BrowserRouter>
