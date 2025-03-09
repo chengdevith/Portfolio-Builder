@@ -203,6 +203,7 @@ function App() {
           <FaqComponent />
         </div>
       </section>
+
     </>
   );
 }

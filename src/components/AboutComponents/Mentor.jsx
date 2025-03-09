@@ -27,7 +27,7 @@ export default function Mentor() {
   return (
     <div>
         <section className="py-16 bg-white text-center">
-            <div className="max-w-screen-xl mx-auto bg-red-200 relative">
+            <div className="max-w-screen-xl mx-auto relative">
                 <div className="h-96 flex justify-center items-center bg-gradient-to-r from-color-primary to-purple-800 text-white py-6 mb-10 rounded-lg">
                     <h2 className="text-4xl font-bold mb-40">About Our Mentor</h2>
                 </div>
