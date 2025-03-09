@@ -1,12 +1,12 @@
 import React from "react";
-import "./FolioStyle1/final.css";
-import "./FolioStyle1/output.css";
+import "./final.css";
+import "./output.css";
 import "aos/dist/aos.css"; // Import AOS styles
 import AOS from "aos";
 import { gsap } from "gsap";
 import { TextPlugin } from "gsap/TextPlugin";
 import { useEffect, useState } from "react";
-import Devith from "../../assets/Member_images/Devith.png";
+import Devith from "../../../assets/Member_images/Devith.png";
 
 const FolioHeaderComponents1 = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

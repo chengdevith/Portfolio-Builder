@@ -16,7 +16,7 @@ import { store } from "./redux/store.js";
 import RequestResetPassword from "./pages/auth/RequestResetPassword.jsx";
 import ResetPassword from "./pages/auth/ResetPassword.jsx";
 import { GoogleOAuthProvider } from "@react-oauth/google";
-import FolioHeaderComponents1 from "./components/portfolioCompoenets/FolioComponents1.jsx";
+import FolioHeaderComponents1 from "./components/portfolioCompoenets/Folio1/FolioComponents1.jsx";
 
 createRoot(document.getElementById("root")).render(
   <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
