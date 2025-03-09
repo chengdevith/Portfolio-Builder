@@ -35,7 +35,7 @@ export default function SignUp() {
           if (userData) {
             try {
               const submitValues = {
-                userData: `${userData.family_name}${userData.given_name}`,
+                username: `${userData.family_name}${userData.given_name}`,
                 email: userData.email,
                 password: `${import.meta.env.VITE_SECRET_KEY}`,
                 confirmPassword: `${import.meta.env.VITE_SECRET_KEY}`,
