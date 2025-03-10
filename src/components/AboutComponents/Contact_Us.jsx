@@ -6,7 +6,7 @@ export default function Contact_Us() {
     <div className="bg-gradient-to-b from-gray-100 to-white py-16 flex justify-center">
       <div className="max-w-6xl w-full flex flex-col lg:flex-row gap-8">
         {/* Contact Form */}
-        <div className="w-full lg:w-1/2 bg-gradient-to-b to-purple-500 text-white p-10 rounded-lg shadow-lg">
+        <div className="w-full lg:w-1/2 bg-purple-500 text-white p-10 rounded-lg shadow-lg">
           <h2 className="text-3xl font-bold text-center mb-4">Contact Us</h2>
           <p className="text-center !text-gray-300 mb-6 description">
             Got a question? We’d love to hear from you. Send us a message and we’ll respond as soon as possible.
