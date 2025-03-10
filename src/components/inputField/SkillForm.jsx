@@ -1,26 +1,27 @@
 import { useState } from "react";
 import { FileInput, Label } from "flowbite-react";
-import { useAddBlogMutation } from "../../redux/services/blogSlice";
 import { useGetFileQuery, useUploadFileMutation } from "../../redux/services/fileUploadApi";
+import { useAddSkillMutation } from "../../redux/services/skillSlice";
 
-function BlogFormComponent() {
+function SkillForm() {
   const [selectedFiles, setSelectedFiles] = useState([]);
-  const [uploadFile] = useUploadFileMutation();
-  const [addNewBlog, { isLoading, isError }] = useAddBlogMutation();
+  const [uploadFile,] = useUploadFileMutation();
+  const [addNewSkill, { isLoading, isError }] = useAddSkillMutation();
   const { data: image } = useGetFileQuery();
-  const [formBlog, setFormBlog] = useState({
+  const [formSkill, setFormSkill] = useState({
     title: "",
     description: "",
     images: [],
   });
 
   const handleChange = (e) => {
-    setFormBlog({ ...formBlog, [e.target.name]: e.target.value });
+    setFormSkill({ ...formSkill, [e.target.name]: e.target.value });
   };
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
-    console.log(files);
+    
     setSelectedFiles(files);
+    console.log(selectedFiles)
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,12 +32,13 @@ function BlogFormComponent() {
     });
     try {
       const resp = await uploadFile(formData).unwrap();
-      console.log(resp.url)
       const url = resp.url;
-      const response = await addNewBlog({ ...formBlog, images: [url] }).unwrap();
+      console.log(url)
+      const response = await addNewSkill({ ...formSkill, images: [url] }).unwrap();
+      console.log(formSkill)
       console.log(response);
     } catch (error) {
-      alert(error);
+      console.log(error);
     }
   };
 
@@ -46,6 +48,9 @@ function BlogFormComponent() {
         className="max-w-md mx-auto p-6 bg-white shadow-lg rounded-lg"
         onSubmit={handleSubmit}
       >
+        <h2 className="text-2xl font-bold text-color-primary mb-4">
+        Create Skill
+        </h2>
         <div className="flex w-full items-center justify-center">
           <Label
             htmlFor="dropzone-file"
@@ -85,7 +90,7 @@ function BlogFormComponent() {
         <div className="mb-4">
           <label className="block text-color-primary font-medium">Title</label>
           <input
-            value={formBlog.title}
+            value={formSkill.title}
             onChange={handleChange}
             name="title"
             type="text"
@@ -99,7 +104,7 @@ function BlogFormComponent() {
           </label>
           <input
             onChange={handleChange}
-            value={formBlog.description}
+            value={formSkill.description}
             name="description"
             type="text"
             className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
@@ -108,7 +113,7 @@ function BlogFormComponent() {
         </div>
         <button
           type="submit"
-          className="w-full bg-color-secondary text-white p-2 rounded hover:bg-opacity-90"
+          className="w-full bg-color-orange text-white p-2 rounded hover:bg-opacity-90"
           disabled={isLoading}
         >
           {isLoading ? "Submitting..." : "Create Blog"}
@@ -118,4 +123,4 @@ function BlogFormComponent() {
   );
 }
 
-export default BlogFormComponent;
+export default SkillForm;

@@ -7,6 +7,8 @@ import { contactApi } from "./services/contactSlice";
 import { blogApi } from "./services/blogSlice";
 import { weApi } from "./services/weSlice";
 import { fileUploadApi } from "./services/fileUploadApi";
+import { skillApi } from "./services/skillSlice";
+import { projectApi } from "./services/projectSlice";
 
 export const store = configureStore({
   reducer: {
@@ -16,6 +18,8 @@ export const store = configureStore({
     [blogApi.reducerPath]: contactApi.reducer,
     [weApi.reducerPath]: weApi.reducer,
     [fileUploadApi.reducerPath]: fileUploadApi.reducer,
+    [skillApi.reducerPath]:skillApi.reducer,
+    [projectApi.reducerPath]:projectApi.reducer
   },
 
   middleware: (getDefaultMiddleware) =>
@@ -25,7 +29,9 @@ export const store = configureStore({
       contactApi.middleware,
       blogApi.middleware,
       weApi.middleware,
-      fileUploadApi.middleware
+      fileUploadApi.middleware,
+      skillApi.middleware,
+      projectApi.middleware
     ),
 });
 
