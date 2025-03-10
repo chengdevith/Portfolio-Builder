@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import { useAddWorkExperienceMutation, useGetWorkExperienceQuery } from "../../redux/services/weSlice";
+import { useAddWorkExperienceMutation } from "../../redux/services/weSlice";
 
 function WeForm() {
-    const {data:work,isLoading:myloadng} = useGetWorkExperienceQuery()
-    console.log(work)
   const [addNewWorkExperience, { isLoading, isError }] =
     useAddWorkExperienceMutation();
   const [weForm, setWeForm] = useState({
@@ -142,7 +140,7 @@ function WeForm() {
 
       <button
         type="submit"
-        className="w-full bg-color-secondary text-white p-2 rounded hover:bg-opacity-90"
+        className="w-full !bg-color-secondary !text-white p-2 rounded hover:!bg-opacity-90"
         disabled={isLoading}
       >
         {isLoading ? "Submitting..." : "Create Work Experience"}

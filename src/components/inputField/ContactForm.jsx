@@ -82,7 +82,7 @@ function ContactForm() {
       </div>
       <button
         type="submit"
-        className="w-full bg-color-secondary text-white p-2 rounded hover:bg-opacity-90"
+        className="w-full !bg-color-secondary !text-white p-2 rounded hover:!bg-opacity-90"
         disabled={isLoading}
       >
         {isLoading ? "submiting..." : "Create Contact"}

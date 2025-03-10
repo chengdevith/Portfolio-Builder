@@ -1,8 +1,13 @@
 import React from "react";
 import { ImEye } from "react-icons/im";
 import { FaRegEdit } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 function TemplateCardComponent({ id, image, title, category }) {
+  const navigate = useNavigate();
+  const hanldeClick = ()=>{
+    navigate('/p1')
+  }
   return (
     <div className=" relative cardItem group hover:scale-105 overflow-hidden duration-300 w-full mb-10">
       <div className="border border-gray-300 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 bg-gray-200 overflow-hidden">
@@ -18,7 +23,7 @@ function TemplateCardComponent({ id, image, title, category }) {
 
           {/* Hover Buttons */}
           <div className="absolute inset-0 flex items-center justify-center gap-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/20">
-            <button className="w-16 md:w-20 h-8 flex items-center justify-center bg-purple-500 hover:bg-color-secondary text-white text-xl rounded-xl shadow-lg hover:scale-110 transition-transform">
+            <button onClick={hanldeClick} className="w-16 md:w-20 h-8 flex items-center justify-center bg-purple-500 hover:bg-color-secondary text-white text-xl rounded-xl shadow-lg hover:scale-110 transition-transform">
               <ImEye />
             </button>
             <button className="w-16 md:w-20 h-8 flex items-center justify-center bg-purple-500 hover:bg-color-secondary text-white text-xl rounded-xl shadow-lg hover:scale-110 transition-transform">

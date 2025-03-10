@@ -9,6 +9,7 @@ import { weApi } from "./services/weSlice";
 import { fileUploadApi } from "./services/fileUploadApi";
 import { skillApi } from "./services/skillSlice";
 import { projectApi } from "./services/projectSlice";
+import { serviceApi } from "./services/serviceSlice";
 
 export const store = configureStore({
   reducer: {
@@ -19,7 +20,8 @@ export const store = configureStore({
     [weApi.reducerPath]: weApi.reducer,
     [fileUploadApi.reducerPath]: fileUploadApi.reducer,
     [skillApi.reducerPath]:skillApi.reducer,
-    [projectApi.reducerPath]:projectApi.reducer
+    [projectApi.reducerPath]:projectApi.reducer,
+    [serviceApi.reducerPath]:serviceApi.reducer
   },
 
   middleware: (getDefaultMiddleware) =>
@@ -31,7 +33,8 @@ export const store = configureStore({
       weApi.middleware,
       fileUploadApi.middleware,
       skillApi.middleware,
-      projectApi.middleware
+      projectApi.middleware,
+      serviceApi.middleware
     ),
 });
 

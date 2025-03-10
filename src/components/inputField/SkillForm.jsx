@@ -53,7 +53,7 @@ function SkillForm() {
         </h2>
         <div className="flex w-full items-center justify-center">
           <Label
-            htmlFor="dropzone-file"
+            htmlFor="skill-file"
             className="flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600"
           >
             <div className="flex flex-col items-center justify-center pb-6 pt-5">
@@ -81,7 +81,7 @@ function SkillForm() {
               </p>
             </div>
             <FileInput
-              id="dropzone-file"
+              id="skill-file"
               className="hidden"
               onChange={handleFileChange}
             />
@@ -113,7 +113,7 @@ function SkillForm() {
         </div>
         <button
           type="submit"
-          className="w-full bg-color-orange text-white p-2 rounded hover:bg-opacity-90"
+          className="w-full !bg-color-secondary !text-white p-2 rounded hover:!bg-opacity-90"
           disabled={isLoading}
         >
           {isLoading ? "Submitting..." : "Create Blog"}

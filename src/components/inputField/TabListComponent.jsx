@@ -5,6 +5,7 @@ import SkillForm from "./SkillForm";
 import WeForm from "./WeForm";
 import ContactForm from "./ContactForm";
 import ProjectForm from "../inputField/ProjectForm"
+import ServiceForm from "../inputField/ServiceForm"
 export function TabListComponent() {
   return (
     <div className="overflow-x-auto">
@@ -70,6 +71,9 @@ export function TabListComponent() {
         </Tabs.Item>
         <Tabs.Item title="Project">
             <ProjectForm/>
+        </Tabs.Item>
+        <Tabs.Item title="Service">
+            <ServiceForm/>
         </Tabs.Item>
       </Tabs>
     </div>

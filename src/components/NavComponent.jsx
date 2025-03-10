@@ -7,6 +7,7 @@ import {
   NavbarLink,
   NavbarToggle,
 } from "flowbite-react";
+import LogoWithName from "../assets/Logo_images/LogoWithName.png";
 import DropDownProfile from "./DropDownProfile";
 
 const NavComponent = () => {
@@ -22,17 +23,14 @@ const NavComponent = () => {
     <Navbar
       fluid
       rounded
-      className="lg:!px-[150px] shadow-lg shadow-purple-200 sticky top-0 z-20"
+      className="lg:!px-[150px] shadow-lg sticky top-0 z-20 bg-transparent backdrop-blur-md"
     >
       <NavbarBrand href="/">
         <img
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQltIAHUYT6u7GKhj-UIX_fU1Pf0sySCFH_aw&s"
-          className="mr-3 h-6 sm:h-9"
+          src={LogoWithName}
+          className="mr-3 h-12 sm:h-14" // Increased from h-6 to h-10 and sm:h-9 to sm:h-12
           alt="Flowbite React Logo"
         />
-        <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white text-color-primary">
-          Portify
-        </span>
       </NavbarBrand>
       <div className="flex md:order-2 gap-4">
         <Button className="!bg-color-primary hover:!bg-color-secondary">
