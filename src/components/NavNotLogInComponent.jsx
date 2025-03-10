@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import {
   Button,
@@ -13,48 +12,18 @@ import LogoWithName from "../assets/Logo_images/LogoWithName.png";
 
 const NavNotLogInComponent = () => {
   const location = useLocation();
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState("/");
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 0) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
-  
-      const sections = document.querySelectorAll("section");
-      console.log("Sections found:", sections.length); // Verify sections are detected
-      const scrollPosition = window.scrollY + 80;
-  
-      sections.forEach((section, index) => {
-        const top = section.offsetTop;
-        const height = section.offsetHeight;
-        console.log(`Section ${index}: Top=${top}, Height=${height}, Scroll=${scrollPosition}`);
-        if (scrollPosition >= top && scrollPosition < top + height) {
-          setActiveSection(navLinks[index]);
-        }
-      });
-    };
-  
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   const getActiveClass = (path) => {
-    return activeSection === path
-      ? "border-b-2 border-color-primary text-color-primary"
-      : "text-gray-500 hover:text-color-primary";
+    return location.pathname === path
+      ? "border-b-2 border-color-primary text-color-primary" // Active state
+      : "text-gray-500 hover:text-color-primary"; // Default state
   };
 
   return (
     <Navbar
       fluid
       rounded
-      className={`lg:!px-[150px] sticky top-0 z-20 bg-transparent backdrop-blur-md transition-all duration-300 ${
-        isScrolled ? "border-b border-gray-300" : ""
-      }`}
+      className="lg:!px-[150px] sticky top-0 z-20 bg-transparent backdrop-blur-md"
     >
       <NavbarBrand href="/">
         <img
