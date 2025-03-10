@@ -11,8 +11,8 @@ const FeatureCardComponent = ({id, image, title, description }) => {
         />
       </div>
       <div>
-        <h5 className="mb-3">{title}</h5>
-        <p className="text-[16px] line-clamp-2">{description}</p>
+        <h5 className="mb-3 font-bold">{title}</h5>
+        <p className="text-[16px] line-clamp-2 text-color-description">{description}</p>
       </div>
     </div>
   );

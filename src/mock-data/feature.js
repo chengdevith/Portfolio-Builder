@@ -1,6 +1,7 @@
 import friendly from "../assets/homeImage/friendly_img.png";
 import template from "../assets/homeImage/template.png";
 import saveTime from "../assets/homeImage/save_time.png";
+import { style } from "framer-motion/client";
 
 const FeatureData = [
   {
@@ -13,7 +14,7 @@ const FeatureData = [
     id: 2,
     image: "https://cdn-icons-png.flaticon.com/512/9709/9709605.png",
     title: "Stunning Templates",
-    description: "Pick gorgeous designs to highlight your work.",
+    description:"Pick gorgeous designs to highlight your work.",
   },
   {
     id: 3,

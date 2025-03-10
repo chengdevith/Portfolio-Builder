@@ -58,17 +58,23 @@ function App() {
     </section>
       <section className=" each-section  text-center">
         <div>
-          <TitleSectionComponen title={"Design your online portfolio"} />
+          <div className="text-[36px] font-bold">
+          <TitleSectionComponen title={"Design your online portfolio"}  
+          />
+          </div>
+        
           <div className="flex flex-col md:flex-row  gap-3 lg:gap-10 justify-center items-center">
             {features.map((e) => {
               return (
                 <FeatureCardComponent
-                  key={e.id}
-                  id={e.id}
-                  image={e.image}
-                  title={e.title}
-                  description={e.description}
+                 key={e.id}
+                 id={e.id}
+                 image={e.image}
+                 title={e.title}
+                 description={e.description}
+                
                 />
+
               );
             })}
           </div>
@@ -82,7 +88,7 @@ function App() {
             "Choose from 900+ customizable templates to start building your free portfolio website and present your work the way it's meant to be seen."
           }
         />
-        <div className="max-w-screen-xl m-auto cardList grid xl:grid-cols-3 sm:grid-cols-2 gap-10">
+        <div className="max-w-screen-xl m-auto cardList grid xl:grid-cols-3 sm:grid-cols-2  gap-x-10">
           {CardList.slice(0,6).map((e) => {
             return (
               <TemplateCardComponent
@@ -111,7 +117,7 @@ function App() {
             "Because your portfolio deserves to be as fabulous as you are!"
           }
         />
-        <div className="flex flex-col md:flex-row  gap-3 lg:gap-10 justify-center items-center ">
+        <div className="flex flex-col md:flex-row  gap-3 lg:gap-10 justify-center items-center text-bold​ ">
           {chooseUses.map((e) => {
             return (
               <ChooseUsCard
