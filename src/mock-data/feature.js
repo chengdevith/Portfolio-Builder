@@ -12,7 +12,7 @@ const FeatureData = [
   },
   {
     id: 2,
-    image: "https://cdn-icons-png.flaticon.com/512/9709/9709605.png",
+    image: "https://img.freepik.com/premium-vector/star-icon_874723-5.jpg",
     title: "Stunning Templates",
     description:"Pick gorgeous designs to highlight your work.",
   },
