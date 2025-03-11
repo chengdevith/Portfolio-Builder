@@ -60,7 +60,7 @@ export default function Login() {
       <div className="relative w-[1100px] h-[750px] bg-white shadow-2xl rounded-3xl overflow-hidden">
         {/* Forms Container */}
         <div
-          className={`absolute w-full h-full flex transition-transform duration-700 `}
+          className={`absolute w-full min-h-full flex transition-transform duration-700 `}
         >
           {/* Sign In Form */}
           <form

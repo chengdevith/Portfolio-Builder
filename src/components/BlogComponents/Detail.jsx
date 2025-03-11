@@ -12,7 +12,7 @@ const Details = () => {
   };
 
   return (
-    <section className="w-full md:min-h-screen bg-gradient-to-r from-purple-300 to-purple-600 px-4 md:px-10 lg:px-36 py-16 flex flex-col md:flex-row items-center justify-center mb-10">
+    <section className="w-full md:min-h-screen bg-gradient-to-r from-purple-300 to-purple-600 px-4 md:px-10 lg:px-36 py-16 flex flex-col md:flex-row items-center justify-center mt-10 mb-20">
       {/* Left Content */}
       <div className="w-full md:w-1/2 text-black text-center md:text-left">
         <h2 className="text-3xl md:text-5xl font-bold mb-6">What is PortfolioBuilder?</h2>
