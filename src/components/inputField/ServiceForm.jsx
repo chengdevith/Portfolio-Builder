@@ -1,22 +1,23 @@
 import { useState } from "react";
 import { FileInput, Label } from "flowbite-react";
-import { useAddBlogMutation } from "../../redux/services/blogSlice";
 import { useGetFileQuery, useUploadFileMutation } from "../../redux/services/fileUploadApi";
+import { useAddServiceMutation } from "../../redux/services/serviceSlice";
 
-function BlogFormComponent() {
+function ServiceForm() {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [uploadFile] = useUploadFileMutation();
-  const [addNewBlog, { isLoading, isError }] = useAddBlogMutation();
+  const [addNewService, { isLoading, isError }] = useAddServiceMutation();
   const { data: image } = useGetFileQuery();
-  const [formBlog, setFormBlog] = useState({
+  const [formService, setFormService] = useState({
     title: "",
     description: "",
     images: [],
   });
 
   const handleChange = (e) => {
-    setFormBlog({ ...formBlog, [e.target.name]: e.target.value });
+    setFormService({ ...formService, [e.target.name]: e.target.value });
   };
+
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
     console.log(files);
@@ -33,7 +34,7 @@ function BlogFormComponent() {
       const resp = await uploadFile(formData).unwrap();
       console.log(resp.url)
       const url = resp.url;
-      const response = await addNewBlog({ ...formBlog, images: [url] }).unwrap();
+      const response = await addNewService({ ...formService, images: [url] }).unwrap();
       console.log(response);
     } catch (error) {
       alert(error);
@@ -46,9 +47,12 @@ function BlogFormComponent() {
         className="max-w-md mx-auto p-6 bg-white shadow-lg rounded-lg"
         onSubmit={handleSubmit}
       >
+        <h2 className="text-2xl font-bold text-color-primary mb-4">
+        Create Service
+        </h2>
         <div className="flex w-full items-center justify-center">
           <Label
-            htmlFor="dropzone-file"
+            htmlFor="service-file"
             className="flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600"
           >
             <div className="flex flex-col items-center justify-center pb-6 pt-5">
@@ -76,7 +80,7 @@ function BlogFormComponent() {
               </p>
             </div>
             <FileInput
-              id="dropzone-file"
+              id="service-file"
               className="hidden"
               onChange={handleFileChange}
             />
@@ -85,7 +89,7 @@ function BlogFormComponent() {
         <div className="mb-4">
           <label className="block text-color-primary font-medium">Title</label>
           <input
-            value={formBlog.title}
+            value={formService.title}
             onChange={handleChange}
             name="title"
             type="text"
@@ -99,7 +103,7 @@ function BlogFormComponent() {
           </label>
           <input
             onChange={handleChange}
-            value={formBlog.description}
+            value={formService.description}
             name="description"
             type="text"
             className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
@@ -108,7 +112,7 @@ function BlogFormComponent() {
         </div>
         <button
           type="submit"
-          className="w-full bg-color-secondary text-white p-2 rounded hover:bg-opacity-90"
+          className="w-full !bg-color-secondary !text-white p-2 rounded hover:!bg-opacity-90"
           disabled={isLoading}
         >
           {isLoading ? "Submitting..." : "Create Blog"}
@@ -118,4 +122,4 @@ function BlogFormComponent() {
   );
 }
 
-export default BlogFormComponent;
+export default ServiceForm;
