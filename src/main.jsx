@@ -18,7 +18,7 @@ import ResetPassword from "./pages/auth/ResetPassword.jsx";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import FolioComponents1 from "./components/portfolioCompoenets/Folio1/FolioComponents1.jsx";
 import FolioComponents2 from "./components/portfolioCompoenets/Folio2/FolioComponents2.jsx";
-
+import UserDetailComponents from "./components/UserDetailComponents.jsx";
 createRoot(document.getElementById("root")).render(
   <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
     <Provider store={store}>
@@ -41,6 +41,7 @@ createRoot(document.getElementById("root")).render(
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/p1" element={<FolioComponents1/>} />
             <Route path="/p2" element={<FolioComponents2/>} />
+            <Route path="/user-detail" element={<UserDetailComponents/>} />
           </Routes>
         </StrictMode>
       </BrowserRouter>
