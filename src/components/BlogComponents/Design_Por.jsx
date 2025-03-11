@@ -1,11 +1,11 @@
 export default function ComingSoonBanner() {
   return (
-    <div className="relative w-full py-10 text-center bg-red-200 overflow-hidden px-2 md:px-10 lg:px-36 pb-10 lg:pb-20 my-10">
+    <div className="relative w-full py-10 text-center bg-red-200 overflow-hidden px-2 md:px-10 lg:px-36 pb-10 lg:pb-20 my-10 mt-10">
       {/* Background Gradient & Effect */}
-      <div className="absolute inset-0 bg-gradient-to-r from-gray-200 via-white to-gray-200 opacity-70"></div>
+      <div className="shadow-lg shadow-purple-200 absolute inset-0 bg-gradient-to-r from-gray-200 via-white to-gray-200 opacity-70"></div>
   {/* Adding margin-top and margin-bottom for the gap */}
-  <div className="absolute inset-0 flex justify-center items-center">
-    <h1 className="text-[40px] font-bold text-color-primary animate-scroll">
+  <div className=" rounded-lg absolute inset-0 flex justify-center items-center">
+    <h1 className="  text-[40px] font-bold text-color-primary animate-scroll">
       DESIGN COOL PORTFOLIO IS COMING SOON
     </h1>
   </div>
