@@ -6,10 +6,12 @@ import { Button } from "flowbite-react";
 import line from "./assets/homeImage/line.png";
 import lineBottom from "./assets/homeImage/line-bottom.png";
 import FaqComponent from "./components/homeComponents/FaqComponent";
+import FilterComponent from "./components/TemplateComponents/FilterComponent";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import TitleSectionComponen from "./components/homeComponents/TitleSectionComponen";
 import feature from "./mock-data/feature";
 import chooseUse from "./mock-data/chooseUse";
+import Template from "./pages/Template";
 import TemplateCardComponent from "./components/TemplateComponents/TemplateCardComponent";
 import CardList from "./mock-data/cardList";
 import Small_pices from "./assets/GIF_images/Small_pices.gif"
@@ -199,6 +201,7 @@ function App() {
           <FaqComponent />
         </div>
       </section>
+
     </>
   );
 }

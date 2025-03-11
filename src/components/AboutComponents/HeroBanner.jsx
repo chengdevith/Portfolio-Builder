@@ -10,12 +10,12 @@ export default function HeroBanner() {
                 {/* Left : Text Content */}
                 <div className="text-left">
                     <h2 className="text-4xl font-bold text-color-primary leading-10">
-                        Crafting Digital <br/> Experiences with Passion
+                        Crafting Digital <br/>Experiences with Passion
                     </h2>
-                    <p className="description mt-9">
+                    <p className="description my-10">
                         Transforming ideas into elegant solutions through creative design and innovative development
                     </p>
-                    <div className="flex space-x-8 mt-9">
+                    <div className="flex space-x-8 mt-15">
                         <div className='shadow-lg shadow-purple-200 p-6 rounded-lg text-center'>
                             <h3 className="text-lg font-semibold text-color-primary">5+</h3>
                             <p className="text-gray-500">Experiences</p>
