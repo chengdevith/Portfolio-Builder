@@ -7,9 +7,11 @@ import "aos/dist/aos.css"; // Import AOS styles
 import AOS from "aos";
 import { useGetRegisterMutation } from "../../redux/services/authSlice";
 import { useGoogleLogin } from "@react-oauth/google";
+
 export default function SignUp() {
   const navigate = useNavigate();
   const [getRegister, { isLoading, error }] = useGetRegisterMutation();
+  
   useEffect(() => {
     AOS.init({
       duration: 1000, // Animation duration in milliseconds
@@ -27,11 +29,11 @@ export default function SignUp() {
             {
               headers: {
                 Authorization: `Bearer ${accessToken}`,
-                Accept: "applicatoin/json",
+                Accept: "application/json",
               },
             }
           ).then((data) => data.json());
-          console.log("userData :>> ", userData);
+          
           if (userData) {
             try {
               const submitValues = {
@@ -58,6 +60,7 @@ export default function SignUp() {
     },
     onError: (error) => console.log("error :>> ", error),
   });
+  
   const formik = useFormik({
     initialValues: {
       username: "",
@@ -92,114 +95,72 @@ export default function SignUp() {
       }
     },
   });
+
   return (
     <div
-      data-aos="zoom-in"
-      className="flex items-center justify-center min-h-screen bg-gray-100"
-    >
-      <div className="relative w-[1100px] h-[750px] bg-white shadow-2xl rounded-3xl overflow-hidden">
-        {/* Forms Container */}
-        <div
-          className={`absolute w-full h-full flex transition-transform duration-700 `}
+    data-aos="zoom-in"
+    className="flex items-center justify-center min-h-screen bg-gray-100 p-4 mt-20 mb-20"
+  >
+    <div className="relative w-full max-w-2xl h-[600px] bg-white shadow-2xl rounded-3xl overflow-hidden flex flex-col md:flex-row">
+      <form
+        onSubmit={formik.handleSubmit}
+        className="w-full md:w-1/2 flex flex-col items-center justify-center px-8 py-6"
+      >
+        <h2 className="text-2xl font-bold mb-4">Create Account</h2>
+        <input
+          type="text"
+          name="username"
+          placeholder="Username"
+          className="w-full px-4 py-3 border rounded-lg text-lg mb-3"
+          {...formik.getFieldProps("username")}
+        />
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          className="w-full px-4 py-3 border rounded-lg text-lg mb-3"
+          {...formik.getFieldProps("email")}
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          className="w-full px-4 py-3 border rounded-lg text-lg mb-3"
+          {...formik.getFieldProps("password")}
+        />
+        <input
+          type="password"
+          name="confirmPassword"
+          placeholder="Confirm Password"
+          className="w-full px-4 py-3 border rounded-lg text-lg mb-3"
+          {...formik.getFieldProps("confirmPassword")}
+        />
+        <button
+          type="submit"
+          className="w-full py-3 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg text-lg transition-colors"
         >
-          {/* Sign Up Form */}
-          <form
-            onSubmit={formik.handleSubmit}
-            className="w-1/2 flex flex-col items-center justify-center px-16"
-          >
-            <h2 className="text-4xl font-bold mb-8">Create Account</h2>
-            <input
-              type="text"
-              name="username"
-              id="username"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.username}
-              required
-              placeholder="Username"
-              className="w-full px-6 py-4 mb-6 border rounded-lg text-xl"
-            />
-            {formik.touched.username && formik.errors.username ? (
-              <div className="text-red-500 text-left">
-                {formik.errors.username}
-              </div>
-            ) : null}
-            <input
-              type="email"
-              name="email"
-              id="email"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.email}
-              required
-              placeholder="Email"
-              className="w-full px-6 py-4 mb-6 border rounded-lg text-xl"
-            />
-            {formik.touched.email && formik.errors.email ? (
-              <div className="text-red-500 text-left">
-                {formik.errors.email}
-              </div>
-            ) : null}
-            <input
-              type="password"
-              name="password"
-              id="password"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.password}
-              required
-              placeholder="Password"
-              className="w-full px-6 py-4 mb-4 border rounded-lg text-xl"
-            />
-            {formik.touched.password && formik.errors.password ? (
-              <div className="text-red-500">{formik.errors.password}</div>
-            ) : null}
-            <input
-              type="password"
-              name="confirmPassword"
-              id="confirmPassword"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.confirmPassword}
-              required
-              placeholder="Confirm Password"
-              className="w-full px-6 py-4 mb-4 border rounded-lg text-xl"
-            />
-            {formik.touched.confirmPassword && formik.errors.confirmPassword ? (
-              <div className="text-red-500">
-                {formik.errors.confirmPassword}
-              </div>
-            ) : null}
-            <button
-              type="submit"
-              className="w-full py-4 !bg-purple-600 hover:!bg-purple-700 text-white font-semibold rounded-lg text-xl transition-colors"
-            >
-              Sign Up
-            </button>
-            <span className="text-gray-500 mt-8 text-base">
-              Or sign up with
-            </span>
-            <button
-              onClick={handleLoginWithGoogle}
-              className="flex items-center gap-4 px-10 py-4 mt-6 border rounded-lg hover:bg-gray-50 transition-colors"
-            >
-              <FcGoogle className="text-4xl" />{" "}
-              <span className="text-xl">Google</span>
-            </button>
-          </form>
-          <div
-            className={`absolute top-0 right-0 h-full w-1/2 bg-gradient-to-r from-purple-500 to-indigo-700 text-white flex flex-col items-center justify-center text-center transition-transform duration-700 shadow-xl`}
-          >
-            <h2 className="text-4xl font-bold mb-6">Hello, Friend!</h2>
-            <p className="mb-8 text-xl px-8">
-              Register now and embark on your extraordinary journey
-            </p>
-            <button className="py-4 px-10 border border-white rounded-lg hover:bg-white hover:bg-opacity-20 text-xl transition-colors">
-              <Link to={"/login"}>Login</Link>
-            </button>
-          </div>
-        </div>
+          Sign Up
+        </button>
+        <span className="text-gray-500 mt-4 text-sm">Or sign up with</span>
+        <button
+          onClick={handleLoginWithGoogle}
+          className="flex items-center gap-4 px-6 py-3 mt-4 border rounded-lg hover:bg-gray-50 transition-colors"
+        >
+          <FcGoogle className="text-2xl" /> <span className="text-lg">Google</span>
+        </button>
+      </form>
+      <div className="hidden md:flex md:w-1/2 bg-gradient-to-r from-purple-500 to-indigo-700 text-white flex-col items-center justify-center text-center p-4">
+        <h2 className="text-2xl font-bold mb-3">Hello, Friend!</h2>
+        <p className="mb-4 text-lg">Register now and embark on your extraordinary journey</p>
+        <Link
+          to="/login"
+          className="py-3 px-6 border border-white rounded-lg hover:bg-white hover:bg-opacity-20 text-lg transition-colors"
+        >
+          Login
+        </Link>
       </div>
     </div>
+  </div>
+  
   );
 }

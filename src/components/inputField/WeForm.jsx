@@ -17,7 +17,7 @@ function WeForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await addNewWorkExperience(weForm).unwrap();
+    const response = await addNewWorkExperience(weForm).unwrap();
       console.log(response);
     } catch (error) {
       console.log(error);
