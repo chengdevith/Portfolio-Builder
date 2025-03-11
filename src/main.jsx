@@ -19,7 +19,6 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import FolioComponents1 from "./components/portfolioCompoenets/Folio1/FolioComponents1.jsx";
 import FolioComponents2 from "./components/portfolioCompoenets/Folio2/FolioComponents2.jsx";
 import UserDetailComponents from "./components/UserDetailComponents.jsx";
-
 createRoot(document.getElementById("root")).render(
   <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
     <Provider store={store}>
