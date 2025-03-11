@@ -20,9 +20,9 @@ const FilterComponent = () => {
       (searchTerm
         ? item.title.toLowerCase().includes(searchTerm.toLowerCase())
         : true) &&
-      (searchTerm
-        ? item.category.toLowerCase().includes(searchTerm.toLowerCase())
-        : true)
+      (searchTerm ? item.category.toLowerCase().includes(searchTerm.toLowerCase()) : true)&&
+      (searchTerm ? item.type.toLowerCase().includes(searchTerm.toLowerCase()) : true) 
+
     );
   });
 
