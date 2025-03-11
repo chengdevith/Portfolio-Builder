@@ -69,7 +69,7 @@ function App() {
                   id={e.id}
                   image={e.image}
                   title={e.title}
-                  description={e.description}
+                  description={e.description }
                 />
               );
             })}

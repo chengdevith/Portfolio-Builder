@@ -7,7 +7,7 @@ const FeatureData = [
     id: 1,
     image: "https://cdn-icons-png.flaticon.com/512/9709/9709605.png",
     title: "Effortless & Free Creation",
-    description: "Craft a pro portfolio fast—no coding, totally free!",
+    description:"Craft a pro portfolio fast—no coding, totally free!",
   },
   {
     id: 2,

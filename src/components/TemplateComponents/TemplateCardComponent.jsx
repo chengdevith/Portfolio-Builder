@@ -18,11 +18,8 @@ function TemplateCardComponent({ id, image, title, category }) {
 
           {/* Hover Buttons */}
           <div className="absolute inset-0 flex items-center justify-center gap-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/20">
-            <button className="w-16 md:w-20 h-8 flex items-center justify-center bg-purple-500 hover:bg-color-secondary text-white text-xl rounded-xl shadow-lg hover:scale-110 transition-transform">
-              <ImEye />
-            </button>
-            <button className="w-16 md:w-20 h-8 flex items-center justify-center bg-purple-500 hover:bg-color-secondary text-white text-xl rounded-xl shadow-lg hover:scale-110 transition-transform">
-              <FaRegEdit />
+            <button className="w-14 h-14 flex items-center justify-center bg-white hover:bg-color-secondary text-white text-xl rounded-full border-2 border-purple-400 hover:scale-110 transition-transform">
+              <ImEye className="text-color-primary text-2xl" />
             </button>
           </div>
         </div>
