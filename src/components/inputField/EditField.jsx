@@ -1,8 +1,12 @@
+import { useState } from "react";
+import { HiUserCircle, HiClipboardList } from "react-icons/hi";
+import { MdDashboard } from "react-icons/md";
+import { FaTools } from "react-icons/fa";
+import { IoMdContact } from "react-icons/io";
 import { FileInput, Label, Tabs } from "flowbite-react";
 import ContactForm from "./ContactForm";
 import ProjectForm from "../inputField/ProjectForm";
 import ServiceForm from "../inputField/ServiceForm";
-import { useState } from "react";
 import { useAddSkillMutation } from "../../redux/services/skillSlice";
 import {
   useGetFileQuery,
@@ -15,7 +19,8 @@ import {
 import { useAddProjectMutation } from "../../redux/services/projectSlice";
 import { useAddServiceMutation } from "../../redux/services/serviceSlice";
 import FolioComponents3 from "../portfolioCompoenets/FolioComponents3";
-export function TabListComponent() {
+export function EditField() {
+  const [activeTab, setActiveTab] = useState("personal");
   //api
   const [addNewSkill, { isLoading, isError }] = useAddSkillMutation();
   const [uploadFile] = useUploadFileMutation();
@@ -54,8 +59,8 @@ export function TabListComponent() {
     project_image: "",
   });
   const [formService, setFormService] = useState({
-    title: "",
-    description: "",
+    service_title: "",
+    service_description: "",
     images: [],
   });
 
@@ -77,7 +82,8 @@ export function TabListComponent() {
       formData.append("file", file);
     });
     try {
-      await uploadFile(formData).unwrap();
+      const resp = await uploadFile(formData).unwrap();
+      const url = resp.url;
       await addNewSkill({
         ...formSkill,
         images: [url],
@@ -100,59 +106,70 @@ export function TabListComponent() {
   };
   return (
     <section className="grid grid-cols-6 ">
-      <section className="overflow-x-auto col-span-2">
-        <Tabs aria-label="Full width tabs" variant="fullWidth">
-          <Tabs.Item active title="Personal">
-            <div className="mb-4">
-              <label className="block font-medium" htmlFor="full-name">
-                Hired Date
-              </label>
-              <input
-                id="full-name"
-                name="fullname"
-                type="text"
-                className="w-full p-2 border rounded focus:ring-2 focus:ring-[#875AFA]"
-                required
-              />
+      <section className="max-w-4xl mx-auto p-6 bg-white/80 backdrop-blur-lg shadow-lg rounded-2xl col-span-2">
+        {/* Tab Header */}
+        <div className="flex flex-wrap items-center justify-center gap-4 bg-gray-100 p-3 rounded-xl">
+          {[
+            { id: "personal", icon: <HiUserCircle />, label: "Personal" },
+            { id: "skill", icon: <MdDashboard />, label: "Skill" },
+            { id: "work", icon: <HiClipboardList />, label: "Work" },
+            { id: "contacts", icon: <IoMdContact />, label: "Contacts" },
+            { id: "projects", icon: <MdDashboard />, label: "Projects" },
+            { id: "services", icon: <FaTools />, label: "Services" },
+          ].map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-300
+              ${
+                activeTab === tab.id
+                  ? "bg-color-primary text-white shadow-md"
+                  : "bg-gray-200 text-gray-600 hover:bg-indigo-100"
+              }`}
+            >
+              <span className="text-lg">{tab.icon}</span>
+              <span className="hidden sm:inline">{tab.label}</span>
+            </button>
+          ))}
+        </div>
+
+        {/* Tab Content */}
+        <div className="mt-6 p-4">
+          {activeTab === "personal" && (
+            <div className="grid gap-4">
+              <div>
+                <label className="block font-medium text-gray-700">
+                  Hired Date
+                </label>
+                <input
+                  type="text"
+                  className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                />
+              </div>
+              <div>
+                <label className="block font-medium text-gray-700">About</label>
+                <textarea className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-indigo-500" />
+              </div>
+              <div>
+                <label className="block font-medium text-gray-700">Email</label>
+                <input
+                  type="email"
+                  className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                />
+              </div>
+              <div>
+                <label className="block font-medium text-gray-700">
+                  Phone Number
+                </label>
+                <input
+                  type="text"
+                  className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                />
+              </div>
             </div>
-            <div className="mb-4">
-              <label className="block font-medium" htmlFor="about">
-                About
-              </label>
-              <textarea
-                id="about"
-                name="about"
-                type="text"
-                className="w-full p-2 border rounded focus:ring-2 focus:ring-[#875AFA]"
-                required
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block font-medium" htmlFor="email">
-                email
-              </label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                className="w-full p-2 border rounded focus:ring-2 focus:ring-[#875AFA]"
-                required
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block font-medium" htmlFor="phone">
-                Phone NUmber
-              </label>
-              <input
-                id="phone"
-                name="phone"
-                type="email"
-                className="w-full p-2 border rounded focus:ring-2 focus:ring-[#875AFA]"
-                required
-              />
-            </div>
-          </Tabs.Item>
-          <Tabs.Item title="Skill">
+          )}
+
+          {activeTab === "skill" && (
             <form
               className="max-w-md mx-auto p-6 bg-white shadow-lg rounded-lg"
               onSubmit={handleSubmit}
@@ -230,8 +247,8 @@ export function TabListComponent() {
                 {isLoading ? "Submitting..." : "Create Blog"}
               </button>
             </form>
-          </Tabs.Item>
-          <Tabs.Item title="Work Experience">
+          )}
+          {activeTab === "work" && (
             <form
               className="max-w-md mx-auto p-6 bg-white shadow-lg rounded-lg"
               onSubmit={handleSubmit}
@@ -353,8 +370,8 @@ export function TabListComponent() {
                 {isLoading ? "Submitting..." : "Create Work Experience"}
               </button>
             </form>
-          </Tabs.Item>
-          <Tabs.Item title="Contacts">
+          )}
+          {activeTab === "contacts" && (
             <form
               className="max-w-md mx-auto p-6 bg-white shadow-lg rounded-lg"
               onSubmit={handleSubmit}
@@ -434,8 +451,8 @@ export function TabListComponent() {
                 {contactLoding ? "submiting..." : "Create Contact"}
               </button>
             </form>
-          </Tabs.Item>
-          <Tabs.Item title="Project">
+          )}
+          {activeTab === "projects" && (
             <form
               className="max-w-md mx-auto p-6 bg-white shadow-lg rounded-lg"
               onSubmit={handleSubmit}
@@ -526,8 +543,8 @@ export function TabListComponent() {
                 {projectLoading ? "Submitting..." : "Create Project"}
               </button>
             </form>
-          </Tabs.Item>
-          <Tabs.Item title="Service">
+          )}
+          {activeTab === "services" && (
             <form
               className="max-w-md mx-auto p-6 bg-white shadow-lg rounded-lg"
               onSubmit={handleSubmit}
@@ -576,9 +593,9 @@ export function TabListComponent() {
                   Title
                 </label>
                 <input
-                  value={formService.title}
+                  value={formService.service_title}
                   onChange={handleChange}
-                  name="title"
+                  name="service_title"
                   type="text"
                   className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
                   required
@@ -590,8 +607,8 @@ export function TabListComponent() {
                 </label>
                 <input
                   onChange={handleChange}
-                  value={formService.description}
-                  name="description"
+                  value={formService.service_description}
+                  name="service_description"
                   type="text"
                   className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
                   required
@@ -605,11 +622,23 @@ export function TabListComponent() {
                 {isLoading ? "Submitting..." : "Create Blog"}
               </button>
             </form>
-          </Tabs.Item>
-        </Tabs>
+          )}
+        </div>
       </section>
-      <section className="col-span-4">
-        <FolioComponents3 skillTitle={formSkill.title} skillDes={formSkill.description} />
+      <section className="col-span-4 overflow-y-auto h-screen">
+        <FolioComponents3
+          skillTitle={formSkill.title}
+          skillDes={formSkill.description}
+          job={weForm.job_title}
+          hireDate={weForm.hired_date}
+          jobDes={weForm.job_description}
+          responsibility={weForm.responsibility}
+          achievements={weForm.achievements}
+          projectTitle={formProject.project_title}
+          projectescription={formProject.project_description}
+          serviceTitle={formService.service_title}
+          serviceDescription={formService.service_description}
+        />
       </section>
     </section>
   );

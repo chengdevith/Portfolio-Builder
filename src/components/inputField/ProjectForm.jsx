@@ -34,7 +34,7 @@ function SkillForm() {
       const resp = await uploadFile(formData).unwrap();
       console.log(resp.url)
       const url = resp.url;
-      const response = await addNewProject({ ...formProject, project_image: url }).unwrap();
+      const response = await addNewService({ ...formService, images: [url] }).unwrap();
       console.log(response);
     } catch (error) {
       console.log(error);
