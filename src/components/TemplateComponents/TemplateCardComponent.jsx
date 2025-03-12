@@ -9,8 +9,8 @@ function TemplateCardComponent({ id, image, title, category }) {
     navigate('/p1')
   }
   return (
-    <div className="relative cardItem group hover:scale-105 overflow-hidden duration-300 w-full mb-10">
-    <div className="border border-gray-300 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 overflow-hidden">
+    <div className="relative rounded-lg cardItem group hover:scale-105 overflow-hidden duration-300 w-full mb-1 hover:shadow-purple-500 shadow-xl">
+    <div className="border dark:bg-gray-800 dark:border-gray-700 overflow-hidden ">
       
       {/* Image Container */}
       <div className="relative">
@@ -23,7 +23,7 @@ function TemplateCardComponent({ id, image, title, category }) {
         </a>
   
         {/* Hover Buttons */}
-        <div className="absolute inset-0 flex items-center justify-center gap-3 sm:gap-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/30 p-2">
+        <div className="absolute inset-0 flex items-center justify-center gap-3 sm:gap-5 opacity-0 group-hover:opacity-50 transition-opacity duration-300 bg-black/30 p-2">
           <button 
             onClick={hanldeClick} 
             className=" bg-gradient-to-t from-purple-400 to-white-400  border-color-primary hover:border-color-secondary shadow-lg w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 flex items-center justify-center bg-slate-100  text-color-primary hover:text-color-secondary text-base sm:text-lg md:text-xl hover:scale-110 transition-transform rounded-full"

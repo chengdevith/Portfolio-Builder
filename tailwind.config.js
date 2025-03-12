@@ -17,7 +17,8 @@ module.exports = {
       fontFamily: {
         opensans: ["Open Sans",'sans-serif'],
       },
-      
+     
+    
     },
   },
   plugins: [flowbite.plugin()],
