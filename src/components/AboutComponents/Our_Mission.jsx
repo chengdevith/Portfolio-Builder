@@ -1,30 +1,28 @@
-
-import React from 'react'
-import Mission from '../../assets/GIF_images/Mission.gif';
+import React from "react";
+import Mission from "../../assets/GIF_images/Mission.gif";
 
 export default function Our_Mission() {
   return (
-    <div>
-        <section className=" py-14 px-8 max-w-screen-xl m-auto">
-            <div className="mx-auto grid grid-cols-1 md:grid-cols-2 items-center gap-8">
+    <section className="py-14 px-8 max-w-screen-xl mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-12">
 
-                {/* left :Image */}
-                <div className="flex justify-center ">
-                    <img
-                        src={Mission}
-                        alt="About us"
-                        className="max-w-sm rounded-lg "
-                    />
-                </div>
+        <div className="flex justify-center">
+          <img
+            src={Mission}
+            alt="Our Mission"
+            className="w-full max-w-xs sm:max-w-sm md:max-w-md rounded-lg shadow-md"
+          />
+        </div>
 
-                {/* Right : Text Content */}
-                <div className="text-left">
-                    <h2 className="text-4xl font-bold text-color-secondary flex justify-end"> Our Mission</h2>
-                    <p className="description mt-9 flex justify-end">
-                    To empower professionals and job seekers with beautifully designed, customizable portfolio and CV templates that help them showcase their skills and stand out in their careers.                    </p>
-                </div>
-            </div>
-        </section>
-    </div>
-  )
+        <div className="text-center md:text-left">
+          <h2 className="text-3xl sm:text-4xl font-bold text-color-secondary">
+            Our Mission
+          </h2>
+          <p className="text-base sm:text-lg md:text-xl text-color-description  mt-6 leading-relaxed">
+            To empower professionals and job seekers with beautifully designed, customizable portfolio and CV templates that help them showcase their skills and stand out in their careers.
+          </p>
+        </div>
+      </div>
+    </section>
+  );
 }
