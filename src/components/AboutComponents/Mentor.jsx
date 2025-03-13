@@ -37,9 +37,7 @@ export default function Mentor() {
                       <div key={index} className=" p-6 text-centere">
                           <div className="flex flex-col items-center">
                           <div className="relative w-60 h-60 flex items-center justify-center">
-                            {/* Outer Large Circle with Heartbeat Animation */}
                             <div className="absolute w-64 h-64 bg-purple-200 rounded-full animate-heartbeat"></div>
-                            {/* Inner Gradient Circle */}
                             <div className="absolute w-52 h-52 bg-gradient-to-b from-color-primary to-indigo-500 rounded-full flex items-center justify-center">
                               <img
                                 src={mentor.image}
@@ -48,9 +46,9 @@ export default function Mentor() {
                               />
                             </div>
                           </div>
-                              <h3 className="text-xl font-bold mt-12">{mentor.name}</h3>
-                              <p className="text-color-primary italic">{mentor.role}</p>
-                              <p className="text-gray-600 mt-2">which I used to build this website.</p>
+                              <h3 className="text-2xl font-bold mt-12">{mentor.name}</h3>
+                              <p className="text-base lg:text-lg text-color-primary italic">{mentor.role}</p>
+                              <p className="text-base lg:text-lg  text-color-description  mt-2">which I used to build this website.</p>
                               <div className="flex space-x-4 mt-4 text-color-primary">
                               <a href={mentor.facebook} target="_blank" rel="noopener noreferrer">
                                 <FaFacebook className="text-xl cursor-pointer hover:text-color-secondary" />

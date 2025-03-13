@@ -21,8 +21,7 @@ import FolioComponents2 from "./components/portfolioCompoenets/Folio2/FolioCompo
 import FolioComponents3 from "./components/portfolioCompoenets/FolioComponents3.jsx";
 import FolioComponents4 from "./components/portfolioCompoenets/FolioComponents4.jsx";
 import UserDetailComponents from "./components/UserDetailComponents.jsx";
-import { TabListComponent } from "./components/inputField/TabListComponent.jsx";
-import { EditField } from "./components/inputField/EditField.jsx";
+import  EditField  from "./components/inputField/EditField.jsx";
 createRoot(document.getElementById("root")).render(
   <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
     <Provider store={store}>

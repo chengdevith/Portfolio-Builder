@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 
 const FolioComponents3 = ({
+  skillImg,
   skillTitle,
   skillDes,
   job,
@@ -23,12 +24,23 @@ const FolioComponents3 = ({
   jobDes,
   responsibility,
   achievements,
+  contactDescription,
+  contactsTitle,
+  contactsAddress,
+  contactEmail,
+  contactPhone,
+  projectImage,
+  projectLink,
   projectTitle,
   projectescription,
+  serviceImage,
   serviceTitle,
-  serviceDescription
+  serviceDescription,
+  blogImage,
+  blogTitle,
+  blogDescription
 }) => {
-  // Sample data based on the API structure provided
+  //Sample data based on the API structure provided
   const portfolio = {
     title: "Portfolio A",
     type: "Type A",
@@ -87,28 +99,28 @@ const FolioComponents3 = ({
     },
   ];
 
-  // const skills = [
-  //   {
-  //     title: "Python",
-  //     description: "Python programming language",
-  //     images: [],
-  //   },
-  //   {
-  //     title: "JavaScript",
-  //     description: "Frontend and backend programming with JavaScript",
-  //     images: [],
-  //   },
-  //   {
-  //     title: "React",
-  //     description: "Building modern user interfaces with React",
-  //     images: [],
-  //   },
-  //   {
-  //     title: "Cloud Services",
-  //     description: "Deploying and managing applications on cloud platforms",
-  //     images: [],
-  //   },
-  // ];
+  const skills = [
+    {
+      title: "Python",
+      description: "Python programming language",
+      images: [],
+    },
+    {
+      title: "JavaScript",
+      description: "Frontend and backend programming with JavaScript",
+      images: [],
+    },
+    {
+      title: "React",
+      description: "Building modern user interfaces with React",
+      images: [],
+    },
+    {
+      title: "Cloud Services",
+      description: "Deploying and managing applications on cloud platforms",
+      images: [],
+    },
+  ];
 
   const workExperiences = [
     {
@@ -584,7 +596,7 @@ const FolioComponents3 = ({
             >
               <div className="mb-4 text-blue-500 flex justify-center">
                 <div className="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center">
-                  {/* <span className="text-2xl font-bold">{index + 1}</span> */}
+                  <img src={skillImg} alt="" />
                 </div>
               </div>
               <h3 className="text-xl font-semibold mb-2 text-gray-800 text-center">
@@ -665,22 +677,22 @@ const FolioComponents3 = ({
               // key={index}
               className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition duration-300"
             >
-              {/* <div className="relative">
+              <div className="relative">
                   <img
-                    src={project.project_image}
-                    alt={project.project_title}
+                    src={projectImage}
+                    alt={projectTitle}
                     className="w-full h-48 object-cover"
                   />
                   <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 hover:opacity-100 transition duration-300">
                     <a
-                      href={project.link_to_project}
+                      href={projectLink}
                       target="_blank"
                       className="bg-blue-600 text-white px-4 py-2 rounded-full flex items-center"
                     >
                       View Project <ExternalLink size={16} className="ml-2" />
                     </a>
                   </div>
-                </div> */}
+                </div>
               <div className="p-6">
                 <h3 className="text-xl font-bold text-gray-800 mb-2">
                   {projectTitle}
@@ -713,11 +725,11 @@ const FolioComponents3 = ({
               // key={index}
               className="bg-gray-50 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-300"
             >
-              {/* <img
-                  src={service.images[0]}
-                  alt={service.title}
+              <img
+                  src={serviceImage}
+                  alt={serviceTitle}
                   className="w-full h-40 object-cover"
-                /> */}
+                />
               <div className="p-6">
                 <h3 className="text-xl font-bold text-gray-800 mb-2">
                   {serviceTitle}
@@ -745,22 +757,27 @@ const FolioComponents3 = ({
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {blogs.map((blog, index) => (
+            {/* {blogs.map((blog, index) => ( */}
               <div
-                key={index}
+                // key={index}
                 className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-300"
               >
+                <img
+                  src={blogImage}
+                  alt={blogTitle}
+                  className="w-full h-40 object-cover"
+                />
                 <div className="p-6">
                   <h3 className="text-xl font-bold text-gray-800 mb-3">
-                    {blog.title}
+                    {blogTitle}
                   </h3>
-                  <p className="text-gray-600 mb-4">{blog.description}</p>
+                  <p className="text-gray-600 mb-4">{blogDescription}</p>
                   <button className="text-blue-600 font-medium hover:text-blue-700 flex items-center">
                     Read More <ChevronRight size={16} className="ml-1" />
                   </button>
                 </div>
               </div>
-            ))}
+            {/* ))} */}
           </div>
         </div>
       </section>
@@ -772,7 +789,7 @@ const FolioComponents3 = ({
             <h2 className="text-3xl font-bold text-gray-800">Get In Touch</h2>
             <div className="w-20 h-1 bg-blue-500 mx-auto mt-2 mb-6"></div>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              {contacts[0].description}
+              {contactDescription}
             </p>
           </div>
 
@@ -780,7 +797,7 @@ const FolioComponents3 = ({
             <div className="md:w-1/3 mb-8 md:mb-0">
               <div className="bg-white p-6 rounded-lg shadow-md h-full">
                 <h3 className="text-xl font-bold text-gray-800 mb-4">
-                  {contacts[0].title}
+                  {contactsTitle}
                 </h3>
 
                 <div className="space-y-4">
@@ -789,7 +806,7 @@ const FolioComponents3 = ({
                       className="text-blue-500 mr-3 mt-1 flex-shrink-0"
                       size={20}
                     />
-                    <p className="text-gray-700">{contacts[0].address}</p>
+                    <p className="text-gray-700">{contactsAddress}</p>
                   </div>
 
                   <div className="flex items-center">
@@ -798,10 +815,10 @@ const FolioComponents3 = ({
                       size={20}
                     />
                     <a
-                      href={`mailto:${contacts[0].contact_email}`}
+                      href={`mailto:${contactEmail}`}
                       className="text-gray-700 hover:text-blue-600"
                     >
-                      {contacts[0].contact_email}
+                      {contactEmail}
                     </a>
                   </div>
 
@@ -811,10 +828,10 @@ const FolioComponents3 = ({
                       size={20}
                     />
                     <a
-                      href={`tel:${contacts[0].phone}`}
+                      href={`tel:${contactPhone}`}
                       className="text-gray-700 hover:text-blue-600"
                     >
-                      {contacts[0].phone}
+                      {contactPhone}
                     </a>
                   </div>
                 </div>
