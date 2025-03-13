@@ -47,8 +47,9 @@ export default function EditFiel() {
     useAddWorkExperienceMutation();
   const [addNewConact, { isLoading: loadingContact }] = useAddContactMutation();
   const [addNewProject, { loadingPro }] = useAddProjectMutation();
-  const [addNewService, { isLoading:loadingService}] = useAddServiceMutation();
-  const [addNewBlog, { isLoading:loadingBlog}] = useAddBlogMutation();
+  const [addNewService, { isLoading: loadingService }] =
+    useAddServiceMutation();
+  const [addNewBlog, { isLoading: loadingBlog }] = useAddBlogMutation();
 
   //form
   const [formSkill, setFormSkill] = useState({
@@ -79,16 +80,16 @@ export default function EditFiel() {
     link_to_project: "",
     project_image: [],
   });
-   const [formService, setFormService] = useState({
-      title: "",
-      description: "",
-      images: [],
-    });
-    const [formBlog, setFormBlog] = useState({
-      title: "",
-      description: "",
-      images: [],
-    });
+  const [formService, setFormService] = useState({
+    title: "",
+    description: "",
+    images: [],
+  });
+  const [formBlog, setFormBlog] = useState({
+    title: "",
+    description: "",
+    images: [],
+  });
 
   //handleChange
   const handleChangeSkill = (e) => {
@@ -210,9 +211,12 @@ export default function EditFiel() {
     });
     try {
       const resp = await uploadServiceFile(formData).unwrap();
-      console.log(resp.url)
+      console.log(resp.url);
       const url = resp.url;
-      const response = await addNewService({ ...formService, images: [url] }).unwrap();
+      const response = await addNewService({
+        ...formService,
+        images: [url],
+      }).unwrap();
       console.log(response);
     } catch (error) {
       alert(error);
@@ -227,9 +231,12 @@ export default function EditFiel() {
     });
     try {
       const resp = await uploadBlogFile(formData).unwrap();
-      console.log(resp.url)
+      console.log(resp.url);
       const url = resp.url;
-      const response = await addNewBlog({ ...formBlog, images: [url] }).unwrap();
+      const response = await addNewBlog({
+        ...formBlog,
+        images: [url],
+      }).unwrap();
       console.log(response);
     } catch (error) {
       alert(error);
@@ -790,204 +797,209 @@ export default function EditFiel() {
           )}
           {activeTab === "services" && (
             <form
-            className="max-w-md mx-auto p-6 bg-white shadow-lg rounded-lg"
-            onSubmit={handleSubmitService}
-          >
-            <h2 className="text-2xl font-bold text-color-primary mb-4">
-              Create Service
-            </h2>
-            <div className="flex w-full items-center justify-center">
-              <Label
-                htmlFor="service-file"
-                className="flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600"
-              >
-                {servicePreviewUrls ? ( // Single preview URL
-                  <div className="flex flex-wrap gap-2 p-2 justify-center">
-                    <div className="relative">
-                      <img
-                        src={servicePreviewUrls}
-                        alt="Service Preview"
-                        className="h-40 w-40 object-cover rounded-lg"
-                      />
-                      <button
-                        type="button"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          e.stopPropagation();
-                          setServicePreviewUrls(null); // Reset the selected file
-                          URL.revokeObjectURL(servicePreviewUrls); // Clean up the URL
-                          setServicePreviewUrls(null); // Reset the preview URL
-                        }}
-                        className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center"
-                      >
-                        ×
-                      </button>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="flex flex-col items-center justify-center pb-6 pt-5">
-                    <svg
-                      className="mb-4 h-8 w-8 text-gray-500 dark:text-gray-400"
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 20 16"
-                    >
-                      <path
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
-                      />
-                    </svg>
-                    <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                      <span className="font-semibold">Click to upload</span> or drag and drop
-                    </p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">
-                      SVG, PNG, JPG or GIF (MAX. 800x400px)
-                    </p>
-                  </div>
-                )}
-                <FileInput
-                  id="service-file"
-                  className="hidden"
-                  onChange={handleServiceFileChange}
-                />
-              </Label>
-            </div>
-            <div className="mb-4">
-              <label className="block text-color-primary font-medium">
-                Title
-              </label>
-              <input
-                value={formService.title}
-                onChange={handleChangeService}
-                name="title"
-                type="text"
-                className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
-                required
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-color-primary font-medium">
-                Description
-              </label>
-              <input
-                onChange={handleChangeService}
-                value={formService.description}
-                name="description"
-                type="text"
-                className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
-                required
-              />
-            </div>
-            <button
-              type="submit"
-              className="w-full !bg-color-secondary !text-white p-2 rounded hover:!bg-opacity-90"
-              disabled={loadingService}
+              className="max-w-md mx-auto p-6 bg-white shadow-lg rounded-lg"
+              onSubmit={handleSubmitService}
             >
-              {loadingService ? "Submitting..." : "Create Service"} {/* Fixed button text */}
-            </button>
-          </form>
+              <h2 className="text-2xl font-bold text-color-primary mb-4">
+                Create Service
+              </h2>
+              <div className="flex w-full items-center justify-center">
+                <Label
+                  htmlFor="service-file"
+                  className="flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+                >
+                  {servicePreviewUrls ? ( // Single preview URL
+                    <div className="flex flex-wrap gap-2 p-2 justify-center">
+                      <div className="relative">
+                        <img
+                          src={servicePreviewUrls}
+                          alt="Service Preview"
+                          className="h-40 w-40 object-cover rounded-lg"
+                        />
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            setServicePreviewUrls(null); // Reset the selected file
+                            URL.revokeObjectURL(servicePreviewUrls); // Clean up the URL
+                            setServicePreviewUrls(null); // Reset the preview URL
+                          }}
+                          className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center"
+                        >
+                          ×
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="flex flex-col items-center justify-center pb-6 pt-5">
+                      <svg
+                        className="mb-4 h-8 w-8 text-gray-500 dark:text-gray-400"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 20 16"
+                      >
+                        <path
+                          stroke="currentColor"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
+                        />
+                      </svg>
+                      <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                        <span className="font-semibold">Click to upload</span>{" "}
+                        or drag and drop
+                      </p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">
+                        SVG, PNG, JPG or GIF (MAX. 800x400px)
+                      </p>
+                    </div>
+                  )}
+                  <FileInput
+                    id="service-file"
+                    className="hidden"
+                    onChange={handleServiceFileChange}
+                  />
+                </Label>
+              </div>
+              <div className="mb-4">
+                <label className="block text-color-primary font-medium">
+                  Title
+                </label>
+                <input
+                  value={formService.title}
+                  onChange={handleChangeService}
+                  name="title"
+                  type="text"
+                  className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
+                  required
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-color-primary font-medium">
+                  Description
+                </label>
+                <input
+                  onChange={handleChangeService}
+                  value={formService.description}
+                  name="description"
+                  type="text"
+                  className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
+                  required
+                />
+              </div>
+              <button
+                type="submit"
+                className="w-full !bg-color-secondary !text-white p-2 rounded hover:!bg-opacity-90"
+                disabled={loadingService}
+              >
+                {loadingService ? "Submitting..." : "Create Service"}{" "}
+                {/* Fixed button text */}
+              </button>
+            </form>
           )}
           {activeTab === "blog" && (
-           <form
-           className="max-w-md mx-auto p-6 bg-white shadow-lg rounded-lg"
-           onSubmit={handleSubmitBlog}
-         >
-           <div className="flex w-full items-center justify-center">
-             <Label
-               htmlFor="dropzone-file"
-               className="flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600"
-             >
-               {blogPreviewUrls ? ( // Single preview URL
-                 <div className="flex flex-wrap gap-2 p-2 justify-center">
-                   <div className="relative">
-                     <img
-                       src={blogPreviewUrls}
-                       alt="Blog Preview"
-                       className="h-40 w-40 object-cover rounded-lg"
-                     />
-                     <button
-                       type="button"
-                       onClick={(e) => {
-                         e.preventDefault();
-                         e.stopPropagation();
-                         setBlogPreviewUrls(null); // Reset the selected file
-                         URL.revokeObjectURL(blogPreviewUrls); // Clean up the URL
-                         setBlogPreviewUrls(null); // Reset the preview URL
-                       }}
-                       className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center"
-                     >
-                       ×
-                     </button>
-                   </div>
-                 </div>
-               ) : (
-                 <div className="flex flex-col items-center justify-center pb-6 pt-5">
-                   <svg
-                     className="mb-4 h-8 w-8 text-gray-500 dark:text-gray-400"
-                     aria-hidden="true"
-                     xmlns="http://www.w3.org/2000/svg"
-                     fill="none"
-                     viewBox="0 0 20 16"
-                   >
-                     <path
-                       stroke="currentColor"
-                       strokeLinecap="round"
-                       strokeLinejoin="round"
-                       strokeWidth="2"
-                       d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
-                     />
-                   </svg>
-                   <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                     <span className="font-semibold">Click to upload</span> or drag and drop
-                   </p>
-                   <p className="text-xs text-gray-500 dark:text-gray-400">
-                     SVG, PNG, JPG or GIF (MAX. 800x400px)
-                   </p>
-                 </div>
-               )}
-               <FileInput
-                 id="dropzone-file"
-                 className="hidden"
-                 onChange={handleBlogFileChange}
-               />
-             </Label>
-           </div>
-           <div className="mb-4">
-             <label className="block text-color-primary font-medium">Title</label>
-             <input
-               value={formBlog.title}
-               onChange={handleBlogChange}
-               name="title"
-               type="text"
-               className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
-               required
-             />
-           </div>
-           <div className="mb-4">
-             <label className="block text-color-primary font-medium">
-               Description
-             </label>
-             <input
-               onChange={handleBlogChange}
-               value={formBlog.description}
-               name="description"
-               type="text"
-               className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
-               required
-             />
-           </div>
-           <button
-             type="submit"
-             className="w-full bg-color-secondary text-white p-2 rounded hover:bg-opacity-90"
-             disabled={loadingBlog}
-           >
-             {loadingBlog ? "Submitting..." : "Create Blog"}
-           </button>
-         </form>
+            <form
+              className="max-w-md mx-auto p-6 bg-white shadow-lg rounded-lg"
+              onSubmit={handleSubmitBlog}
+            >
+              <div className="flex w-full items-center justify-center">
+                <Label
+                  htmlFor="dropzone-file"
+                  className="flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+                >
+                  {blogPreviewUrls ? ( // Single preview URL
+                    <div className="flex flex-wrap gap-2 p-2 justify-center">
+                      <div className="relative">
+                        <img
+                          src={blogPreviewUrls}
+                          alt="Blog Preview"
+                          className="h-40 w-40 object-cover rounded-lg"
+                        />
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            setBlogPreviewUrls(null); // Reset the selected file
+                            URL.revokeObjectURL(blogPreviewUrls); // Clean up the URL
+                            setBlogPreviewUrls(null); // Reset the preview URL
+                          }}
+                          className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center"
+                        >
+                          ×
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="flex flex-col items-center justify-center pb-6 pt-5">
+                      <svg
+                        className="mb-4 h-8 w-8 text-gray-500 dark:text-gray-400"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 20 16"
+                      >
+                        <path
+                          stroke="currentColor"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
+                        />
+                      </svg>
+                      <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                        <span className="font-semibold">Click to upload</span>{" "}
+                        or drag and drop
+                      </p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">
+                        SVG, PNG, JPG or GIF (MAX. 800x400px)
+                      </p>
+                    </div>
+                  )}
+                  <FileInput
+                    id="dropzone-file"
+                    className="hidden"
+                    onChange={handleBlogFileChange}
+                  />
+                </Label>
+              </div>
+              <div className="mb-4">
+                <label className="block text-color-primary font-medium">
+                  Title
+                </label>
+                <input
+                  value={formBlog.title}
+                  onChange={handleBlogChange}
+                  name="title"
+                  type="text"
+                  className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
+                  required
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-color-primary font-medium">
+                  Description
+                </label>
+                <input
+                  onChange={handleBlogChange}
+                  value={formBlog.description}
+                  name="description"
+                  type="text"
+                  className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
+                  required
+                />
+              </div>
+              <button
+                type="submit"
+                className="w-full bg-color-secondary text-white p-2 rounded hover:bg-opacity-90"
+                disabled={loadingBlog}
+              >
+                {loadingBlog ? "Submitting..." : "Create Blog"}
+              </button>
+            </form>
           )}
         </div>
       </section>
@@ -1017,12 +1029,16 @@ export default function EditFiel() {
           projectLink={formProject.link_to_project}
           projectTitle={formProject.project_title}
           projectescription={formProject.project_description}
-          serviceImage={servicePreviewUrls.length > 0
-            ? servicePreviewUrls:formService.images}
+          serviceImage={
+            servicePreviewUrls.length > 0
+              ? servicePreviewUrls
+              : formService.images
+          }
           serviceTitle={formService.title}
           serviceDescription={formService.description}
-          blogImage={blogPreviewUrls.length > 0
-            ? blogPreviewUrls:formBlog.images}
+          blogImage={
+            blogPreviewUrls.length > 0 ? blogPreviewUrls : formBlog.images
+          }
           blogTitle={formBlog.title}
           blogDescription={formBlog.description}
         />
