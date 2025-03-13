@@ -27,7 +27,7 @@ export const serviceApi = createApi({
       }),
     }),
     getBlogByById: build.query({
-      query : (id)=> `/${id}`
+      query : (id)=> `/services/${id}`
     })
   }),
 });
