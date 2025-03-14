@@ -9,8 +9,8 @@ function TemplateCardComponent({ id, image, title, category }) {
     navigate('/p1')
   }
   return (
-    <div className=" relative cardItem group hover:scale-105 overflow-hidden duration-300 w-full mb-10">
-      <div className="border border-gray-300 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 bg-gray-200 overflow-hidden">
+    <div className=" relative rounded-lg cardItem group hover:scale-105 overflow-hidden duration-300 w-full mb-10 hover:shadow-purple-300 hover:shadow-md">
+      <div className="border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700 bg-gray-200 overflow-hidden ">
         {/* Image Container */}
         <div className="relative">
           <a href="#">
@@ -22,22 +22,20 @@ function TemplateCardComponent({ id, image, title, category }) {
           </a>
 
           {/* Hover Buttons */}
-          <div className="absolute inset-0 flex items-center justify-center gap-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/20">
-            <button onClick={hanldeClick} className="w-16 md:w-20 h-8 flex items-center justify-center bg-purple-500 hover:bg-color-secondary text-white text-xl rounded-xl shadow-lg hover:scale-110 transition-transform">
+          <div className="absolute inset-0 flex items-center justify-center gap-5 opacity-0 group-hover:opacity-70 transition-opacity duration-300 bg-black/20">
+          <div className="absolute w-16 h-16 bg-purple-200 rounded-full animate-heartbeat"></div>
+            <button onClick={hanldeClick} className="absolute w-14 h-14 rounded-full flex items-center justify-center bg-white hover:bg-color-primary hover:text-white text-color-primary text-2xl shadow-lg hover:scale-105 transition-transform">
               <ImEye />
-            </button>
-            <button className="w-16 md:w-20 h-8 flex items-center justify-center bg-purple-500 hover:bg-color-secondary text-white text-xl rounded-xl shadow-lg hover:scale-110 transition-transform">
-              <FaRegEdit />
             </button>
           </div>
         </div>
 
         {/* Card Content */}
-        <div className="px-5 py-3">
+        <div className="px-5 py-2">
           <a href="#">
-            <h2 className="mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white truncate">
+            <h6 className="mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white truncate">
               {title}
-            </h2>
+            </h6>
           </a>
           <a href="#">
             <p className="mb-3 font-normal text-gray-700 dark:text-gray-400 truncate">

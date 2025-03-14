@@ -6,27 +6,20 @@ import { Button } from "flowbite-react";
 import line from "./assets/homeImage/line.png";
 import lineBottom from "./assets/homeImage/line-bottom.png";
 import FaqComponent from "./components/homeComponents/FaqComponent";
+import FilterComponent from "./components/TemplateComponents/FilterComponent";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import TitleSectionComponen from "./components/homeComponents/TitleSectionComponen";
 import feature from "./mock-data/feature";
 import chooseUse from "./mock-data/chooseUse";
+import Template from "./pages/Template";
 import TemplateCardComponent from "./components/TemplateComponents/TemplateCardComponent";
 import CardList from "./mock-data/cardList";
-import Small_pices from "./assets/GIF_images/Small_pices.gif"
-import WeForm from "./components/inputField/WeForm";
-import { TabListComponent } from "./components/inputField/TabListComponent";
-import MultpleSkill from "./components/inputField/multipleSkill";
 
 function App() {
   const [features, setFeature] = useState(feature);
   const [chooseUses, setChooseUse] = useState(chooseUse);
   return (
     <>
-    {/* <BlogFormComponent/> */}
-    <TabListComponent/>
-    <MultpleSkill/>
-    {/* <SkillForm/> */}
-    {/* <WeForm/> */}
       {/* hero section */}
       <section className="overflow-hidden bg-gradient-to-r from-[#634BA7] to-[#A632CD] md:rounded-l-[50px] h-[75vh] md:rounded-br-[200px] px-2 md:px-10 lg:px-36 py-10 lg:py-32 mb-20 flex items-center">
         <div className="text-white grid grid-cols-1 md:grid-cols-3 justify-center items-center gap-4 overflow-hidden">
@@ -74,7 +67,7 @@ function App() {
                   id={e.id}
                   image={e.image}
                   title={e.title}
-                  description={e.description}
+                  description={e.description }
                 />
               );
             })}
@@ -198,6 +191,7 @@ function App() {
           <FaqComponent />
         </div>
       </section>
+
     </>
   );
 }

@@ -106,6 +106,7 @@ function ProjectForm() {
             value={formProject.project_description}
             name="project_description"
             type="text"
+
             className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
             required
           />
