@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-export const serviceApi = createApi({
-  reducerPath: "serviceApi",
+export const aboutMeApi = createApi({
+  reducerPath: "aboutMeApi",
   baseQuery: fetchBaseQuery({
     baseUrl: import.meta.env.VITE_API_PORTIFY_ENDPOINT,
     prepareHeaders: (headers) => {
@@ -13,23 +13,15 @@ export const serviceApi = createApi({
     },
   }),
   endpoints: (build) => ({
-    addService: build.mutation({
+    AddAboutMe: build.mutation({
       query: (data) => ({
-        url: "/services/",
+        url: "/aboutme/",
         method: "POST",
         body:  data ,
       }),
     }),
-    getService: build.query({
-      query: () => ({
-        url: "/services/",
-        method: "GET",
-      }),
-    }),
-    getBlogByById: build.query({
-      query : (id)=> `/services/${id}`
-    })
+   
   }),
 });
 
-export const {useAddServiceMutation, useGetServiceQuery  } = serviceApi;
+export const {useAddAboutMeMutation } = aboutMeApi;

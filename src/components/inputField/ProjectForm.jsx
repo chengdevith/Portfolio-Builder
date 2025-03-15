@@ -3,7 +3,7 @@ import { FileInput, Label } from "flowbite-react";
 import { useGetFileQuery, useUploadFileMutation } from "../../redux/services/fileUploadApi";
 import { useAddProjectMutation } from "../../redux/services/projectSlice";
 
-function SkillForm() {
+function ProjectForm() {
  const [selectedFiles, setSelectedFiles] = useState([]);
   const [uploadFile] = useUploadFileMutation();
   const [addNewProject, { isLoading, isError }] = useAddProjectMutation();
@@ -106,6 +106,7 @@ function SkillForm() {
             value={formProject.project_description}
             name="project_description"
             type="text"
+
             className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
             required
           />
@@ -135,4 +136,4 @@ function SkillForm() {
   );
 }
 
-export default SkillForm;
+export default ProjectForm;

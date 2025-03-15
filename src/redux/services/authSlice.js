@@ -26,6 +26,13 @@ export const authApi = createApi({
         method: "GET",
       }),
     }),
+    updateUserProfile: build.mutation({
+      query: (body) => ({
+        url: "/profile/",
+        method: "PUT",
+        body,
+      }),
+    }),
     getRegister: build.mutation({
       query: (body) => ({
         url: "/register/",
@@ -54,13 +61,13 @@ export const authApi = createApi({
         body: { email, otp_code, password, confirmPassword },
       }),
     }),
-    getResendOtp:build.mutation({
-      query:({email})=>({
-        url:"/resend-otp/",
-        method:"POST",
-        body:{email}
-      })
-    })
+    getResendOtp: build.mutation({
+      query: ({ email }) => ({
+        url: "/resend-otp/",
+        method: "POST",
+        body: { email },
+      }),
+    }),
   }),
 });
 
@@ -71,5 +78,6 @@ export const {
   useGetVerifyCodeMutation,
   useGetRequestResetPasswordMutation,
   useGetResetPasswordMutation,
-  useGetResendOtpMutation
+  useGetResendOtpMutation,
+  useUpdateUserProfileMutation
 } = authApi;

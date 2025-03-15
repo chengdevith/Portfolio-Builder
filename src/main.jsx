@@ -18,7 +18,10 @@ import ResetPassword from "./pages/auth/ResetPassword.jsx";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import FolioComponents1 from "./components/portfolioCompoenets/Folio1/FolioComponents1.jsx";
 import FolioComponents2 from "./components/portfolioCompoenets/Folio2/FolioComponents2.jsx";
+import FolioComponents3 from "./components/portfolioCompoenets/FolioComponents3.jsx";
+import FolioComponents4 from "./components/portfolioCompoenets/FolioComponents4.jsx";
 import UserDetailComponents from "./components/UserDetailComponents.jsx";
+import EditField from "./components/inputField/EditField.jsx";
 createRoot(document.getElementById("root")).render(
   <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
     <Provider store={store}>
@@ -30,6 +33,7 @@ createRoot(document.getElementById("root")).render(
               <Route path="/about" element={<About />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/template" element={<Template />} />
+              <Route path="/user-detail" element={<UserDetailComponents />} />
             </Route>
             <Route path="/login" element={<Login />} />
             <Route path="/sign-up" element={<SignUp />} />
@@ -39,9 +43,11 @@ createRoot(document.getElementById("root")).render(
               element={<RequestResetPassword />}
             />
             <Route path="/reset-password" element={<ResetPassword />} />
-            <Route path="/p1" element={<FolioComponents1/>} />
-            <Route path="/p2" element={<FolioComponents2/>} />
-            <Route path="/user-detail" element={<UserDetailComponents/>} />
+            <Route path="/p1" element={<FolioComponents1 />} />
+            <Route path="/p2" element={<FolioComponents2 />} />
+            <Route path="/p3" element={<FolioComponents3 />} />
+            <Route path="/p4" element={<FolioComponents4 />} />
+            <Route path="/create-template" element={<EditField />} />
           </Routes>
         </StrictMode>
       </BrowserRouter>

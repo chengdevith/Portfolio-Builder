@@ -8,7 +8,7 @@ import { TextPlugin } from "gsap/TextPlugin";
 import { useEffect, useState } from "react";
 import Devith from "../../../assets/Member_images/Devith.png";
 
-const FolioComponents1 = () => {
+const FolioComponents1 = ({title}) => {
   useEffect(() => {
     // Register GSAP TextPlugin and animate quote
     gsap.registerPlugin(TextPlugin);
@@ -42,7 +42,7 @@ const FolioComponents1 = () => {
 
   return (
     <>
-      <header className="absolute left-0 top-0 z-10 flex w-full items-center bg-transparent">
+      <header className=" left-0 top-0 z-10 flex w-full items-center bg-transparent">
         <div className={final.container}>
           <div className="relative flex items-center justify-between">
             <div className="px-4">
@@ -175,7 +175,7 @@ const FolioComponents1 = () => {
                 data-aos="fade-right"
                 data-aos-duration={1500}
               >
-                Hello Everyone 👋, I'm
+                {title === "" ? " Hello Everyone 👋, I'm" : title}
                 <span className="mt-1 block text-4xl font-bold text-dark dark:text-white lg:text-5xl">
                   Cheng Devith
                 </span>

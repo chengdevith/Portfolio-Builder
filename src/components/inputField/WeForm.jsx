@@ -25,6 +25,7 @@ function WeForm() {
   };
   const handleChange = (e) => {
     setWeForm({ ...weForm, [e.target.name]: e.target.value });
+    
   };
   return (
     <form
