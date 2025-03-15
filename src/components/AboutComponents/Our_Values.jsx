@@ -58,11 +58,7 @@ export default function Our_Values() {
   return (
     <section className="py-20 relative overflow-hidden">
       {/* Animated background elements */}
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
-        <div className="absolute top-10 left-10 w-64 h-64 rounded-full bg-purple-300 opacity-10 animate-pulse"></div>
-        <div className="absolute bottom-10 right-10 w-80 h-80 rounded-full bg-blue-300 opacity-10 animate-pulse"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-green-300 opacity-10 animate-pulse"></div>
-      </div>
+   
 
       <div className="max-w-screen-xl mx-auto px-6 relative z-10">
         <div className="text-center mb-16">

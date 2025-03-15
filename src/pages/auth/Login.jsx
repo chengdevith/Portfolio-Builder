@@ -12,6 +12,22 @@ import {
 } from "../../redux/services/authSlice";
 
 export default function Login() {
+  const googleLogin = () => {
+    const clientId =
+      "864319511903-9ppi277qfje6aa3nt2obh0d1tohlro2m.apps.googleusercontent.com";
+    const redirectUri = `${window.location.origin}/auth/google/callback`;
+    const scope = "email profile";
+
+    const googleAuthUrl =
+      `https://accounts.google.com/o/oauth2/v2/auth?` +
+      `client_id=${encodeURIComponent(clientId)}&` +
+      `redirect_uri=${encodeURIComponent(redirectUri)}&` +
+      `response_type=code&` +
+      `scope=${encodeURIComponent(scope)}`;
+
+    window.location.href = googleAuthUrl;
+  };
+
   const navigate = useNavigate();
   useEffect(() => {
     AOS.init({
@@ -44,7 +60,7 @@ export default function Login() {
           password: values?.password,
         }).unwrap();
         if (accessTokenData) {
-          localStorage.setItem("accessToken", accessTokenData?.access);
+          localStorage.setItem("access_token", accessTokenData?.access);
         }
         navigate("/");
       } catch (error) {
@@ -120,7 +136,10 @@ export default function Login() {
               Login
             </button>
             <span className="text-gray-500 mt-8 text-base">Or login with</span>
-            <button className="flex items-center gap-4 px-10 py-4 mt-6 border rounded-lg hover:bg-gray-50 transition-colors">
+            <button
+              onClick={googleLogin}
+              className="flex items-center gap-4 px-10 py-4 mt-6 border rounded-lg hover:bg-gray-50 transition-colors"
+            >
               <FcGoogle className="text-4xl" />{" "}
               <span className="text-xl">Google</span>
             </button>
