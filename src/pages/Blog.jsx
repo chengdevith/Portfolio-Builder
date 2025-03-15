@@ -8,8 +8,8 @@ export default function BlogPage() {
   return (
     <div>
       <BlogBanner/>
-      <Slider/>
       <Design_Por/>
+      <Slider/>
       <Detail/>
     </div>
   );

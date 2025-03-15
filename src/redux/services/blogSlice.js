@@ -27,7 +27,7 @@ export const blogApi = createApi({
       }),
     }),
     getBlogByById: build.query({
-      query : (id)=> `/${id}`
+      query : (id)=> `/blogs/${id}`
     })
   }),
 });

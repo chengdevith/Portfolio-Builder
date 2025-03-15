@@ -14,16 +14,12 @@ import chooseUse from "./mock-data/chooseUse";
 import Template from "./pages/Template";
 import TemplateCardComponent from "./components/TemplateComponents/TemplateCardComponent";
 import CardList from "./mock-data/cardList";
-import Small_pices from "./assets/GIF_images/Small_pices.gif"
 
 function App() {
   const [features, setFeature] = useState(feature);
   const [chooseUses, setChooseUse] = useState(chooseUse);
   return (
     <>
-    {/* <BlogFormComponent/> */}
-    {/* <TabListComponent/> */}
-    {/* <SkillForm/> */}
       {/* hero section */}
       <section className="overflow-hidden bg-gradient-to-r from-[#634BA7] to-[#A632CD] md:rounded-l-[50px] h-[75vh] md:rounded-br-[200px] px-2 md:px-10 lg:px-36 py-10 lg:py-32 mb-20 flex items-center">
         <div className="text-white grid grid-cols-1 md:grid-cols-3 justify-center items-center gap-4 overflow-hidden">

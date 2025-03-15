@@ -27,7 +27,7 @@ export const contactApi = createApi({
       }),
     }),
     getContactById: build.query({
-      query : (id)=> `/${id}`
+      query : (id)=> `/contacts/${id}`
     })
   }),
 });

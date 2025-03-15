@@ -19,28 +19,28 @@
     @apply font-opensans ;
   }
   h1,h2,h3,h4,h5,h6{
-    @apply font-bold leading-[50px]
+    @apply !font-bold leading-[50px]
   }
   h1{
-    @apply text-[40px] ;
+    @apply !text-[40px] ;
   }
   h2{
-    @apply text-[36px] ;
+    @apply !text-[36px] ;
   }
   h3{
-    @apply text-[32px] ;
+    @apply !text-[32px] ;
   }
   h4{
-    @apply text-[28px];
+    @apply !text-[28px];
   }
   h5{
-    @apply text-[24px];
+    @apply !text-[24px];
   }
   h6{
-    @apply text-[20px];
+    @apply !text-[20px];
   }
   small{
-    @apply text-[16px];
+    @apply !text-[16px];
   }
   .description{ 
     @apply !text-[20px] !text-color-description;
@@ -49,7 +49,7 @@
     @apply !text-[12px] !text-color-description;
   }
   .each-section{
-    @apply px-2 md:px-10 lg:px-36 pb-10 lg:pb-20 ;
+    @apply !px-2 md:!px-10 lg:!px-36 !pb-10 lg:!pb-20 ;
   }
 }
 @keyframes heartbeat {

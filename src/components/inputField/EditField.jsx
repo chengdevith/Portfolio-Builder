@@ -10,6 +10,8 @@ import {
   useGetFileQuery,
   useUploadFileMutation,
 } from "../../redux/services/fileUploadApi";
+import { useAddAboutMeMutation } from "../../redux/services/aboutMeSlice";
+
 import { useAddSkillMutation } from "../../redux/services/skillSlice";
 import { useAddWorkExperienceMutation } from "../../redux/services/weSlice";
 import {
@@ -24,24 +26,28 @@ export default function EditFiel() {
   const [activeTab, setActiveTab] = useState("personal");
 
   //SelectFiles
+  const [selectedFIlesAboutMe, setSelectedFilesAboutMe] = useState([]);
   const [selectedSkillFiles, setSelectedSkillFiles] = useState([]);
   const [selectedProFiles, setSelectedProFiles] = useState([]);
   const [selectedServiceFiles, setSelectedServiceFiles] = useState([]);
   const [selectedBlogFiles, setSelectedBlogFiles] = useState([]);
 
   // Preview URLs state
+  const [AboutMePreviewUrls, setABoutMePreviewUrls] = useState([])
   const [skillPreviewUrls, setSkillPreviewUrls] = useState([]);
   const [proPreviewUrls, setProPreviewUrls] = useState([]);
   const [servicePreviewUrls, setServicePreviewUrls] = useState([]);
   const [blogPreviewUrls, setBlogPreviewUrls] = useState([]);
 
   //uploadfile
+  const [uploadAboutmeFile] = useUploadFileMutation();
   const [uploadSkillFile] = useUploadFileMutation();
   const [uploadProFile] = useUploadFileMutation();
   const [uploadServiceFile] = useUploadFileMutation();
   const [uploadBlogFile] = useUploadFileMutation();
 
   //api
+  const [addNewAboutMe, { isLoading, isError }] = useAddAboutMeMutation();
   const [addNewSkill, { isLoading: loadingSkill }] = useAddSkillMutation();
   const [addNewWorkExperience, { isLoading: loadingWe }] =
     useAddWorkExperienceMutation();
@@ -52,6 +58,23 @@ export default function EditFiel() {
   const [addNewBlog, { isLoading: loadingBlog }] = useAddBlogMutation();
 
   //form
+  const [AboutMeForm, setAboutMeForm] = useState({
+    images: [{ url: "", alt: "" }],
+    titles: [{ key: "", subtitle: "" }],
+    descriptions: [{ key: "", long: "" }],
+    personal_info: {
+      first_name: "",
+      last_name: "",
+      gender: "",
+      date_of_birth: "",
+      job: "",
+      languages: "",
+      experience: "",
+      contacts: [{ type: "", value: "" }],
+      address: { street: "", city: "", state: "", zip: "", country: "" },
+      social_media: [{ platform: "", url: "" }],
+    },
+  });
   const [formSkill, setFormSkill] = useState({
     title: "",
     description: "",
@@ -92,6 +115,33 @@ export default function EditFiel() {
   });
 
   //handleChange
+  const handleChangeAboutMe = (e) => {
+    const { name, value } = e.target;
+    // Handle nested objects
+    const [parent, child, grandChild] = name.split(".");
+
+    if (grandChild) {
+      setAboutMeForm((prev) => ({
+        ...prev,
+        [parent]: {
+          ...prev[parent],
+          [child]: Array.isArray(prev[parent][child])
+            ? [{ ...prev[parent][child][0], [grandChild]: value }]
+            : { ...prev[parent][child], [grandChild]: value },
+        },
+      }));
+    } else if (child) {
+      setAboutMeForm((prev) => ({
+        ...prev,
+        [parent]: {
+          ...prev[parent],
+          [child]: value,
+        },
+      }));
+    } else {
+      setAboutMeForm((prev) => ({ ...prev, [name]: value }));
+    }
+  };
   const handleChangeSkill = (e) => {
     setFormSkill({ ...formSkill, [e.target.name]: e.target.value });
   };
@@ -112,6 +162,11 @@ export default function EditFiel() {
   };
 
   //handleFileChange
+  const handleFileChangeAboutMe = (e) => {
+    const files = Array.from(e.target.files);
+    console.log(files);
+    setSelectedFilesAboutMe(files);
+  };
   const handleSkillFileChange = (e) => {
     const files = Array.from(e.target.files);
     setSelectedSkillFiles(files);
@@ -133,6 +188,28 @@ export default function EditFiel() {
   };
 
   //handleSubmit
+  const handleSubmitAboutMe = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+
+    selectedFIlesAboutMe.forEach((file) => {
+      formData.append("file", file);
+    });
+
+    try {
+      const resp = await uploadAboutmeFile(formData).unwrap();
+      console.log(resp.url);
+      const url = resp.url;
+      const updatedForm = {
+        ...AboutMeForm,
+        images: [{ ...AboutMeForm.images[0], url }],
+      };
+      const response = await addNewAboutMe(updatedForm).unwrap();
+      console.log(response);
+    } catch (error) {
+      alert(error);
+    }
+  };
   const handleSkillSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -154,7 +231,7 @@ export default function EditFiel() {
 
       // Clear form and previews after successful submission
       setSelectedSkillFiles([]);
-      setPreviewUrls([]);
+      setSkillPreviewUrls([]);
       setFormSkill({
         title: "",
         description: "",
@@ -245,6 +322,19 @@ export default function EditFiel() {
 
   // Generate preview URLs when files are selected
   useEffect(() => {
+    if (selectedFIlesAboutMe.length > 0) {
+      const newPreviewUrls = selectedFIlesAboutMe.map((file) =>
+        URL.createObjectURL(file)
+      );
+      setABoutMePreviewUrls(newPreviewUrls);
+
+      // Cleanup function to revoke object URLs when component unmounts or files change
+      return () => {
+        newPreviewUrls.forEach((url) => URL.revokeObjectURL(url));
+      };
+    }
+  }, [selectedFIlesAboutMe]);
+  useEffect(() => {
     if (selectedSkillFiles.length > 0) {
       const newPreviewUrls = selectedSkillFiles.map((file) =>
         URL.createObjectURL(file)
@@ -299,7 +389,7 @@ export default function EditFiel() {
 
   return (
     <section className="grid grid-cols-6">
-      <section className="max-w-4xl p-6 bg-white/80 backdrop-blur-lg shadow-lg rounded-2xl flex col-span-2">
+      <section className="max-w-4xl p-6 bg-white/80 backdrop-blur-lg shadow-lg rounded-2xl flex col-span-2 h-screen overflow-y-scroll" style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
         {/* Tab Header */}
         <div className="flex flex-col items-start gap-4 bg-gray-100 rounded-xl p-4 w-fit">
           {[
@@ -330,37 +420,220 @@ export default function EditFiel() {
         {/* Tab Content */}
         <div className="p-4 flex-1">
           {activeTab === "personal" && (
-            <div className="grid gap-4">
-              <div>
-                <label className="block font-medium text-gray-700">
-                  Hired Date
-                </label>
+            <form
+              className="max-w-md mx-auto p-6 bg-white shadow-lg rounded-lg"
+              onSubmit={handleSubmitAboutMe}
+            >
+              <div className="flex w-full items-center justify-center">
+              <Label
+                  htmlFor="project-file"
+                  className="flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+                >
+                  {AboutMePreviewUrls ? ( // Assuming projectPreviewUrl is a single URL (string), not an array
+                    <div className="flex flex-wrap gap-2 p-2 justify-center">
+                      <div className="relative">
+                        <img
+                          src={AboutMePreviewUrls}
+                          alt="Project Preview"
+                          className="h-40 w-40 object-cover rounded-lg"
+                        />
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            setProPreviewUrls(null); // Reset the selected file
+                            URL.revokeObjectURL(AboutMePreviewUrls); // Clean up the URL
+                            setProPreviewUrls(null); // Reset the preview URL
+                          }}
+                          className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center"
+                        >
+                          ×
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="flex flex-col items-center justify-center pb-6 pt-5">
+                      <svg
+                        className="mb-4 h-8 w-8 text-gray-500 dark:text-gray-400"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 20 16"
+                      >
+                        <path
+                          stroke="currentColor"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
+                        />
+                      </svg>
+                      <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                        <span className="font-semibold">Click to upload</span>{" "}
+                        or drag and drop
+                      </p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">
+                        SVG, PNG, JPG or GIF (MAX. 800x400px)
+                      </p>
+                    </div>
+                  )}
+                  <FileInput
+                    id="project-file"
+                    className="hidden"
+                    onChange={handleFileChangeAboutMe}
+                  />
+                </Label>
+              </div>
+
+              <h5 className="font-bold text-color-primary mb-4">
+                Personal Information
+              </h5>
+              <div className="grid grid-cols-2 gap-4">
                 <input
+                  value={AboutMeForm.personal_info.first_name}
+                  name="personal_info.first_name"
                   type="text"
-                  className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                  placeholder="First Name"
+                  className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
+                  onChange={handleChangeAboutMe}
                 />
-              </div>
-              <div>
-                <label className="block font-medium text-gray-700">About</label>
-                <textarea className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-indigo-500" />
-              </div>
-              <div>
-                <label className="block font-medium text-gray-700">Email</label>
                 <input
-                  type="email"
-                  className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-indigo-500"
-                />
-              </div>
-              <div>
-                <label className="block font-medium text-gray-700">
-                  Phone Number
-                </label>
-                <input
+                  value={AboutMeForm.personal_info.last_name}
+                  name="personal_info.last_name"
                   type="text"
-                  className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                  placeholder="Last Name"
+                  className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
+                  onChange={handleChangeAboutMe}
+                />
+                <input
+                  value={AboutMeForm.personal_info.gender}
+                  name="personal_info.gender"
+                  type="text"
+                  placeholder="Gender"
+                  className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
+                  onChange={handleChangeAboutMe}
+                />
+                <input
+                  value={AboutMeForm.personal_info.date_of_birth}
+                  name="personal_info.date_of_birth"
+                  type="date"
+                  placeholder="Date of Birth"
+                  className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
+                  onChange={handleChangeAboutMe}
+                />
+                <input
+                  value={AboutMeForm.personal_info.job}
+                  name="personal_info.job"
+                  type="text"
+                  placeholder="Job"
+                  className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
+                  onChange={handleChangeAboutMe}
+                />
+                <input
+                  value={AboutMeForm.personal_info.languages}
+                  name="personal_info.languages"
+                  type="text"
+                  placeholder="Languages"
+                  className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
+                  onChange={handleChangeAboutMe}
                 />
               </div>
-            </div>
+
+              <h5 className="font-bold text-color-primary mb-4">Contact</h5>
+              <div className="grid grid-cols-2 gap-4">
+                <input
+                  value={AboutMeForm.personal_info.contacts[0].type}
+                  name="personal_info.contacts.type"
+                  type="text"
+                  placeholder="Contact Type"
+                  className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
+                  onChange={handleChangeAboutMe}
+                />
+                <input
+                  value={AboutMeForm.personal_info.contacts[0].value}
+                  name="personal_info.contacts.value"
+                  type="text"
+                  placeholder="Contact Value"
+                  className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
+                  onChange={handleChangeAboutMe}
+                />
+              </div>
+
+              <h5 className="font-bold text-color-primary mb-4">Address</h5>
+              <div className="grid grid-cols-2 gap-4">
+                <input
+                  value={AboutMeForm.personal_info.address.street}
+                  name="personal_info.address.street"
+                  type="text"
+                  placeholder="Street"
+                  className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
+                  onChange={handleChangeAboutMe}
+                />
+                <input
+                  value={AboutMeForm.personal_info.address.city}
+                  name="personal_info.address.city"
+                  type="text"
+                  placeholder="City"
+                  className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
+                  onChange={handleChangeAboutMe}
+                />
+                <input
+                  value={AboutMeForm.personal_info.address.state}
+                  name="personal_info.address.state"
+                  type="text"
+                  placeholder="State"
+                  className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
+                  onChange={handleChangeAboutMe}
+                />
+                <input
+                  value={AboutMeForm.personal_info.address.zip}
+                  name="personal_info.address.zip"
+                  type="text"
+                  placeholder="ZIP Code"
+                  className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
+                  onChange={handleChangeAboutMe}
+                />
+                <input
+                  value={AboutMeForm.personal_info.address.country}
+                  name="personal_info.address.country"
+                  type="text"
+                  placeholder="Country"
+                  className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
+                  onChange={handleChangeAboutMe}
+                />
+              </div>
+
+              <h5 className="font-bold text-color-primary my-2">
+                Social Media
+              </h5>
+              <div className="grid grid-cols-2 gap-4">
+                <input
+                  value={AboutMeForm.personal_info.social_media[0].platform}
+                  name="personal_info.social_media.platform"
+                  type="text"
+                  placeholder="Platform"
+                  className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
+                  onChange={handleChangeAboutMe}
+                />
+                <input
+                  value={AboutMeForm.personal_info.social_media[0].url}
+                  name="personal_info.social_media.url"
+                  type="text"
+                  placeholder="URL"
+                  className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
+                  onChange={handleChangeAboutMe}
+                />
+              </div>
+
+              <button
+                type="submit"
+                className="mt-4 w-full !bg-color-secondary !text-white p-2 rounded hover:!bg-opacity-90"
+                disabled={isLoading}
+              >
+                {isLoading ? "Submitting..." : "Save"}
+              </button>
+            </form>
           )}
 
           {activeTab === "skill" && (
@@ -918,19 +1191,19 @@ export default function EditFiel() {
                           alt="Blog Preview"
                           className="h-40 w-40 object-cover rounded-lg"
                         />
-                        <button
-                          type="button"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            setBlogPreviewUrls(null); // Reset the selected file
-                            URL.revokeObjectURL(blogPreviewUrls); // Clean up the URL
-                            setBlogPreviewUrls(null); // Reset the preview URL
-                          }}
-                          className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center"
-                        >
-                          ×
-                        </button>
+                        {/* <button
+                       type="button"
+                       onClick={(e) => {
+                         e.preventDefault();
+                         e.stopPropagation();
+                         setBlogPreviewUrls(null); // Reset the selected file
+                         URL.revokeObjectURL(blogPreviewUrls); // Clean up the URL
+                         setBlogPreviewUrls(null); // Reset the preview URL
+                       }}
+                       className="absolute top-1 right-1 !bg-red-500 !text-white !rounded-full w-6 h-6 flex items-center justify-center"
+                     >
+                       ×
+                     </button> */}
                       </div>
                     </div>
                   ) : (
@@ -994,7 +1267,7 @@ export default function EditFiel() {
               </div>
               <button
                 type="submit"
-                className="w-full bg-color-secondary text-white p-2 rounded hover:bg-opacity-90"
+                className="w-full !bg-color-secondary text-white p-2 rounded hover:bg-opacity-90"
                 disabled={loadingBlog}
               >
                 {loadingBlog ? "Submitting..." : "Create Blog"}
@@ -1005,6 +1278,9 @@ export default function EditFiel() {
       </section>
       <section className="col-span-4 h-screen overflow-y-auto">
         <FolioComponents3
+          ABoutMeImg={
+            AboutMePreviewUrls.length > 0 ? AboutMePreviewUrls : AboutMeForm.images
+          }
           skillTitle={formSkill.title}
           skillDes={formSkill.description}
           skillImg={

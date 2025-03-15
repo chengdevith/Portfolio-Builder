@@ -15,6 +15,9 @@ import {
 } from "lucide-react";
 
 const FolioComponents3 = ({
+  firstName,
+  Lastname,
+  ABoutMeImg,
   skillImg,
   skillTitle,
   skillDes,
@@ -372,7 +375,7 @@ const FolioComponents3 = ({
           <div className="flex flex-col md:flex-row items-center">
             <div className="md:w-1/3 mb-8 md:mb-0 flex justify-center">
               <img
-                src={portfolio.section_image}
+                src={ABoutMeImg}
                 alt="About Me"
                 className="rounded-full object-cover shadow-lg w-64 h-64"
               />
@@ -781,8 +784,8 @@ const FolioComponents3 = ({
                       placeholder="How can I help you?"
                     />
                   </div>
-                  // ... (previous code remains the same until the Contact
-                  Section form)
+                  {/* // ... (previous code remains the same until the Contact
+                  Section form) */}
                   <div className="mb-4">
                     <label
                       htmlFor="message"
