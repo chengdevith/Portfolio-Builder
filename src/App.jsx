@@ -98,15 +98,44 @@ function App() {
             );
           })}
         </div>
-        <div>
-          <a
-            href="/template"
-            className="flex items-center justify-center  gap-2 underline mt-12"
-          >
-            <p>See All Template</p>
-            <FaLongArrowAltRight />
-          </a>
-        </div>
+        <div className="mt-12 flex justify-center">
+  <a
+    href="/template"
+    className="group relative flex items-center gap-3 px-6 py-3 rounded-full bg-gradient-to-r from-blue-500/10 to-purple-500/10 hover:from-blue-500/20 hover:to-purple-500/20 transition-all duration-300"
+  >
+    {/* Background Glow */}
+    <span className="absolute inset-0 rounded-full bg-purple-600/20 blur-lg group-hover:scale-110 transition-transform duration-500"></span>
+
+    {/* Text */}
+    <p className="relative text-lg font-semibold bg-clip-text text-transparent bg-gradient-to-r from-orange-400 to-purple-500 group-hover:-translate-x-1 transition-transform duration-200">
+      See All Templates
+    </p>
+
+    {/* Custom Arrow */}
+    <span className="relative flex items-center">
+      <svg
+        className="w-6 h-6 text-purple-400 group-hover:text-purple-300 group-hover:translate-x-2 transition-all duration-200"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          d="M13 7l5 5m0 0l-5 5m5-5H6"
+        />
+        {/* Comet tail effect */}
+        <path
+          className="opacity-0 group-hover:opacity-50 transition-opacity duration-200"
+          stroke="currentColor"
+          strokeWidth="1"
+          d="M13 12h-3"
+        />
+      </svg>
+    </span>
+  </a>
+</div>
       </section>
       <section className="each-section">
         <TitleSectionComponen

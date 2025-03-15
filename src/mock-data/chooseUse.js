@@ -1,6 +1,6 @@
-import friendly from "../assets/homeImage/friendly_img.png";
-import template from "../assets/homeImage/template.png";
-import saveTime from "../assets/homeImage/save_time.png";
+import friendly from "../assets/homeImage/user-friendly.png";
+import template from "../assets/homeImage/Diverse-Templates.png";
+import saveTime from "../assets/homeImage/time.jpg";
 
 const ChooseUseData = [
   {
