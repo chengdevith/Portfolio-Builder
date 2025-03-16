@@ -1,29 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Dropdown, Card } from "flowbite-react";
 import { IoChevronDownOutline } from "react-icons/io5";
-import CardLists from "../../mock-data/cardList";
 import TemplateCardComponent from "./TemplateCardComponent";
-import { section } from "framer-motion/client";
 
 const FilterComponent = () => {
   const [filters, setFilters] = useState({ type: "", category: "" });
   const [searchTerm, setSearchTerm] = useState("");
-  const [CardList, setCardList] = useState(CardLists);
+  const [cardList, setCardList] = useState([]);
+
+  useEffect(() => {
+    // Fetch data from your API
+    fetch('http://202.178.125.77:8012/api/templates/')
+      .then(response => response.json())
+      .then(data => setCardList(data))
+      .catch(error => console.error('Error fetching templates:', error));
+  }, []);
 
   const handleSearch = (e) => {
     e.preventDefault();
   };
 
-  const filteredData = CardList.filter((item) => {
+  const filteredData = cardList.filter((item) => {
     return (
-      (filters.type ? item.type === filters.type : true) &&
-      (filters.category ? item.category === filters.category : true) &&
+      (filters.type ? item.more_info === filters.type : true) &&
+      (filters.category ? item.name === filters.category : true) &&
       (searchTerm
-        ? item.title.toLowerCase().includes(searchTerm.toLowerCase())
+        ? item.description.toLowerCase().includes(searchTerm.toLowerCase())
         : true) &&
-      (searchTerm ? item.category.toLowerCase().includes(searchTerm.toLowerCase()) : true)&&
-      (searchTerm ? item.type.toLowerCase().includes(searchTerm.toLowerCase()) : true) 
-
+      (searchTerm ? item.name.toLowerCase().includes(searchTerm.toLowerCase()) : true) &&
+      (searchTerm ? item.more_info.toLowerCase().includes(searchTerm.toLowerCase()) : true)
     );
   });
 
@@ -179,9 +184,11 @@ const FilterComponent = () => {
             return (
               <TemplateCardComponent
                 key={e.id}
+                id={e.id}
                 image={e.image}
-                title={e.title}
-                category={e.category}
+                description={e.description}
+                name={e.name}
+                more_info={e.more_info}
               />
             );
           })}

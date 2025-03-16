@@ -75,17 +75,4 @@ const CardList = [
     type: 'Resume',
   },
 ];
-
-fetch("http://202.178.125.77:8012", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify(CardList), 
-})
-  .then((res) => res.json())
-  .then((data) => console.log("Success:", data))
-  .catch((error) => console.error("Error:", error));
-
-
 export default CardList;

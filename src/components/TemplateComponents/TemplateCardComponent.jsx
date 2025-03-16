@@ -23,7 +23,7 @@ const PlusIcon = () => (
   </svg>
 );
 
-function TemplateCardComponent({ id, image, title, category }) {
+function TemplateCardComponent({ id, image, description, name, more_info }) {
   const navigate = useNavigate();
   
   const handleClick = () => {
@@ -60,7 +60,7 @@ function TemplateCardComponent({ id, image, title, category }) {
             <motion.img
               className="h-72 w-full object-cover rounded-t-xl"
               src={image}
-              alt={title}
+              alt={description}
               whileHover={{ scale: 1.1 }}
               transition={{ duration: 0.5 }}
             />
@@ -101,7 +101,7 @@ function TemplateCardComponent({ id, image, title, category }) {
               whileHover={{ x: 5 }}
               transition={{ duration: 0.3 }}
             >
-              {title}
+              {description}
             </motion.h2>
             <motion.p 
               className="mt-1 text-sm text-gray-600 dark:text-gray-300"
@@ -109,7 +109,7 @@ function TemplateCardComponent({ id, image, title, category }) {
               animate={{ y: 0 }}
               transition={{ delay: 0.3 }}
             >
-              {category}
+              {name} - {more_info}
             </motion.p>
             
             {/* Floating Decorative Element */}
