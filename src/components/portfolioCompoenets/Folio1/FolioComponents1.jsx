@@ -7,8 +7,9 @@ import { gsap } from "gsap";
 import { TextPlugin } from "gsap/TextPlugin";
 import { useEffect, useState } from "react";
 import Devith from "../../../assets/Member_images/Devith.png";
-
+import { useNavigate } from "react-router-dom";
 const FolioComponents1 = ({title}) => {
+  const navigate = useNavigate()
   useEffect(() => {
     // Register GSAP TextPlugin and animate quote
     gsap.registerPlugin(TextPlugin);
@@ -168,6 +169,8 @@ const FolioComponents1 = ({title}) => {
       {/* Hero Section */}
       <section id="home" className="pt-36 dark:bg-dark">
         <div className={final.container}>
+        <button onClick={()=>navigate("/template")}>Back to template</button>
+        <button onClick={()=>navigate("/create-template")}>create template</button>
           <div className="flex flex-wrap">
             <div className="w-full self-center px-4 lg:w-1/2">
               <h1

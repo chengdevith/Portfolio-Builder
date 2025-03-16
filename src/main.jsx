@@ -35,7 +35,9 @@ createRoot(document.getElementById("root")).render(
               <Route path="/" element={<App />} />
               <Route path="/about" element={<About />} />
               <Route path="/blog" element={<Blog />} />
-              <Route path="/template" element={<Template />} />
+              <Route path="/template" element={<Template />}>
+                {/* <Route path="/"> */}
+              </Route>
               <Route path="/user-detail" element={<UserDetailComponents />} />
             </Route>
             <Route path="/login" element={<Login />} />
@@ -47,10 +49,12 @@ createRoot(document.getElementById("root")).render(
               element={<RequestResetPassword />}
             />
             <Route path="/reset-password" element={<ResetPassword />} />
-            <Route path="/p1" element={<FolioComponents1 />} />
-            <Route path="/p2" element={<FolioComponents2 />} />
-            <Route path="/p3" element={<FolioComponents3 />} />
-            <Route path="/p4" element={<FolioComponents4 />} />
+            <Route path="/template">
+              <Route path="1" element={<FolioComponents1 />} />
+              <Route path="2" element={<FolioComponents2 />} />
+              <Route path="3" element={<FolioComponents3 />} />
+              <Route path="4" element={<FolioComponents4 />} />
+            </Route>
             <Route path="/create-template" element={<EditField />} />
           </Routes>
         </StrictMode>

@@ -1,35 +1,73 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Dropdown, Card } from "flowbite-react";
 import { IoChevronDownOutline } from "react-icons/io5";
-import CardLists from "../../mock-data/cardList";
 import TemplateCardComponent from "./TemplateCardComponent";
-import { section } from "framer-motion/client";
+import { useGetAllTemplatesQuery } from "../../redux/services/typeTemplateSlice";
+import { useNavigate } from "react-router-dom";
 
 const FilterComponent = () => {
+  const { data: template, isLoading, error } = useGetAllTemplatesQuery();
   const [filters, setFilters] = useState({ type: "", category: "" });
   const [searchTerm, setSearchTerm] = useState("");
-  const [CardList, setCardList] = useState(CardLists);
-
+  const [CardList, setCardList] = useState(null);
+  const navigate = useNavigate();
+  
+  // Sync CardList with template when template changes
+  useEffect(() => {
+    if (template) {
+      setCardList(template);
+    }
+  }, [template]);
+  
   const handleSearch = (e) => {
     e.preventDefault();
   };
+  
+  // Only filter if CardList is defined
+  const handleClick = (id) => {
+    navigate(`/template/${id-5}`);
+  };
+  const filteredData = CardList
+    ? CardList.filter((item) => {
+        return (
+          (filters.type ? item.type === filters.type : true) &&
+          (filters.category ? item.category === filters.category : true) &&
+          (searchTerm
+            ? item.title.toLowerCase().includes(searchTerm.toLowerCase())
+            : true) &&
+          (searchTerm
+            ? item.category.toLowerCase().includes(searchTerm.toLowerCase())
+            : true) &&
+          (searchTerm
+            ? item.type.toLowerCase().includes(searchTerm.toLowerCase())
+            : true)
+        );
+      })
+    : [];
 
-  const filteredData = CardList.filter((item) => {
+  // Handle loading state with a spinner effect
+  if (isLoading) {
     return (
-      (filters.type ? item.type === filters.type : true) &&
-      (filters.category ? item.category === filters.category : true) &&
-      (searchTerm
-        ? item.title.toLowerCase().includes(searchTerm.toLowerCase())
-        : true) &&
-      (searchTerm ? item.category.toLowerCase().includes(searchTerm.toLowerCase()) : true)&&
-      (searchTerm ? item.type.toLowerCase().includes(searchTerm.toLowerCase()) : true) 
-
+      <div className="flex justify-center items-center py-10">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-b-4 border-purple-500"></div>
+      </div>
     );
-  });
+  }
+
+  // Handle error state
+  if (error) {
+    return (
+      <div className="text-center py-10 text-red-500">
+        <p>
+          Error loading templates: {error.message || "Something went wrong"}
+        </p>
+      </div>
+    );
+  }
 
   return (
     <section>
-      <div className=" m-auto px-10">
+      <div className="m-auto px-10">
         <div className="flex gap-4 mb-20 justify-center items-center">
           {/* All Fields Button */}
           <Button
@@ -46,9 +84,10 @@ const FilterComponent = () => {
             dismissOnClick={false}
             inline
             renderTrigger={() => (
-              <Button 
-              className="border-2 border-color-primary text-color-description hover:text-white"
-              color={filters.type === "Resume" ? "purple" : "purple"}>
+              <Button
+                className="border-2 border-color-primary text-color-description hover:text-white"
+                color={filters.type === "Resume" ? "purple" : "purple"}
+              >
                 Resume
                 <IoChevronDownOutline className="w-4 h-4 ml-2" />
               </Button>
@@ -62,13 +101,17 @@ const FilterComponent = () => {
             </Dropdown.Item>
             <Dropdown.Item
               className="hover:text-color-primary"
-              onClick={() => setFilters({ type: "Resume", category: "Student" })}
+              onClick={() =>
+                setFilters({ type: "Resume", category: "Student" })
+              }
             >
               Student
             </Dropdown.Item>
             <Dropdown.Item
               className="hover:text-color-primary"
-              onClick={() => setFilters({ type: "Resume", category: "Beginner" })}
+              onClick={() =>
+                setFilters({ type: "Resume", category: "Beginner" })
+              }
             >
               Beginner
             </Dropdown.Item>
@@ -88,9 +131,10 @@ const FilterComponent = () => {
             dismissOnClick={false}
             inline
             renderTrigger={() => (
-              <Button 
-              className="border-2 border-color-primary text-color-description hover:text-white "
-              color={filters.type === "Portfolio" ? "purple" : "purple"}>
+              <Button
+                className="border-2 border-color-primary text-color-description hover:text-white"
+                color={filters.type === "Portfolio" ? "purple" : "purple"}
+              >
                 Portfolio
                 <IoChevronDownOutline className="w-4 h-4 ml-2" />
               </Button>
@@ -175,17 +219,21 @@ const FilterComponent = () => {
 
         {/* Display Filtered Data */}
         <div className="max-w-screen-xl m-auto cardList grid xl:grid-cols-3 sm:grid-cols-2 gap-10">
-          {filteredData.map((e) => {
-            return (
-              <TemplateCardComponent
-                key={e.id}
-                image={e.image}
-                title={e.title}
-                category={e.category}
-              />
-            );
-          })}
+      {filteredData.map((e) => (
+        <div 
+          key={e.id}
+          onClick={() => handleClick(e.id)} // Pass the specific id
+          className="cursor-pointer" // Add cursor pointer for better UX
+        >
+          <TemplateCardComponent
+            id={e.id}
+            image={e.image}
+            title={e.title}
+            category={e.category}
+          />
         </div>
+      ))}
+    </div>
       </div>
     </section>
   );

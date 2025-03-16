@@ -12,9 +12,11 @@ import { projectApi } from "./services/projectSlice";
 import { serviceApi } from "./services/serviceSlice";
 import { aboutMeApi } from "./services/aboutMeSlice";
 import { templateFolioApi } from "./services/templateFolioSlice";
+import { typeTemplateApi } from "./services/typeTemplateSlice";
 
 export const store = configureStore({
   reducer: {
+    [typeTemplateApi.reducerPath]: typeTemplateApi.reducer,
     [userApi.reducerPath]: userApi.reducer,
     [authApi.reducerPath]: authApi.reducer,
     [contactApi.reducerPath]: contactApi.reducer,
@@ -40,7 +42,8 @@ export const store = configureStore({
       projectApi.middleware,
       serviceApi.middleware,
       aboutMeApi.middleware,
-      templateFolioApi.middleware
+      templateFolioApi.middleware,
+      typeTemplateApi.middleware
     ),
 });
 
