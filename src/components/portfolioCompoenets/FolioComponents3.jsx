@@ -13,7 +13,9 @@ import {
   Phone,
   MapPin,
 } from "lucide-react";
-
+import { useCreateSelectTemplateMutation } from "../../redux/services/selectTemplateSlice";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useGetUserProfileQuery } from "../../redux/services/authSlice";
 const FolioComponents3 = ({
   firstName,
   Lastname,
@@ -64,7 +66,19 @@ const FolioComponents3 = ({
     select_template: 4,
     is_public: true,
   };
+  const navigate = useNavigate()
+  const location = useLocation()
+  const {data} = useGetUserProfileQuery()
+  const[createSeclectTemplate,isLoading,error]=useCreateSelectTemplateMutation()
+  const [templates,setTemplate] = useState({template:null,user:null})
+  
+  const handleSelctTemplate = async () =>{
+    setTemplate({template:location.state,user:data.id})
+    const respon= await createSeclectTemplate(templates)
 
+    navigate("/create-template",{state:respon.id})
+
+  }
   // Navigation state
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
@@ -333,10 +347,12 @@ const FolioComponents3 = ({
         id="home"
         className="pt-16 bg-gradient-to-r from-blue-500 to-purple-600 text-white"
       >
+        <button onClick={()=>navigate("/template")} >back to template</button>
+        <button onClick={handleSelctTemplate}>create template</button>
         <div className="max-w-6xl mx-auto px-4 py-12 md:py-24 flex flex-col md:flex-row items-center">
           <div className="md:w-1/2 mb-10 md:mb-0">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              Welcome to {portfolio.title}
+              Welcome {portfolio.title}
             </h1>
             <p className="text-xl mb-6">{portfolio.biography}</p>
             <div className="flex space-x-4">

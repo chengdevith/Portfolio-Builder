@@ -36,7 +36,6 @@ createRoot(document.getElementById("root")).render(
               <Route path="/about" element={<About />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/template" element={<Template />}>
-                {/* <Route path="/"> */}
               </Route>
               <Route path="/user-detail" element={<UserDetailComponents />} />
             </Route>
