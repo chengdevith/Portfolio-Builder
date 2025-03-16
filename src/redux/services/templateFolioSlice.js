@@ -32,4 +32,4 @@ export const templateFolioApi = createApi({
   }),
 });
 
-export const {useGetTemplateFolioQuery , useCreateTemplateFolioMutation   } = templateFolioApi;
+export const {useGetTemplateFolioQuery , useCreateTemplateFolioMutation, useUseGetTemplateFolioByIdQuery   } = templateFolioApi;
