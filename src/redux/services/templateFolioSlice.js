@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-export const skillApi = createApi({
-  reducerPath: "skillApi",
+export const templateFolioApi = createApi({
+  reducerPath: "templateFolioApi",
   baseQuery: fetchBaseQuery({
     baseUrl: import.meta.env.VITE_API_PORTIFY_ENDPOINT,
     prepareHeaders: (headers) => {
@@ -13,23 +13,23 @@ export const skillApi = createApi({
     },
   }),
   endpoints: (build) => ({
-    addSkill: build.mutation({
+    createTemplateFolio: build.mutation({
       query: (data) => ({
-        url: "/skills/",
+        url: "/template-portfolios/",
         method: "POST",
         body:  data ,
       }),
     }),
-    getSkill: build.query({
+    getTemplateFolio: build.query({
       query: () => ({
-        url: "/skills/",
+        url: "/template-portfolios/",
         method: "GET",
       }),
     }),
-    getSkillById: build.query({
-      query : (id)=> `/${id}`
+    useGetTemplateFolioById: build.query({
+      query : (id)=> `/template-portfolios/${id}`
     })
   }),
 });
 
-export const {useAddSkillMutation,  useGetSkillQuery, useGetSkillByIdQuery } = skillApi;
+export const {useGetTemplateFolioQuery , useCreateTemplateFolioMutation   } = templateFolioApi;

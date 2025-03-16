@@ -11,6 +11,7 @@ import { skillApi } from "./services/skillSlice";
 import { projectApi } from "./services/projectSlice";
 import { serviceApi } from "./services/serviceSlice";
 import { aboutMeApi } from "./services/aboutMeSlice";
+import { templateFolioApi } from "./services/templateFolioSlice";
 
 export const store = configureStore({
   reducer: {
@@ -23,7 +24,8 @@ export const store = configureStore({
     [skillApi.reducerPath]:skillApi.reducer,
     [projectApi.reducerPath]:projectApi.reducer,
     [serviceApi.reducerPath]:serviceApi.reducer,
-    [aboutMeApi.reducerPath]:aboutMeApi.reducer
+    [aboutMeApi.reducerPath]:aboutMeApi.reducer,
+    [templateFolioApi.reducerPath]:templateFolioApi.reducer
   },
 
   middleware: (getDefaultMiddleware) =>
@@ -37,7 +39,8 @@ export const store = configureStore({
       skillApi.middleware,
       projectApi.middleware,
       serviceApi.middleware,
-      aboutMeApi.middleware
+      aboutMeApi.middleware,
+      templateFolioApi.middleware
     ),
 });
 
