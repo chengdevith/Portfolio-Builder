@@ -26,29 +26,19 @@ export default function SignUp() {
             {
               headers: {
                 Authorization: `Bearer ${accessToken}`,
-                Accept: "applicatoin/json",
+                Accept: "application/json",
               },
             }
           ).then((data) => data.json());
-          console.log("userData :>> ", userData);
           if (userData) {
-            try {
-              const submitValues = {
-                username: `${userData.family_name}${userData.given_name}`,
-                email: userData.email,
-                password: `${import.meta.env.VITE_SECRET_KEY}`,
-                confirmPassword: `${import.meta.env.VITE_SECRET_KEY}`,
-              };
-              await getRegister(submitValues).unwrap();
-              navigate("/otp", {
-                state: {
-                  email: submitValues.email,
-                  password: submitValues.password,
-                },
-              });
-            } catch (error) {
-              console.log(error);
-            }
+            const submitValues = {
+              username: `${userData.family_name}${userData.given_name}`,
+              email: userData.email,
+              password: `${import.meta.env.VITE_SECRET_KEY}`,
+              confirmPassword: `${import.meta.env.VITE_SECRET_KEY}`,
+            };
+            await getRegister(submitValues).unwrap();
+            navigate("/otp", { state: { email: submitValues.email, password: submitValues.password } });
           }
         } catch (error) {
           console.log(error);
@@ -57,6 +47,7 @@ export default function SignUp() {
     },
     onError: (error) => console.log("error :>> ", error),
   });
+
   const formik = useFormik({
     initialValues: {
       username: "",
@@ -86,98 +77,31 @@ export default function SignUp() {
   });
 
   return (
-    <div
-      data-aos="zoom-in"
-      className="flex items-center justify-center min-h-screen bg-gray-100"
-    >
-      <div className="relative w-[1100px] h-[750px] bg-white shadow-2xl rounded-3xl overflow-hidden">
-        {/* Forms Container */}
-        <div
-          className={`absolute w-full h-full flex transition-transform duration-700 `}
-        >
-          {/* Sign Up Form */}
-          <form
-            onSubmit={formik.handleSubmit}
-            className="w-1/2 flex flex-col items-center justify-center px-16"
-          >
-            <h2 className="text-4xl font-bold mb-8">Create Account</h2>
-            <input
-              type="text"
-              name="username"
-              id="username"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.username}
-              required
-              placeholder="Username"
-              className="w-full px-6 py-4 mb-6 border rounded-lg text-xl"
-            />
-            {formik.touched.username && formik.errors.username ? (
-              <div className="text-red-500 text-left">
-                {formik.errors.username}
-              </div>
-            ) : null}
-            <input
-              type="email"
-              name="email"
-              id="email"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.email}
-              required
-              placeholder="Email"
-              className="w-full px-6 py-4 mb-6 border rounded-lg text-xl"
-            />
-            {formik.touched.email && formik.errors.email ? (
-              <div className="text-red-500 text-left">
-                {formik.errors.email}
-              </div>
-            ) : null}
-            <input
-              type="password"
-              name="password"
-              id="password"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.password}
-              required
-              placeholder="Password"
-              className="w-full px-6 py-4 mb-4 border rounded-lg text-xl"
-            />
-            {formik.touched.password && formik.errors.password ? (
-              <div className="text-red-500">{formik.errors.password}</div>
-            ) : null}
-            <input
-              type="password"
-              name="confirmPassword"
-              id="confirmPassword"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.confirmPassword}
-              required
-              placeholder="Confirm Password"
-              className="w-full px-6 py-4 mb-4 border rounded-lg text-xl"
-            />
-            {formik.touched.confirmPassword && formik.errors.confirmPassword ? (
-              <div className="text-red-500">
-                {formik.errors.confirmPassword}
-              </div>
-            ) : null}
-            <button
-              type="submit"
-              className="w-full py-4 !bg-purple-600 hover:!bg-purple-700 text-white font-semibold rounded-lg text-xl transition-colors"
-            >
-              Sign Up
-            </button>
-            <span className="text-gray-500 mt-8 text-base">
-              Or sign up with
-            </span>
-            <button
-              onClick={handleLoginWithGoogle}
-              className="flex items-center gap-4 px-10 py-4 mt-6 border rounded-lg hover:bg-gray-50 transition-colors"
-            >
-              <FcGoogle className="text-4xl" />{" "}
-              <span className="text-xl">Google</span>
+    <div data-aos="zoom-in" className="flex items-center justify-center min-h-screen bg-gray-100 px-4">
+      <div className="relative max-w-[90%] sm:w-[90%] md:w-[80%] lg:w-[70%] xl:w-[50%] bg-white shadow-2xl rounded-3xl overflow-hidden">
+        <div className="flex flex-col md:flex-row w-full">
+          <form onSubmit={formik.handleSubmit} className="w-full md:w-1/2 flex flex-col items-center px-8 py-10">
+            <h2 className="text-3xl font-bold mb-6">Create Account</h2>
+            <div className="w-full">
+              <input type="text" name="username" id="username" onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.username} required placeholder="Username" className="w-full px-4 py-3 mb-4 border rounded-lg text-lg" />
+              {formik.touched.username && formik.errors.username && <div className="text-red-500 text-sm !text-start">{formik.errors.username}</div>}
+            </div>
+            <div className="w-full">
+              <input type="email" name="email" id="email" onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.email} required placeholder="Email" className="w-full px-4 py-3 mb-4 border rounded-lg text-lg" />
+              {formik.touched.email && formik.errors.email && <div className="text-red-500 text-sm">{formik.errors.email}</div>}
+            </div>
+            <div className="w-full">
+              <input type="password" name="password" id="password" onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.password} required placeholder="Password" className="w-full px-4 py-3 mb-4 border rounded-lg text-lg" />
+              {formik.touched.password && formik.errors.password && <div className="text-red-500 text-sm">{formik.errors.password}</div>}
+            </div>
+            <div className="w-full">
+              <input type="password" name="confirmPassword" id="confirmPassword" onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.confirmPassword} required placeholder="Confirm Password" className="w-full px-4 py-3 mb-4 border rounded-lg text-lg" />
+              {formik.touched.confirmPassword && formik.errors.confirmPassword && <div className="text-red-500 text-sm">{formik.errors.confirmPassword}</div>}
+            </div>
+            <button type="submit" className="w-full py-3 !bg-purple-600 !hover:bg-purple-700 text-white font-semibold rounded-lg text-lg transition-colors">Sign Up</button>
+            <span className="text-gray-500 mt-4 text-sm">Or sign up with</span>
+            <button onClick={handleLoginWithGoogle} className="flex items-center gap-4 px-6 py-3 mt-4 border rounded-lg hover:bg-gray-50 transition-colors">
+              <FcGoogle className="text-3xl" /> <span className="text-lg">Google</span>
             </button>
           </form>
           <div className="hidden md:flex w-1/2 bg-gradient-to-r from-purple-500 to-indigo-700 text-white flex-col items-center justify-center text-center p-8">

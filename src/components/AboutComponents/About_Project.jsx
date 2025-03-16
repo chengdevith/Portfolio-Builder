@@ -88,7 +88,7 @@ export default function About_Project() {
         >
           <div className="relative">
             <Sparkles className="text-purple-600 absolute -left-12 -top-6 animate-spin-slow" size={28} />
-            <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 tracking-wider">
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-color-primary tracking-wider">
               About Our Project
             </h2>
             <Star className="text-orange-500 absolute -right-12 -top-6 animate-pulse" size={28} />

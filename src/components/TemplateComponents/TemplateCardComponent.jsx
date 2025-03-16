@@ -2,11 +2,10 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
-// Custom Plus Icon Component (Smaller)
 const PlusIcon = () => (
   <svg 
-    width="20" // Reduced from 32
-    height="20" // Reduced from 32
+    width="20" 
+    height="20" 
     viewBox="0 0 24 24" 
     fill="none" 
     className="text-current"
@@ -55,7 +54,6 @@ function TemplateCardComponent({ id, image, description, name, more_info }) {
         transition={{ duration: 0.4, ease: "easeOut" }}
       >
         <div className="relative rounded-xl overflow-hidden bg-gradient-to-br from-gray-100 to-purple-50 dark:from-gray-800 dark:to-gray-900 shadow-lg">
-          {/* Image Container */}
           <div className="relative overflow-hidden">
             <motion.img
               className="h-72 w-full object-cover rounded-t-xl"
@@ -65,12 +63,10 @@ function TemplateCardComponent({ id, image, description, name, more_info }) {
               transition={{ duration: 0.5 }}
             />
             
-            {/* Gradient Overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-gray-900/50 to-transparent" />
 
-            {/* Animated Hover Effects - Corner Button */}
             <motion.div
-              className="absolute top-4 right-4" // Positioned in top-right corner
+              className="absolute top-4 right-4" 
               initial={{ opacity: 0 }}
               whileHover={{ opacity: 1 }}
               transition={{ duration: 0.3 }}
@@ -89,7 +85,6 @@ function TemplateCardComponent({ id, image, description, name, more_info }) {
             </motion.div>
           </div>
 
-          {/* Card Content */}
           <motion.div 
             className="px-6 py-4 relative z-10"
             initial={{ opacity: 0 }}
@@ -97,7 +92,7 @@ function TemplateCardComponent({ id, image, description, name, more_info }) {
             transition={{ delay: 0.2 }}
           >
             <motion.h2 
-              className="text-xl font-bold text-gray-900 dark:text-white truncate bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent"
+              className="!text-2xl py-3  text-gray-900 dark:text-white truncate bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent"
               whileHover={{ x: 5 }}
               transition={{ duration: 0.3 }}
             >
@@ -112,7 +107,6 @@ function TemplateCardComponent({ id, image, description, name, more_info }) {
               {name} - {more_info}
             </motion.p>
             
-            {/* Floating Decorative Element */}
             <motion.div
               className="absolute -top-2 -right-2 w-8 h-8 bg-purple-500 rounded-full opacity-20"
               animate={{

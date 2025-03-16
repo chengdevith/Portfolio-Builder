@@ -36,7 +36,6 @@ const FilterComponent = () => {
     <section>
       <div className=" m-auto px-10">
         <div className="flex gap-4 mb-20 justify-center items-center">
-          {/* All Fields Button */}
           <Button
             className="border-2 border-color-primary text-color-description hover:text-white"
             color={filters.type === "" ? "purple" : "gray"}
@@ -45,7 +44,6 @@ const FilterComponent = () => {
             All Fields
           </Button>
 
-          {/* Resume Button with Dropdown */}
           <Dropdown
             label="Resume"
             dismissOnClick={false}
@@ -87,7 +85,6 @@ const FilterComponent = () => {
             </Dropdown.Item>
           </Dropdown>
 
-          {/* Portfolio Button with Dropdown */}
           <Dropdown
             label="Portfolio"
             dismissOnClick={false}
@@ -133,7 +130,6 @@ const FilterComponent = () => {
             </Dropdown.Item>
           </Dropdown>
 
-          {/* Custom Search Bar */}
           <form className="w-1/2" onSubmit={handleSearch}>
             <label
               htmlFor="default-search"
@@ -178,7 +174,6 @@ const FilterComponent = () => {
           </form>
         </div>
 
-        {/* Display Filtered Data */}
         <div className="max-w-screen-xl m-auto cardList grid xl:grid-cols-3 sm:grid-cols-2 gap-10">
           {filteredData.map((e) => {
             return (
