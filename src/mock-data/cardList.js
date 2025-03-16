@@ -12,18 +12,18 @@ import Resume3 from '../assets/Card_images/Resume/Resume-3.png';
 
 const CardList = [
   {
-    id: 1,
-    image: Portfolio1,
-    title: 'Full-Stack Developer',
-    category: 'Student',
-    type: 'Portfolio',
+    "id": 1,
+    "image": Portfolio1,
+    "title": 'Full-Stack Developer',
+    "category": 'Student',
+    "type": 'Portfolio',
   },
   {
-    id: 2,
-    image: Portfolio2,
-    title: 'Front-End Developer',
-    category: 'Student',
-    type: 'Portfolio',
+    "id": 2,
+    "image": Portfolio2,
+    "title": 'Front-End Developer',
+    "category": 'Student',
+   " type": 'Portfolio',
   },
   {
     id: 3,
@@ -75,5 +75,17 @@ const CardList = [
     type: 'Resume',
   },
 ];
+
+// fetch("http://202.178.125.77:8012", {
+//   method: "POST",
+//   headers: {
+//     "Content-Type": "application/json",
+//   },
+//   body: JSON.stringify(CardList), 
+// })
+//   .then((res) => res.json())
+//   .then((data) => console.log("Success:", data))
+//   .catch((error) => console.error("Error:", error));
+
 
 export default CardList;
