@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { HiUserCircle, HiClipboardList } from "react-icons/hi";
 import { MdDashboard } from "react-icons/md";
 import { FaTools } from "react-icons/fa";
@@ -27,6 +27,7 @@ import { useCreateTemplateFolioMutation } from "../../redux/services/templateFol
 export default function EditFiel() {
   const [activeTab, setActiveTab] = useState("personal");
 
+
   //SelectFiles
   const [selectedFileTemplate, setSelectedFileTemplate] = useState([])
   const [selectedFIlesAboutMe, setSelectedFilesAboutMe] = useState([]);
@@ -36,6 +37,7 @@ export default function EditFiel() {
   const [selectedBlogFiles, setSelectedBlogFiles] = useState([]);
 
   // Preview URLs state
+  const [CreateTemplatePreviewUrl, setCreateTemplatePreviewUrl] = useState([])
   const [AboutMePreviewUrls, setABoutMePreviewUrls] = useState([]);
   const [skillPreviewUrls, setSkillPreviewUrls] = useState([]);
   const [proPreviewUrls, setProPreviewUrls] = useState([]);
@@ -79,8 +81,8 @@ export default function EditFiel() {
     blog: null,
     service: null,
     skill: null,
-    template: null,
-    select_template: null,
+    template: 6,
+    select_template: 12,
     is_public: true
   })
   const [AboutMeForm, setAboutMeForm] = useState({
@@ -219,7 +221,14 @@ export default function EditFiel() {
     console.log(files);
     setSelectedBlogFiles(files);
   };
+ //save
+ const formRef = useRef(null);
 
+  const handleSubmitButtonClick = () => {
+    if (formRef.current) {
+      formRef.current.requestSubmit(); // Submit the form
+    }
+  };
   //handleSubmit
   const handleSubmitTemplate = async (e)=>{
     e.preventDefault();
@@ -384,6 +393,19 @@ export default function EditFiel() {
 
   // Generate preview URLs when files are selected
   useEffect(() => {
+    if (selectedFileTemplate.length > 0) {
+      const newPreviewUrls = selectedFileTemplate.map((file) =>
+        URL.createObjectURL(file)
+      );
+      setCreateTemplatePreviewUrl(newPreviewUrls);
+
+      // Cleanup function to revoke object URLs when component unmounts or files change
+      return () => {
+        newPreviewUrls.forEach((url) => URL.revokeObjectURL(url));
+      };
+    }
+  }, [selectedFileTemplate]);
+  useEffect(() => {
     if (selectedFIlesAboutMe.length > 0) {
       const newPreviewUrls = selectedFIlesAboutMe.map((file) =>
         URL.createObjectURL(file)
@@ -527,9 +549,10 @@ export default function EditFiel() {
                 </div>
               )}
             </div>
-            <button  className="w-1/4 px-4 py-2  rounded-lg bg-color-secondary text-white shadow-md text-sm md:text-base">
+            <button onClick={handleSubmitButtonClick}  type="submit"  className="w-1/4 px-4 py-2  rounded-lg !bg-color-secondary text-white shadow-md text-sm md:!text-base">
               Save
             </button>
+            
           </div>
 
           {/* Tab Content */}
@@ -1333,7 +1356,7 @@ export default function EditFiel() {
                 </div>
                 <button
                   type="submit"
-                  className="w-full bg-color-secondary text-white p-2 rounded hover:bg-opacity-90"
+                  className="w-full !bg-color-secondary text-white p-2 rounded hover:!bg-opacity-90"
                   disabled={loadingBlog}
                 >
                   {loadingBlog ? "Submitting..." : "Create Blog"}
@@ -1342,104 +1365,113 @@ export default function EditFiel() {
             )}
             {activeTab === "create" && (
               <form
-                className=" mx-auto bg-white shadow-lg rounded-lg"
-                onSubmit={handleSubmitTemplate}
-              >
-                <div className="flex w-full items-center justify-center">
-                  <Label
-                    htmlFor="dropzone-file"
-                    className="flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600"
-                  >
-                    {blogPreviewUrls ? ( // Single preview URL
-                      <div className="flex flex-wrap gap-2 p-2 justify-center">
-                        <div className="relative">
-                          <img
-                            src={blogPreviewUrls}
-                            alt="Blog Preview"
-                            className="h-40 w-40 object-cover rounded-lg"
-                          />
-                          <button
-                            type="button"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              setBlogPreviewUrls(null); // Reset the selected file
-                              URL.revokeObjectURL(blogPreviewUrls); // Clean up the URL
-                              setBlogPreviewUrls(null); // Reset the preview URL
-                            }}
-                            className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center"
-                          >
-                            ×
-                          </button>
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="flex flex-col items-center justify-center pb-6 pt-5">
-                        <svg
-                          className="mb-4 h-8 w-8 text-gray-500 dark:text-gray-400"
-                          aria-hidden="true"
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 20 16"
-                        >
-                          <path
-                            stroke="currentColor"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
-                          />
-                        </svg>
-                        <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                          <span className="font-semibold">Click to upload</span>{" "}
-                          or drag and drop
-                        </p>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">
-                          SVG, PNG, JPG or GIF (MAX. 800x400px)
-                        </p>
-                      </div>
-                    )}
-                    <FileInput
-                      id="dropzone-file"
-                      className="hidden"
-                      onChange={handleFileChangeCreateTemplate}
-                    />
-                  </Label>
-                </div>
-                <div className="mb-4">
-                  <label className="block text-color-primary font-medium">
-                    Title
-                  </label>
-                  <input
-                    value={createTemplateForm.title}
-                    onChange={handleChangeCreateTemplate}
-                    name="title"
-                    type="text"
-                    className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
-                    required
-                  />
-                </div>
-                <div className="mb-4">
-                  <label className="block text-color-primary font-medium">
-                    Description
-                  </label>
-                  <input
-                    onChange={handleChangeCreateTemplate}
-                    value={createTemplateForm.type}
-                    name="description"
-                    type="text"
-                    className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
-                    required
-                  />
-                </div>
-                <button
-                  type="submit"
-                  className="w-full !bg-color-secondary text-white p-2 rounded hover:!bg-opacity-90"
-                  disabled={loadingBlog}
+              ref={formRef}
+              className="mx-auto bg-white shadow-lg rounded-lg"
+              onSubmit={handleSubmitTemplate}
+              method="POST"
+            >
+              <div className="flex w-full items-center justify-center">
+                <Label
+                  htmlFor="dropzone-file"
+                  className="flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600"
                 >
-                  {loadingBlog ? "Submitting..." : "Create Blog"}
-                </button>
-              </form>
+                  {CreateTemplatePreviewUrl ? (
+                    <div className="flex flex-wrap gap-2 p-2 justify-center">
+                      <div className="relative">
+                        <img
+                          src={CreateTemplatePreviewUrl}
+                          alt="Create Template"
+                          className="h-40 w-40 object-cover rounded-lg"
+                        />
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            setBlogPreviewUrls(null);
+                            URL.revokeObjectURL(CreateTemplatePreviewUrl);
+                            setBlogPreviewUrls(null);
+                          }}
+                          className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center"
+                        >
+                          ×
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="flex flex-col items-center justify-center pb-6 pt-5">
+                      <svg
+                        className="mb-4 h-8 w-8 text-gray-500 dark:text-gray-400"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 20 16"
+                      >
+                        <path
+                          stroke="currentColor"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
+                        />
+                      </svg>
+                      <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                        <span className="font-semibold">Click to upload</span> or drag
+                        and drop
+                      </p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">
+                        SVG, PNG, JPG or GIF (MAX. 800x400px)
+                      </p>
+                    </div>
+                  )}
+                  <FileInput
+                    id="dropzone-file"
+                    className="hidden"
+                    onChange={handleFileChangeCreateTemplate}
+                  />
+                </Label>
+              </div>
+      
+              <div className="mb-4">
+                <label className="block text-color-primary font-medium">Title</label>
+                <input
+                  value={createTemplateForm.title}
+                  onChange={handleChangeCreateTemplate}
+                  name="title"
+                  type="text"
+                  className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
+                  required
+                />
+              </div>
+      
+              <div className="mb-4">
+                <label className="block text-color-primary font-medium">
+                  Biography
+                </label>
+                <input
+                  onChange={handleChangeCreateTemplate}
+                  value={createTemplateForm.biography}
+                  name="biography"
+                  type="text"
+                  className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
+                  required
+                />
+              </div>
+      
+              <div className="mb-4">
+                <label className="block text-color-primary font-medium">
+                  Link Social Media
+                </label>
+                <input
+                  onChange={handleChangeCreateTemplate}
+                  value={createTemplateForm.social_media_link_json}
+                  name="social_media_link_json"
+                  type="text"
+                  className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
+                  required
+                />
+              </div>
+            </form>
             )}
           </div>
         </div>
@@ -1448,6 +1480,7 @@ export default function EditFiel() {
       {/* Right Panel - Preview */}
       <section className="w-full md:col-span-4 h-auto md:h-screen overflow-y-auto">
         <FolioComponents3
+          
           // ... your preview component props ...
           ABoutMeImg={
             AboutMePreviewUrls.length > 0
