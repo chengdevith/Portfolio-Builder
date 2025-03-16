@@ -21,6 +21,7 @@ import {
 import { useAddProjectMutation } from "../../redux/services/projectSlice";
 import { useAddServiceMutation } from "../../redux/services/serviceSlice";
 import { useAddBlogMutation } from "../../redux/services/blogSlice";
+import { form } from "framer-motion/client";
 
 export default function EditFiel() {
   const [activeTab, setActiveTab] = useState("personal");
@@ -33,7 +34,7 @@ export default function EditFiel() {
   const [selectedBlogFiles, setSelectedBlogFiles] = useState([]);
 
   // Preview URLs state
-  const [AboutMePreviewUrls, setABoutMePreviewUrls] = useState([])
+  const [AboutMePreviewUrls, setABoutMePreviewUrls] = useState([]);
   const [skillPreviewUrls, setSkillPreviewUrls] = useState([]);
   const [proPreviewUrls, setProPreviewUrls] = useState([]);
   const [servicePreviewUrls, setServicePreviewUrls] = useState([]);
@@ -386,276 +387,593 @@ export default function EditFiel() {
       };
     }
   }, [selectedBlogFiles]);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const tabs = [
+    { id: "personal", icon: <HiUserCircle />, label: "Personal" },
+    { id: "skill", icon: <MdDashboard />, label: "Skill" },
+    { id: "work", icon: <HiClipboardList />, label: "Work" },
+    { id: "contacts", icon: <IoMdContact />, label: "Contacts" },
+    { id: "projects", icon: <MdDashboard />, label: "Projects" },
+    { id: "services", icon: <FaTools />, label: "Services" },
+    { id: "blog", icon: <LuNotebookPen />, label: "Blog" },
+  ];
 
   return (
-    <section className="grid grid-cols-6">
-      <section className="max-w-4xl p-6 bg-white/80 backdrop-blur-lg shadow-lg rounded-2xl flex col-span-2 h-screen overflow-y-scroll" style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
-        {/* Tab Header */}
-        <div className="flex flex-col items-start gap-4 bg-gray-100 rounded-xl p-4 w-fit">
-          {[
-            { id: "personal", icon: <HiUserCircle />, label: "Personal" },
-            { id: "skill", icon: <MdDashboard />, label: "Skill" },
-            { id: "work", icon: <HiClipboardList />, label: "Work" },
-            { id: "contacts", icon: <IoMdContact />, label: "Contacts" },
-            { id: "projects", icon: <MdDashboard />, label: "Projects" },
-            { id: "services", icon: <FaTools />, label: "Services" },
-            { id: "blog", icon: <LuNotebookPen />, label: "blog" },
-          ].map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-300 w-full
-              ${
-                activeTab === tab.id
-                  ? "bg-color-primary text-white shadow-md"
-                  : "bg-gray-200 text-gray-600 hover:bg-indigo-100"
-              }`}
-            >
-              <span className="text-lg">{tab.icon}</span>
-              <span className="hidden sm:inline">{tab.label}</span>
-            </button>
-          ))}
-        </div>
-
-        {/* Tab Content */}
-        <div className="p-4 flex-1">
-          {activeTab === "personal" && (
-            <form
-              className="max-w-md mx-auto p-6 bg-white shadow-lg rounded-lg"
-              onSubmit={handleSubmitAboutMe}
-            >
-              <div className="flex w-full items-center justify-center">
-              <Label
-                  htmlFor="project-file"
-                  className="flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600"
-                >
-                  {AboutMePreviewUrls ? ( // Assuming projectPreviewUrl is a single URL (string), not an array
-                    <div className="flex flex-wrap gap-2 p-2 justify-center">
-                      <div className="relative">
-                        <img
-                          src={AboutMePreviewUrls}
-                          alt="Project Preview"
-                          className="h-40 w-40 object-cover rounded-lg"
-                        />
-                        <button
-                          type="button"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            setProPreviewUrls(null); // Reset the selected file
-                            URL.revokeObjectURL(AboutMePreviewUrls); // Clean up the URL
-                            setProPreviewUrls(null); // Reset the preview URL
-                          }}
-                          className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center"
-                        >
-                          ×
-                        </button>
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="flex flex-col items-center justify-center pb-6 pt-5">
-                      <svg
-                        className="mb-4 h-8 w-8 text-gray-500 dark:text-gray-400"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 20 16"
-                      >
-                        <path
-                          stroke="currentColor"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
-                        />
-                      </svg>
-                      <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                        <span className="font-semibold">Click to upload</span>{" "}
-                        or drag and drop
-                      </p>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">
-                        SVG, PNG, JPG or GIF (MAX. 800x400px)
-                      </p>
-                    </div>
-                  )}
-                  <FileInput
-                    id="project-file"
-                    className="hidden"
-                    onChange={handleFileChangeAboutMe}
-                  />
-                </Label>
-              </div>
-
-              <h5 className="font-bold text-color-primary mb-4">
-                Personal Information
-              </h5>
-              <div className="grid grid-cols-2 gap-4">
-                <input
-                  value={AboutMeForm.personal_info.first_name}
-                  name="personal_info.first_name"
-                  type="text"
-                  placeholder="First Name"
-                  className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
-                  onChange={handleChangeAboutMe}
-                />
-                <input
-                  value={AboutMeForm.personal_info.last_name}
-                  name="personal_info.last_name"
-                  type="text"
-                  placeholder="Last Name"
-                  className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
-                  onChange={handleChangeAboutMe}
-                />
-                <input
-                  value={AboutMeForm.personal_info.gender}
-                  name="personal_info.gender"
-                  type="text"
-                  placeholder="Gender"
-                  className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
-                  onChange={handleChangeAboutMe}
-                />
-                <input
-                  value={AboutMeForm.personal_info.date_of_birth}
-                  name="personal_info.date_of_birth"
-                  type="date"
-                  placeholder="Date of Birth"
-                  className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
-                  onChange={handleChangeAboutMe}
-                />
-                <input
-                  value={AboutMeForm.personal_info.job}
-                  name="personal_info.job"
-                  type="text"
-                  placeholder="Job"
-                  className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
-                  onChange={handleChangeAboutMe}
-                />
-                <input
-                  value={AboutMeForm.personal_info.languages}
-                  name="personal_info.languages"
-                  type="text"
-                  placeholder="Languages"
-                  className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
-                  onChange={handleChangeAboutMe}
-                />
-              </div>
-
-              <h5 className="font-bold text-color-primary mb-4">Contact</h5>
-              <div className="grid grid-cols-2 gap-4">
-                <input
-                  value={AboutMeForm.personal_info.contacts[0].type}
-                  name="personal_info.contacts.type"
-                  type="text"
-                  placeholder="Contact Type"
-                  className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
-                  onChange={handleChangeAboutMe}
-                />
-                <input
-                  value={AboutMeForm.personal_info.contacts[0].value}
-                  name="personal_info.contacts.value"
-                  type="text"
-                  placeholder="Contact Value"
-                  className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
-                  onChange={handleChangeAboutMe}
-                />
-              </div>
-
-              <h5 className="font-bold text-color-primary mb-4">Address</h5>
-              <div className="grid grid-cols-2 gap-4">
-                <input
-                  value={AboutMeForm.personal_info.address.street}
-                  name="personal_info.address.street"
-                  type="text"
-                  placeholder="Street"
-                  className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
-                  onChange={handleChangeAboutMe}
-                />
-                <input
-                  value={AboutMeForm.personal_info.address.city}
-                  name="personal_info.address.city"
-                  type="text"
-                  placeholder="City"
-                  className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
-                  onChange={handleChangeAboutMe}
-                />
-                <input
-                  value={AboutMeForm.personal_info.address.state}
-                  name="personal_info.address.state"
-                  type="text"
-                  placeholder="State"
-                  className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
-                  onChange={handleChangeAboutMe}
-                />
-                <input
-                  value={AboutMeForm.personal_info.address.zip}
-                  name="personal_info.address.zip"
-                  type="text"
-                  placeholder="ZIP Code"
-                  className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
-                  onChange={handleChangeAboutMe}
-                />
-                <input
-                  value={AboutMeForm.personal_info.address.country}
-                  name="personal_info.address.country"
-                  type="text"
-                  placeholder="Country"
-                  className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
-                  onChange={handleChangeAboutMe}
-                />
-              </div>
-
-              <h5 className="font-bold text-color-primary my-2">
-                Social Media
-              </h5>
-              <div className="grid grid-cols-2 gap-4">
-                <input
-                  value={AboutMeForm.personal_info.social_media[0].platform}
-                  name="personal_info.social_media.platform"
-                  type="text"
-                  placeholder="Platform"
-                  className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
-                  onChange={handleChangeAboutMe}
-                />
-                <input
-                  value={AboutMeForm.personal_info.social_media[0].url}
-                  name="personal_info.social_media.url"
-                  type="text"
-                  placeholder="URL"
-                  className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
-                  onChange={handleChangeAboutMe}
-                />
-              </div>
-
+    <section className="grid grid-cols-1 md:grid-cols-6 gap-4 px-4">
+      {/* Left Panel - Sidebar */}
+      <section
+        className="w-full md:max-w-4xl p-4 md:p-6 bg-white/80 backdrop-blur-lg shadow-lg rounded-2xl 
+      md:col-span-2 h-auto md:h-screen overflow-y-auto"
+        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+      >
+        <div className="flex flex-col h-full">
+          {/* Tab Header - Dropdown */}
+          <div className="flex justify-center items-center gap-3">
+            <div className="relative bg-gray-100 rounded-xl w-full">
               <button
-                type="submit"
-                className="mt-4 w-full !bg-color-secondary !text-white p-2 rounded hover:!bg-opacity-90"
-                disabled={isLoading}
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                className="w-full flex items-center justify-between px-3 py-2 rounded-lg bg-color-primary text-white shadow-md text-sm md:text-base"
               >
-                {isLoading ? "Submitting..." : "Save"}
-              </button>
-            </form>
-          )}
-
-          {activeTab === "skill" && (
-            <form
-              className="max-w-md mx-auto p-6 bg-white shadow-lg rounded-lg"
-              onSubmit={handleSkillSubmit}
-            >
-              <h2 className="text-2xl font-bold text-color-primary mb-4">
-                Create Skill
-              </h2>
-              <div className="flex w-full items-center justify-center">
-                <Label
-                  htmlFor="skill-file"
-                  className="flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+                <div className="flex items-center gap-2">
+                  <span className="text-lg">
+                    {tabs.find((tab) => tab.id === activeTab)?.icon}
+                  </span>
+                  <span>{tabs.find((tab) => tab.id === activeTab)?.label}</span>
+                </div>
+                <svg
+                  className={`w-5 h-5 transition-transform ${
+                    isDropdownOpen ? "rotate-180" : ""
+                  }`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
                 >
-                  {skillPreviewUrls.length > 0 ? (
-                    <div className="flex flex-wrap gap-2 p-2 justify-center">
-                      {skillPreviewUrls.map((url, index) => (
-                        <div key={index} className="relative">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </button>
+
+              {/* Dropdown Menu */}
+              {isDropdownOpen && (
+                <div className="absolute top-full w-full mt-2 bg-white rounded-xl shadow-lg z-10">
+                  {tabs.map((tab) => (
+                    <buttonm
+                      key={tab.id}
+                      onClick={() => {
+                        setActiveTab(tab.id);
+                        setIsDropdownOpen(false);
+                      }}
+                      className={`flex items-center gap-2 px-3 py-2 w-full text-sm md:text-base
+                    ${
+                      activeTab === tab.id
+                        ? "bg-color-primary text-white"
+                        : "text-gray-600 hover:bg-indigo-100"
+                    } ${tab.id === tabs[0].id ? "rounded-t-xl" : ""} 
+                    ${
+                      tab.id === tabs[tabs.length - 1].id ? "rounded-b-xl" : ""
+                    }`}
+                    >
+                      <span className="text-lg">{tab.icon}</span>
+                      <span>{tab.label}</span>
+                    </buttonm>
+                  ))}
+                </div>
+              )}
+            </div>
+            <button className="w-1/4 px-4 py-2  rounded-lg bg-color-secondary text-white shadow-md text-sm md:text-base">
+              Save
+            </button>
+          </div>
+
+          {/* Tab Content */}
+          <div className="pt-4 flex-1">
+            {activeTab === "personal" && (
+              <form
+                className="w-full  mx-auto bg-white shadow-lg rounded-lg"
+                onSubmit={handleSubmitAboutMe}
+              >
+                {/* ... rest of your form content remains the same ... */}
+                <div className="flex w-full items-center justify-center">
+                  <Label
+                    htmlFor="project-file"
+                    className="flex h-48 sm:h-64 w-full cursor-pointer flex-col items-center justify-center 
+                  rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100"
+                  >
+                    {AboutMePreviewUrls ? (
+                      <div className="flex flex-wrap gap-2 p-2 justify-center">
+                        <div className="relative">
                           <img
-                            src={url}
-                            alt={`Preview ${index}`}
+                            src={AboutMePreviewUrls}
+                            alt="Project Preview"
+                            className="h-32 sm:h-40 w-32 sm:w-40 object-cover rounded-lg"
+                          />
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setProPreviewUrls(null);
+                              URL.revokeObjectURL(AboutMePreviewUrls);
+                            }}
+                            className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center"
+                          >
+                            ×
+                          </button>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="flex flex-col items-center justify-center pb-4 pt-4 sm:pb-6 sm:pt-5">
+                        <svg
+                          className="mb-3 h-6 sm:h-8 w-6 sm:w-8 text-gray-500"
+                          aria-hidden="true"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 20 16"
+                        >
+                          <path
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
+                          />
+                        </svg>
+                        <p className="mb-2 text-xs sm:text-sm text-gray-500">
+                          <span className="font-semibold">Click to upload</span>{" "}
+                          or drag and drop
+                        </p>
+                        <p className="text-xs text-gray-500">
+                          SVG, PNG, JPG or GIF (MAX. 800x400px)
+                        </p>
+                      </div>
+                    )}
+                    <FileInput
+                      id="project-file"
+                      className="hidden"
+                      onChange={handleFileChangeAboutMe}
+                    />
+                  </Label>
+                </div>
+
+                <h5 className="font-bold text-color-primary mb-4 text-sm md:text-base mt-4">
+                  Personal Information
+                </h5>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {[
+                    { name: "first_name", placeholder: "First Name" },
+                    { name: "last_name", placeholder: "Last Name" },
+                    { name: "gender", placeholder: "Gender" },
+                    { name: "date_of_birth", type: "date" },
+                    { name: "job", placeholder: "Job" },
+                    { name: "languages", placeholder: "Languages" },
+                  ].map((field) => (
+                    <input
+                      key={field.name}
+                      value={AboutMeForm.personal_info[field.name]}
+                      name={`personal_info.${field.name}`}
+                      type={field.type || "text"}
+                      placeholder={field.placeholder}
+                      className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary text-sm"
+                      onChange={handleChangeAboutMe}
+                    />
+                  ))}
+                </div>
+
+                <h5 className="font-bold text-color-primary mb-4 text-sm md:text-base mt-4">
+                  Contact
+                </h5>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <input
+                    value={AboutMeForm.personal_info.contacts[0].type}
+                    name="personal_info.contacts.type"
+                    type="text"
+                    placeholder="Contact Type"
+                    className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary text-sm"
+                    onChange={handleChangeAboutMe}
+                  />
+                  <input
+                    value={AboutMeForm.personal_info.contacts[0].value}
+                    name="personal_info.contacts.value"
+                    type="text"
+                    placeholder="Contact Value"
+                    className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary text-sm"
+                    onChange={handleChangeAboutMe}
+                  />
+                </div>
+
+                <h5 className="font-bold text-color-primary mb-4 text-sm md:text-base mt-4">
+                  Address
+                </h5>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {[
+                    { name: "street", placeholder: "Street" },
+                    { name: "city", placeholder: "City" },
+                    { name: "state", placeholder: "State" },
+                    { name: "zip", placeholder: "ZIP Code" },
+                    { name: "country", placeholder: "Country" },
+                  ].map((field) => (
+                    <input
+                      key={field.name}
+                      value={AboutMeForm.personal_info.address[field.name]}
+                      name={`personal_info.address.${field.name}`}
+                      type="text"
+                      placeholder={field.placeholder}
+                      className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary text-sm"
+                      onChange={handleChangeAboutMe}
+                    />
+                  ))}
+                </div>
+
+                <h5 className="font-bold text-color-primary my-4 text-sm md:text-base">
+                  Social Media
+                </h5>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <input
+                    value={AboutMeForm.personal_info.social_media[0].platform}
+                    name="personal_info.social_media.platform"
+                    type="text"
+                    placeholder="Platform"
+                    className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary text-sm"
+                    onChange={handleChangeAboutMe}
+                  />
+                  <input
+                    value={AboutMeForm.personal_info.social_media[0].url}
+                    name="personal_info.social_media.url"
+                    type="text"
+                    placeholder="URL"
+                    className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary text-sm"
+                    onChange={handleChangeAboutMe}
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  className="mt-4 w-full !bg-color-secondary !text-white p-2 rounded hover:!bg-opacity-90 text-sm md:text-base"
+                  disabled={isLoading}
+                >
+                  {isLoading ? "Submitting..." : "Save"}
+                </button>
+              </form>
+            )}
+            {activeTab === "skill" && (
+              <form
+                className=" mx-auto  bg-white shadow-lg rounded-lg"
+                onSubmit={handleSkillSubmit}
+              >
+                <h2 className="text-2xl font-bold text-color-primary mb-4">
+                  Create Skill
+                </h2>
+                <div className="flex w-full items-center justify-center">
+                  <Label
+                    htmlFor="skill-file"
+                    className="flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+                  >
+                    {skillPreviewUrls.length > 0 ? (
+                      <div className="flex flex-wrap gap-2 p-2 justify-center">
+                        {skillPreviewUrls.map((url, index) => (
+                          <div key={index} className="relative">
+                            <img
+                              src={url}
+                              alt={`Preview ${index}`}
+                              className="h-40 w-40 object-cover rounded-lg"
+                            />
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                const newFiles = [...selectedSkillFiles];
+                                newFiles.splice(index, 1);
+                                setSelectedSkillFiles(newFiles);
+                                const newUrls = [...skillPreviewUrls];
+                                URL.revokeObjectURL(newUrls[index]);
+                                newUrls.splice(index, 1);
+                                setSkillPreviewUrls(newUrls);
+                              }}
+                              className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center"
+                            >
+                              ×
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="flex flex-col items-center justify-center pb-6 pt-5">
+                        <svg
+                          className="mb-4 h-8 w-8 text-gray-500 dark:text-gray-400"
+                          aria-hidden="true"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 20 16"
+                        >
+                          <path
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
+                          />
+                        </svg>
+                        <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                          <span className="font-semibold">Click to upload</span>{" "}
+                          or drag and drop
+                        </p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                          SVG, PNG, JPG or GIF (MAX. 800x400px)
+                        </p>
+                      </div>
+                    )}
+                    <FileInput
+                      id="skill-file"
+                      className="hidden"
+                      onChange={handleSkillFileChange}
+                      multiple
+                    />
+                  </Label>
+                </div>
+                <div className="mb-4">
+                  <label className="block text-color-primary font-medium">
+                    Title
+                  </label>
+                  <input
+                    value={formSkill.title}
+                    onChange={handleChangeSkill}
+                    name="title"
+                    type="text"
+                    className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
+                    required
+                  />
+                </div>
+                <div className="mb-4">
+                  <label className="block text-color-primary font-medium">
+                    Description
+                  </label>
+                  <input
+                    onChange={handleChangeSkill}
+                    value={formSkill.description}
+                    name="description"
+                    type="text"
+                    className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
+                    required
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="w-full !bg-color-secondary !text-white p-2 rounded hover:!bg-opacity-90"
+                  disabled={loadingSkill}
+                >
+                  {loadingSkill ? "Submitting..." : "Create Blog"}
+                </button>
+              </form>
+            )}
+            {activeTab === "work" && (
+              <form
+                className="mx-auto  bg-white shadow-lg rounded-lg"
+                onSubmit={handleSubmitWe}
+              >
+                <h2 className="text-2xl font-bold text-color-primary mb-4">
+                  Create Work Experience
+                </h2>
+                <div className="mb-4">
+                  <label className="block text-color-primary font-medium">
+                    Job
+                  </label>
+                  <input
+                    name="job_title"
+                    type="text"
+                    value={weForm.job_title}
+                    onChange={handleChangeWe}
+                    className="w-full p-2 border rounded focus:ring-2 focus:ring-[#875AFA]"
+                    required
+                  />
+                </div>
+                <div className="mb-4">
+                  <label className="block text-color-primary font-medium">
+                    Hired Date
+                  </label>
+                  <input
+                    name="hired_date"
+                    type="datetime-local"
+                    value={weForm.hired_date}
+                    onChange={handleChangeWe}
+                    className="w-full p-2 border rounded focus:ring-2 focus:ring-[#875AFA]"
+                    required
+                  />
+                </div>
+                <div className="mb-4">
+                  <label className="block text-color-primary font-medium">
+                    Achievements
+                  </label>
+                  <input
+                    name="achievements"
+                    type="text"
+                    value={weForm.achievements}
+                    onChange={handleChangeWe}
+                    className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
+                    required
+                  />
+                </div>
+                <div className="mb-4">
+                  <label className="block text-color-primary font-medium">
+                    Job Description
+                  </label>
+                  <textarea
+                    name="job_description"
+                    type="text"
+                    value={weForm.job_description}
+                    onChange={handleChangeWe}
+                    className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
+                    required
+                    rows={3}
+                  />
+                </div>
+                <div className="mb-4">
+                  <label className="block text-color-primary font-medium">
+                    Postision
+                  </label>
+                  <input
+                    name="position"
+                    type="text"
+                    value={weForm.position}
+                    onChange={handleChangeWe}
+                    className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
+                    required
+                  />
+                </div>
+                <div className="mb-4">
+                  <label className="block text-color-primary font-medium">
+                    Responsibility
+                  </label>
+                  <input
+                    name="responsibility"
+                    type="text"
+                    value={weForm.responsibility}
+                    onChange={handleChangeWe}
+                    className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
+                    required
+                  />
+                </div>
+                <div className="mb-4">
+                  <label className="block text-color-primary font-medium">
+                    Work Address
+                  </label>
+                  <input
+                    name="work_address"
+                    type="text"
+                    value={weForm.work_address}
+                    onChange={handleChangeWe}
+                    className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
+                    required
+                  />
+                </div>
+                <div className="mb-4">
+                  <label className="block text-color-primary font-medium">
+                    Company Name
+                  </label>
+                  <input
+                    name="company_name"
+                    type="text"
+                    value={weForm.company_name}
+                    onChange={handleChangeWe}
+                    className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
+                    required
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  className="w-full !bg-color-secondary !text-white p-2 rounded hover:!bg-opacity-90"
+                  disabled={loadingWe}
+                >
+                  {loadingWe ? "Submitting..." : "Create Work Experience"}
+                </button>
+              </form>
+            )}
+            {activeTab === "contacts" && (
+              <form
+                className=" mx-auto  bg-white shadow-lg rounded-lg"
+                onSubmit={handleSubmitContact}
+              >
+                <h2 className="text-2xl font-bold text-color-primary mb-4">
+                  Create Contact
+                </h2>
+                <div className="mb-4">
+                  <label className="block text-color-primary font-medium">
+                    Address
+                  </label>
+                  <input
+                    name="address"
+                    type="text"
+                    value={formData.address}
+                    onChange={handleChangeContact}
+                    className="w-full p-2 border rounded focus:ring-2 focus:ring-[#875AFA]"
+                    required
+                  />
+                </div>
+                <div className="mb-4">
+                  <label className="block text-color-primary font-medium">
+                    Email
+                  </label>
+                  <input
+                    name="contact_email"
+                    type="email"
+                    value={formData.contact_email}
+                    onChange={handleChangeContact}
+                    className="w-full p-2 border rounded focus:ring-2 focus:ring-[#875AFA]"
+                    required
+                  />
+                </div>
+                <div className="mb-4">
+                  <label className="block text-color-primary font-medium">
+                    Phone
+                  </label>
+                  <input
+                    name="phone"
+                    type="text"
+                    value={formData.phone}
+                    onChange={handleChangeContact}
+                    className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
+                    required
+                  />
+                </div>
+                <div className="mb-4">
+                  <label className="block text-color-primary font-medium">
+                    Title
+                  </label>
+                  <input
+                    name="title"
+                    type="text"
+                    value={formData.title}
+                    onChange={handleChangeContact}
+                    className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
+                    required
+                  />
+                </div>
+                <div className="mb-4">
+                  <label className="block text-color-primary font-medium">
+                    Description
+                  </label>
+                  <textarea
+                    name="description"
+                    value={formData.description}
+                    onChange={handleChangeContact}
+                    className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
+                    required
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="w-full !bg-color-secondary !text-white p-2 rounded hover:!bg-opacity-90"
+                  disabled={loadingContact}
+                >
+                  {loadingContact ? "submiting..." : "Create Contact"}
+                </button>
+              </form>
+            )}
+            {activeTab === "projects" && (
+              <form
+                className=" mx-auto  bg-white shadow-lg rounded-lg"
+                onSubmit={handleSubmitPro}
+              >
+                <h2 className="text-2xl font-bold text-color-primary mb-4">
+                  Create Project
+                </h2>
+                <div className="flex w-full items-center justify-center">
+                  <Label
+                    htmlFor="project-file"
+                    className="flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+                  >
+                    {proPreviewUrls ? ( // Assuming projectPreviewUrl is a single URL (string), not an array
+                      <div className="flex flex-wrap gap-2 p-2 justify-center">
+                        <div className="relative">
+                          <img
+                            src={proPreviewUrls}
+                            alt="Project Preview"
                             className="h-40 w-40 object-cover rounded-lg"
                           />
                           <button
@@ -663,624 +981,321 @@ export default function EditFiel() {
                             onClick={(e) => {
                               e.preventDefault();
                               e.stopPropagation();
-                              const newFiles = [...selectedSkillFiles];
-                              newFiles.splice(index, 1);
-                              setSelectedSkillFiles(newFiles);
-                              const newUrls = [...skillPreviewUrls];
-                              URL.revokeObjectURL(newUrls[index]);
-                              newUrls.splice(index, 1);
-                              setSkillPreviewUrls(newUrls);
+                              setProPreviewUrls(null); // Reset the selected file
+                              URL.revokeObjectURL(proPreviewUrls); // Clean up the URL
+                              setProPreviewUrls(null); // Reset the preview URL
                             }}
                             className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center"
                           >
                             ×
                           </button>
                         </div>
-                      ))}
-                    </div>
-                  ) : (
-                    <div className="flex flex-col items-center justify-center pb-6 pt-5">
-                      <svg
-                        className="mb-4 h-8 w-8 text-gray-500 dark:text-gray-400"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 20 16"
-                      >
-                        <path
-                          stroke="currentColor"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
-                        />
-                      </svg>
-                      <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                        <span className="font-semibold">Click to upload</span>{" "}
-                        or drag and drop
-                      </p>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">
-                        SVG, PNG, JPG or GIF (MAX. 800x400px)
-                      </p>
-                    </div>
-                  )}
-                  <FileInput
-                    id="skill-file"
-                    className="hidden"
-                    onChange={handleSkillFileChange}
-                    multiple
-                  />
-                </Label>
-              </div>
-              <div className="mb-4">
-                <label className="block text-color-primary font-medium">
-                  Title
-                </label>
-                <input
-                  value={formSkill.title}
-                  onChange={handleChangeSkill}
-                  name="title"
-                  type="text"
-                  className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
-                  required
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-color-primary font-medium">
-                  Description
-                </label>
-                <input
-                  onChange={handleChangeSkill}
-                  value={formSkill.description}
-                  name="description"
-                  type="text"
-                  className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
-                  required
-                />
-              </div>
-              <button
-                type="submit"
-                className="w-full !bg-color-secondary !text-white p-2 rounded hover:!bg-opacity-90"
-                disabled={loadingSkill}
-              >
-                {loadingSkill ? "Submitting..." : "Create Blog"}
-              </button>
-            </form>
-          )}
-          {activeTab === "work" && (
-            <form
-              className="max-w-md mx-auto p-6 bg-white shadow-lg rounded-lg"
-              onSubmit={handleSubmitWe}
-            >
-              <h2 className="text-2xl font-bold text-color-primary mb-4">
-                Create Work Experience
-              </h2>
-              <div className="mb-4">
-                <label className="block text-color-primary font-medium">
-                  Job
-                </label>
-                <input
-                  name="job_title"
-                  type="text"
-                  value={weForm.job_title}
-                  onChange={handleChangeWe}
-                  className="w-full p-2 border rounded focus:ring-2 focus:ring-[#875AFA]"
-                  required
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-color-primary font-medium">
-                  Hired Date
-                </label>
-                <input
-                  name="hired_date"
-                  type="datetime-local"
-                  value={weForm.hired_date}
-                  onChange={handleChangeWe}
-                  className="w-full p-2 border rounded focus:ring-2 focus:ring-[#875AFA]"
-                  required
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-color-primary font-medium">
-                  Achievements
-                </label>
-                <input
-                  name="achievements"
-                  type="text"
-                  value={weForm.achievements}
-                  onChange={handleChangeWe}
-                  className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
-                  required
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-color-primary font-medium">
-                  Job Description
-                </label>
-                <textarea
-                  name="job_description"
-                  type="text"
-                  value={weForm.job_description}
-                  onChange={handleChangeWe}
-                  className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
-                  required
-                  rows={3}
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-color-primary font-medium">
-                  Postision
-                </label>
-                <input
-                  name="position"
-                  type="text"
-                  value={weForm.position}
-                  onChange={handleChangeWe}
-                  className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
-                  required
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-color-primary font-medium">
-                  Responsibility
-                </label>
-                <input
-                  name="responsibility"
-                  type="text"
-                  value={weForm.responsibility}
-                  onChange={handleChangeWe}
-                  className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
-                  required
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-color-primary font-medium">
-                  Work Address
-                </label>
-                <input
-                  name="work_address"
-                  type="text"
-                  value={weForm.work_address}
-                  onChange={handleChangeWe}
-                  className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
-                  required
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-color-primary font-medium">
-                  Company Name
-                </label>
-                <input
-                  name="company_name"
-                  type="text"
-                  value={weForm.company_name}
-                  onChange={handleChangeWe}
-                  className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
-                  required
-                />
-              </div>
-
-              <button
-                type="submit"
-                className="w-full !bg-color-secondary !text-white p-2 rounded hover:!bg-opacity-90"
-                disabled={loadingWe}
-              >
-                {loadingWe ? "Submitting..." : "Create Work Experience"}
-              </button>
-            </form>
-          )}
-          {activeTab === "contacts" && (
-            <form
-              className="max-w-md mx-auto p-6 bg-white shadow-lg rounded-lg"
-              onSubmit={handleSubmitContact}
-            >
-              <h2 className="text-2xl font-bold text-color-primary mb-4">
-                Create Contact
-              </h2>
-              <div className="mb-4">
-                <label className="block text-color-primary font-medium">
-                  Address
-                </label>
-                <input
-                  name="address"
-                  type="text"
-                  value={formData.address}
-                  onChange={handleChangeContact}
-                  className="w-full p-2 border rounded focus:ring-2 focus:ring-[#875AFA]"
-                  required
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-color-primary font-medium">
-                  Email
-                </label>
-                <input
-                  name="contact_email"
-                  type="email"
-                  value={formData.contact_email}
-                  onChange={handleChangeContact}
-                  className="w-full p-2 border rounded focus:ring-2 focus:ring-[#875AFA]"
-                  required
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-color-primary font-medium">
-                  Phone
-                </label>
-                <input
-                  name="phone"
-                  type="text"
-                  value={formData.phone}
-                  onChange={handleChangeContact}
-                  className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
-                  required
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-color-primary font-medium">
-                  Title
-                </label>
-                <input
-                  name="title"
-                  type="text"
-                  value={formData.title}
-                  onChange={handleChangeContact}
-                  className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
-                  required
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-color-primary font-medium">
-                  Description
-                </label>
-                <textarea
-                  name="description"
-                  value={formData.description}
-                  onChange={handleChangeContact}
-                  className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
-                  required
-                />
-              </div>
-              <button
-                type="submit"
-                className="w-full !bg-color-secondary !text-white p-2 rounded hover:!bg-opacity-90"
-                disabled={loadingContact}
-              >
-                {loadingContact ? "submiting..." : "Create Contact"}
-              </button>
-            </form>
-          )}
-          {activeTab === "projects" && (
-            <form
-              className="max-w-md mx-auto p-6 bg-white shadow-lg rounded-lg"
-              onSubmit={handleSubmitPro}
-            >
-              <h2 className="text-2xl font-bold text-color-primary mb-4">
-                Create Project
-              </h2>
-              <div className="flex w-full items-center justify-center">
-                <Label
-                  htmlFor="project-file"
-                  className="flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600"
-                >
-                  {proPreviewUrls ? ( // Assuming projectPreviewUrl is a single URL (string), not an array
-                    <div className="flex flex-wrap gap-2 p-2 justify-center">
-                      <div className="relative">
-                        <img
-                          src={proPreviewUrls}
-                          alt="Project Preview"
-                          className="h-40 w-40 object-cover rounded-lg"
-                        />
-                        <button
-                          type="button"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            setProPreviewUrls(null); // Reset the selected file
-                            URL.revokeObjectURL(proPreviewUrls); // Clean up the URL
-                            setProPreviewUrls(null); // Reset the preview URL
-                          }}
-                          className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center"
+                      </div>
+                    ) : (
+                      <div className="flex flex-col items-center justify-center pb-6 pt-5">
+                        <svg
+                          className="mb-4 h-8 w-8 text-gray-500 dark:text-gray-400"
+                          aria-hidden="true"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 20 16"
                         >
-                          ×
-                        </button>
+                          <path
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
+                          />
+                        </svg>
+                        <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                          <span className="font-semibold">Click to upload</span>{" "}
+                          or drag and drop
+                        </p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                          SVG, PNG, JPG or GIF (MAX. 800x400px)
+                        </p>
                       </div>
-                    </div>
-                  ) : (
-                    <div className="flex flex-col items-center justify-center pb-6 pt-5">
-                      <svg
-                        className="mb-4 h-8 w-8 text-gray-500 dark:text-gray-400"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 20 16"
-                      >
-                        <path
-                          stroke="currentColor"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
-                        />
-                      </svg>
-                      <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                        <span className="font-semibold">Click to upload</span>{" "}
-                        or drag and drop
-                      </p>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">
-                        SVG, PNG, JPG or GIF (MAX. 800x400px)
-                      </p>
-                    </div>
-                  )}
-                  <FileInput
-                    id="project-file"
-                    className="hidden"
-                    onChange={handleProFileChange}
+                    )}
+                    <FileInput
+                      id="project-file"
+                      className="hidden"
+                      onChange={handleProFileChange}
+                    />
+                  </Label>
+                </div>
+                <div className="mb-4">
+                  <label className="block text-color-primary font-medium">
+                    Project Title
+                  </label>
+                  <input
+                    value={formProject.project_title}
+                    onChange={handleChangePro}
+                    name="project_title"
+                    type="text"
+                    className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
+                    required
                   />
-                </Label>
-              </div>
-              <div className="mb-4">
-                <label className="block text-color-primary font-medium">
-                  Project Title
-                </label>
-                <input
-                  value={formProject.project_title}
-                  onChange={handleChangePro}
-                  name="project_title"
-                  type="text"
-                  className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
-                  required
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-color-primary font-medium">
-                  Project Description
-                </label>
-                <input
-                  onChange={handleChangePro}
-                  value={formProject.project_description}
-                  name="project_description"
-                  type="text"
-                  className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
-                  required
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-color-primary font-medium">
-                  Link to Project
-                </label>
-                <input
-                  onChange={handleChangePro}
-                  value={formProject.link_to_project}
-                  name="link_to_project"
-                  type="text"
-                  className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
-                  required
-                />
-              </div>
-              <button
-                type="submit"
-                className="w-full !bg-color-secondary !text-white p-2 rounded hover:!bg-opacity-90"
-                disabled={loadingPro}
-              >
-                {loadingPro ? "Submitting..." : "Create Project"}
-              </button>
-            </form>
-          )}
-          {activeTab === "services" && (
-            <form
-              className="max-w-md mx-auto p-6 bg-white shadow-lg rounded-lg"
-              onSubmit={handleSubmitService}
-            >
-              <h2 className="text-2xl font-bold text-color-primary mb-4">
-                Create Service
-              </h2>
-              <div className="flex w-full items-center justify-center">
-                <Label
-                  htmlFor="service-file"
-                  className="flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+                </div>
+                <div className="mb-4">
+                  <label className="block text-color-primary font-medium">
+                    Project Description
+                  </label>
+                  <input
+                    onChange={handleChangePro}
+                    value={formProject.project_description}
+                    name="project_description"
+                    type="text"
+                    className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
+                    required
+                  />
+                </div>
+                <div className="mb-4">
+                  <label className="block text-color-primary font-medium">
+                    Link to Project
+                  </label>
+                  <input
+                    onChange={handleChangePro}
+                    value={formProject.link_to_project}
+                    name="link_to_project"
+                    type="text"
+                    className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
+                    required
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="w-full !bg-color-secondary !text-white p-2 rounded hover:!bg-opacity-90"
+                  disabled={loadingPro}
                 >
-                  {servicePreviewUrls ? ( // Single preview URL
-                    <div className="flex flex-wrap gap-2 p-2 justify-center">
-                      <div className="relative">
-                        <img
-                          src={servicePreviewUrls}
-                          alt="Service Preview"
-                          className="h-40 w-40 object-cover rounded-lg"
-                        />
-                        <button
-                          type="button"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            setServicePreviewUrls(null); // Reset the selected file
-                            URL.revokeObjectURL(servicePreviewUrls); // Clean up the URL
-                            setServicePreviewUrls(null); // Reset the preview URL
-                          }}
-                          className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center"
+                  {loadingPro ? "Submitting..." : "Create Project"}
+                </button>
+              </form>
+            )}
+            {activeTab === "services" && (
+              <form
+                className=" mx-auto bg-white shadow-lg rounded-lg"
+                onSubmit={handleSubmitService}
+              >
+                <h2 className="text-2xl font-bold text-color-primary mb-4">
+                  Create Service
+                </h2>
+                <div className="flex w-full items-center justify-center">
+                  <Label
+                    htmlFor="service-file"
+                    className="flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+                  >
+                    {servicePreviewUrls ? ( // Single preview URL
+                      <div className="flex flex-wrap gap-2 p-2 justify-center">
+                        <div className="relative">
+                          <img
+                            src={servicePreviewUrls}
+                            alt="Service Preview"
+                            className="h-40 w-40 object-cover rounded-lg"
+                          />
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setServicePreviewUrls(null); // Reset the selected file
+                              URL.revokeObjectURL(servicePreviewUrls); // Clean up the URL
+                              setServicePreviewUrls(null); // Reset the preview URL
+                            }}
+                            className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center"
+                          >
+                            ×
+                          </button>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="flex flex-col items-center justify-center pb-6 pt-5">
+                        <svg
+                          className="mb-4 h-8 w-8 text-gray-500 dark:text-gray-400"
+                          aria-hidden="true"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 20 16"
                         >
-                          ×
-                        </button>
+                          <path
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
+                          />
+                        </svg>
+                        <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                          <span className="font-semibold">Click to upload</span>{" "}
+                          or drag and drop
+                        </p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                          SVG, PNG, JPG or GIF (MAX. 800x400px)
+                        </p>
                       </div>
-                    </div>
-                  ) : (
-                    <div className="flex flex-col items-center justify-center pb-6 pt-5">
-                      <svg
-                        className="mb-4 h-8 w-8 text-gray-500 dark:text-gray-400"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 20 16"
-                      >
-                        <path
-                          stroke="currentColor"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
-                        />
-                      </svg>
-                      <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                        <span className="font-semibold">Click to upload</span>{" "}
-                        or drag and drop
-                      </p>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">
-                        SVG, PNG, JPG or GIF (MAX. 800x400px)
-                      </p>
-                    </div>
-                  )}
-                  <FileInput
-                    id="service-file"
-                    className="hidden"
-                    onChange={handleServiceFileChange}
+                    )}
+                    <FileInput
+                      id="service-file"
+                      className="hidden"
+                      onChange={handleServiceFileChange}
+                    />
+                  </Label>
+                </div>
+                <div className="mb-4">
+                  <label className="block text-color-primary font-medium">
+                    Title
+                  </label>
+                  <input
+                    value={formService.title}
+                    onChange={handleChangeService}
+                    name="title"
+                    type="text"
+                    className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
+                    required
                   />
-                </Label>
-              </div>
-              <div className="mb-4">
-                <label className="block text-color-primary font-medium">
-                  Title
-                </label>
-                <input
-                  value={formService.title}
-                  onChange={handleChangeService}
-                  name="title"
-                  type="text"
-                  className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
-                  required
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-color-primary font-medium">
-                  Description
-                </label>
-                <input
-                  onChange={handleChangeService}
-                  value={formService.description}
-                  name="description"
-                  type="text"
-                  className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
-                  required
-                />
-              </div>
-              <button
-                type="submit"
-                className="w-full !bg-color-secondary !text-white p-2 rounded hover:!bg-opacity-90"
-                disabled={loadingService}
-              >
-                {loadingService ? "Submitting..." : "Create Service"}{" "}
-                {/* Fixed button text */}
-              </button>
-            </form>
-          )}
-          {activeTab === "blog" && (
-            <form
-              className="max-w-md mx-auto p-6 bg-white shadow-lg rounded-lg"
-              onSubmit={handleSubmitBlog}
-            >
-              <div className="flex w-full items-center justify-center">
-                <Label
-                  htmlFor="dropzone-file"
-                  className="flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+                </div>
+                <div className="mb-4">
+                  <label className="block text-color-primary font-medium">
+                    Description
+                  </label>
+                  <input
+                    onChange={handleChangeService}
+                    value={formService.description}
+                    name="description"
+                    type="text"
+                    className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
+                    required
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="w-full !bg-color-secondary !text-white p-2 rounded hover:!bg-opacity-90"
+                  disabled={loadingService}
                 >
-                  {blogPreviewUrls ? ( // Single preview URL
-                    <div className="flex flex-wrap gap-2 p-2 justify-center">
-                      <div className="relative">
-                        <img
-                          src={blogPreviewUrls}
-                          alt="Blog Preview"
-                          className="h-40 w-40 object-cover rounded-lg"
-                        />
-                        {/* <button
-                       type="button"
-                       onClick={(e) => {
-                         e.preventDefault();
-                         e.stopPropagation();
-                         setBlogPreviewUrls(null); // Reset the selected file
-                         URL.revokeObjectURL(blogPreviewUrls); // Clean up the URL
-                         setBlogPreviewUrls(null); // Reset the preview URL
-                       }}
-                       className="absolute top-1 right-1 !bg-red-500 !text-white !rounded-full w-6 h-6 flex items-center justify-center"
-                     >
-                       ×
-                     </button> */}
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="flex flex-col items-center justify-center pb-6 pt-5">
-                      <svg
-                        className="mb-4 h-8 w-8 text-gray-500 dark:text-gray-400"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 20 16"
-                      >
-                        <path
-                          stroke="currentColor"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
-                        />
-                      </svg>
-                      <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                        <span className="font-semibold">Click to upload</span>{" "}
-                        or drag and drop
-                      </p>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">
-                        SVG, PNG, JPG or GIF (MAX. 800x400px)
-                      </p>
-                    </div>
-                  )}
-                  <FileInput
-                    id="dropzone-file"
-                    className="hidden"
-                    onChange={handleBlogFileChange}
-                  />
-                </Label>
-              </div>
-              <div className="mb-4">
-                <label className="block text-color-primary font-medium">
-                  Title
-                </label>
-                <input
-                  value={formBlog.title}
-                  onChange={handleBlogChange}
-                  name="title"
-                  type="text"
-                  className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
-                  required
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-color-primary font-medium">
-                  Description
-                </label>
-                <input
-                  onChange={handleBlogChange}
-                  value={formBlog.description}
-                  name="description"
-                  type="text"
-                  className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
-                  required
-                />
-              </div>
-              <button
-                type="submit"
-                className="w-full !bg-color-secondary text-white p-2 rounded hover:bg-opacity-90"
-                disabled={loadingBlog}
+                  {loadingService ? "Submitting..." : "Create Service"}{" "}
+                  {/* Fixed button text */}
+                </button>
+              </form>
+            )}
+            {activeTab === "blog" && (
+              <form
+                className=" mx-auto bg-white shadow-lg rounded-lg"
+                onSubmit={handleSubmitBlog}
               >
-                {loadingBlog ? "Submitting..." : "Create Blog"}
-              </button>
-            </form>
-          )}
+                <div className="flex w-full items-center justify-center">
+                  <Label
+                    htmlFor="dropzone-file"
+                    className="flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+                  >
+                    {blogPreviewUrls ? ( // Single preview URL
+                      <div className="flex flex-wrap gap-2 p-2 justify-center">
+                        <div className="relative">
+                          <img
+                            src={blogPreviewUrls}
+                            alt="Blog Preview"
+                            className="h-40 w-40 object-cover rounded-lg"
+                          />
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setBlogPreviewUrls(null); // Reset the selected file
+                              URL.revokeObjectURL(blogPreviewUrls); // Clean up the URL
+                              setBlogPreviewUrls(null); // Reset the preview URL
+                            }}
+                            className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center"
+                          >
+                            ×
+                          </button>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="flex flex-col items-center justify-center pb-6 pt-5">
+                        <svg
+                          className="mb-4 h-8 w-8 text-gray-500 dark:text-gray-400"
+                          aria-hidden="true"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 20 16"
+                        >
+                          <path
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
+                          />
+                        </svg>
+                        <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                          <span className="font-semibold">Click to upload</span>{" "}
+                          or drag and drop
+                        </p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                          SVG, PNG, JPG or GIF (MAX. 800x400px)
+                        </p>
+                      </div>
+                    )}
+                    <FileInput
+                      id="dropzone-file"
+                      className="hidden"
+                      onChange={handleBlogFileChange}
+                    />
+                  </Label>
+                </div>
+                <div className="mb-4">
+                  <label className="block text-color-primary font-medium">
+                    Title
+                  </label>
+                  <input
+                    value={formBlog.title}
+                    onChange={handleBlogChange}
+                    name="title"
+                    type="text"
+                    className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
+                    required
+                  />
+                </div>
+                <div className="mb-4">
+                  <label className="block text-color-primary font-medium">
+                    Description
+                  </label>
+                  <input
+                    onChange={handleBlogChange}
+                    value={formBlog.description}
+                    name="description"
+                    type="text"
+                    className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
+                    required
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="w-full bg-color-secondary text-white p-2 rounded hover:bg-opacity-90"
+                  disabled={loadingBlog}
+                >
+                  {loadingBlog ? "Submitting..." : "Create Blog"}
+                </button>
+              </form>
+            )}
+          </div>
         </div>
       </section>
-      <section className="col-span-4 h-screen overflow-y-auto">
+
+      {/* Right Panel - Preview */}
+      <section className="w-full md:col-span-4 h-auto md:h-screen overflow-y-auto">
         <FolioComponents3
+          // ... your preview component props ...
           ABoutMeImg={
-            AboutMePreviewUrls.length > 0 ? AboutMePreviewUrls : AboutMeForm.images
+            AboutMePreviewUrls.length > 0
+              ? AboutMePreviewUrls
+              : AboutMeForm.images
           }
+          firstName={AboutMeForm.personal_info.first_name}
+          Lastname={AboutMeForm.personal_info.last_name}
+          dob={AboutMeForm.personal_info.date_of_birth}
+          jobNow={AboutMeForm.personal_info.job}
+          url={AboutMeForm.personal_info.social_media}
           skillTitle={formSkill.title}
           skillDes={formSkill.description}
           skillImg={

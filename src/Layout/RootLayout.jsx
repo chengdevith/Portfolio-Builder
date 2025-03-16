@@ -21,10 +21,6 @@ const RootLayout = () => {
     }
     Verify();
   });
-  // const handleLogout = () => {
-  //   localStorage.removeItem("accessToken");
-  //   window.location.reload();
-  // };
   if (dataOfUser) {
     return (
       <>

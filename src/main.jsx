@@ -7,8 +7,11 @@ import RootLayout from "./Layout/RootLayout.jsx";
 import About from "./pages/About.jsx";
 import Blog from "./pages/Blog.jsx";
 import Template from "./pages/Template.jsx";
+
 import Login from "./pages/auth/Login.jsx";
 import SignUp from "./pages/auth/SignUp.jsx";
+import GoogleCallback from "./pages/auth/GoogleCallBack.jsx";
+
 import { StrictMode } from "react";
 import { OTPVerifyComponent } from "./pages/auth/OTPVerifyComponent.jsx";
 import { Provider } from "react-redux";
@@ -36,6 +39,7 @@ createRoot(document.getElementById("root")).render(
               <Route path="/user-detail" element={<UserDetailComponents />} />
             </Route>
             <Route path="/login" element={<Login />} />
+            <Route path="/auth/google/callback" element={<GoogleCallback />} />
             <Route path="/sign-up" element={<SignUp />} />
             <Route path="/otp" element={<OTPVerifyComponent />} />
             <Route

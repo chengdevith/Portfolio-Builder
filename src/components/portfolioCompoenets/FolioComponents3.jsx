@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import profile from "../../assets/Member_images/profile.png";
 import {
   Menu,
   X,
@@ -18,6 +19,9 @@ const FolioComponents3 = ({
   firstName,
   Lastname,
   ABoutMeImg,
+  dob,
+  jobNow,
+  url,
   skillImg,
   skillTitle,
   skillDes,
@@ -41,8 +45,21 @@ const FolioComponents3 = ({
   serviceDescription,
   blogImage,
   blogTitle,
-  blogDescription
+  blogDescription,
 }) => {
+  const calculateAge = (dob) => {
+    const birthDate = new Date(dob);
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+    if (
+      monthDiff < 0 ||
+      (monthDiff === 0 && today.getDate() < birthDate.getDate())
+    ) {
+      age--;
+    }
+    return age;
+  };
   //Sample data based on the API structure provided
   const portfolio = {
     title: "Portfolio A",
@@ -76,14 +93,14 @@ const FolioComponents3 = ({
   };
 
   // Social media links
-  const socialLinks = JSON.parse(
-    portfolio.social_media_link_json || '{"facebook":"https://facebook.com"}'
+  const socialLinks = (
+    url || '{"facebook":"https://facebook.com"}'
   );
 
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Navigation */}
-      <nav className="bg-white shadow-md fixed w-full z-10">
+      <nav className="bg-white shadow-md sticky top-0 w-full z-10">
         <div className="max-w-6xl mx-auto px-4">
           <div className="flex justify-between h-16">
             <div className="flex items-center">
@@ -92,13 +109,9 @@ const FolioComponents3 = ({
                 className="flex-shrink-0 flex items-center"
                 onClick={() => setActiveSection("home")}
               >
-                <img
-                  className="h-8 w-auto"
-                  src={portfolio.portfolio_avatar}
-                  alt="Logo"
-                />
+                <img className="h-8 w-auto" src={ABoutMeImg} alt="Logo" />
                 <span className="ml-2 text-xl font-bold text-gray-800">
-                  {portfolio.title}
+                  {`${firstName} ${Lastname}`}
                 </span>
               </a>
             </div>
@@ -334,11 +347,10 @@ const FolioComponents3 = ({
         className="pt-16 bg-gradient-to-r from-blue-500 to-purple-600 text-white"
       >
         <div className="max-w-6xl mx-auto px-4 py-12 md:py-24 flex flex-col md:flex-row items-center">
-          <div className="md:w-1/2 mb-10 md:mb-0">
+          <div className="md:w-1/2 mb-10 md:mb-0 flex flex-col gap-10">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              Welcome to {portfolio.title}
+              Welcome to {`${firstName} ${Lastname}`}
             </h1>
-            <p className="text-xl mb-6">{portfolio.biography}</p>
             <div className="flex space-x-4">
               <a
                 href="#contact"
@@ -354,11 +366,11 @@ const FolioComponents3 = ({
               </a>
             </div>
           </div>
-          <div className="md:w-1/2 flex justify-center">
+          <div className="md:w-1/2 flex justify-start">
             <img
-              src={portfolio.hero_image}
+              src={ABoutMeImg}
               alt="Hero"
-              className="rounded-lg shadow-xl max-w-full h-auto"
+              className="rounded-full object-cover shadow-xl max-w-44 h-auto"
             />
           </div>
         </div>
@@ -382,47 +394,12 @@ const FolioComponents3 = ({
             </div>
             <div className="md:w-2/3 md:pl-12">
               <h3 className="text-2xl font-semibold mb-4 text-gray-700">
-                Who I Am
+                {`${firstName} ${Lastname}`}
               </h3>
               <p className="text-gray-600 mb-6">
-                I'm a passionate professional dedicated to delivering
-                high-quality solutions. With years of experience in the
-                industry, I've developed a keen eye for detail and a strong
-                commitment to excellence.
+                Hi, I’m {`${firstName} ${Lastname}`} {calculateAge(dob)} year
+                old,I'm a {jobNow}
               </p>
-              <p className="text-gray-600 mb-6">
-                My approach combines technical expertise with creative
-                problem-solving to meet the unique needs of each project. I
-                believe in continuous learning and staying up-to-date with the
-                latest industry trends and technologies.
-              </p>
-
-              <div className="grid grid-cols-2 gap-4 text-gray-700">
-                <div className="flex items-center">
-                  <ChevronRight className="text-blue-500 mr-2" size={20} />
-                  <span>
-                    <strong>Experience:</strong> {portfolio.we}+ years
-                  </span>
-                </div>
-                <div className="flex items-center">
-                  <ChevronRight className="text-blue-500 mr-2" size={20} />
-                  <span>
-                    <strong>Projects:</strong> {portfolio.project}+ completed
-                  </span>
-                </div>
-                <div className="flex items-center">
-                  <ChevronRight className="text-blue-500 mr-2" size={20} />
-                  <span>
-                    <strong>Skills:</strong> {portfolio.skill}+ professional
-                  </span>
-                </div>
-                <div className="flex items-center">
-                  <ChevronRight className="text-blue-500 mr-2" size={20} />
-                  <span>
-                    <strong>Services:</strong> {portfolio.service}+ offered
-                  </span>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -530,21 +507,21 @@ const FolioComponents3 = ({
               className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition duration-300"
             >
               <div className="relative">
-                  <img
-                    src={projectImage}
-                    alt={projectTitle}
-                    className="w-full h-48 object-cover"
-                  />
-                  <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 hover:opacity-100 transition duration-300">
-                    <a
-                      href={projectLink}
-                      target="_blank"
-                      className="bg-blue-600 text-white px-4 py-2 rounded-full flex items-center"
-                    >
-                      View Project <ExternalLink size={16} className="ml-2" />
-                    </a>
-                  </div>
+                <img
+                  src={projectImage}
+                  alt={projectTitle}
+                  className="w-full h-48 object-cover"
+                />
+                <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 hover:opacity-100 transition duration-300">
+                  <a
+                    href={projectLink}
+                    target="_blank"
+                    className="bg-blue-600 text-white px-4 py-2 rounded-full flex items-center"
+                  >
+                    View Project <ExternalLink size={16} className="ml-2" />
+                  </a>
                 </div>
+              </div>
               <div className="p-6">
                 <h3 className="text-xl font-bold text-gray-800 mb-2">
                   {projectTitle}
@@ -578,10 +555,10 @@ const FolioComponents3 = ({
               className="bg-gray-50 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-300"
             >
               <img
-                  src={serviceImage}
-                  alt={serviceTitle}
-                  className="w-full h-40 object-cover"
-                />
+                src={serviceImage}
+                alt={serviceTitle}
+                className="w-full h-40 object-cover"
+              />
               <div className="p-6">
                 <h3 className="text-xl font-bold text-gray-800 mb-2">
                   {serviceTitle}
@@ -610,25 +587,25 @@ const FolioComponents3 = ({
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* {blogs.map((blog, index) => ( */}
-              <div
-                // key={index}
-                className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-300"
-              >
-                <img
-                  src={blogImage}
-                  alt={blogTitle}
-                  className="w-full h-40 object-cover"
-                />
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-gray-800 mb-3">
-                    {blogTitle}
-                  </h3>
-                  <p className="text-gray-600 mb-4">{blogDescription}</p>
-                  <button className="text-blue-600 font-medium hover:text-blue-700 flex items-center">
-                    Read More <ChevronRight size={16} className="ml-1" />
-                  </button>
-                </div>
+            <div
+              // key={index}
+              className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-300"
+            >
+              <img
+                src={blogImage}
+                alt={blogTitle}
+                className="w-full h-40 object-cover"
+              />
+              <div className="p-6">
+                <h3 className="text-xl font-bold text-gray-800 mb-3">
+                  {blogTitle}
+                </h3>
+                <p className="text-gray-600 mb-4">{blogDescription}</p>
+                <button className="text-blue-600 font-medium hover:text-blue-700 flex items-center">
+                  Read More <ChevronRight size={16} className="ml-1" />
+                </button>
               </div>
+            </div>
             {/* ))} */}
           </div>
         </div>
@@ -820,7 +797,7 @@ const FolioComponents3 = ({
         <div className="max-w-6xl mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="mb-6 md:mb-0">
-              <h3 className="text-xl font-bold">{portfolio.title}</h3>
+              <h3 className="text-xl font-bold">{`${firstName} ${Lastname}`}</h3>
               <p className="text-gray-400 mt-2">
                 © {new Date().getFullYear()} All Rights Reserved
               </p>
