@@ -22,10 +22,10 @@ const FilterComponent = () => {
   const handleSearch = (e) => {
     e.preventDefault();
   };
-  
+  console.log(CardList)
   // Only filter if CardList is defined
   const handleClick = (id) => {
-    navigate(`/template/${id-5}`);
+    navigate(`/template/${id-5}`,{state:id-5});
   };
   const filteredData = CardList
     ? CardList.filter((item) => {
@@ -223,8 +223,8 @@ const FilterComponent = () => {
           <TemplateCardComponent
             id={e.id}
             image={e.image}
-            title={e.title}
-            category={e.category}
+            title={e.description}
+            category={e.name}
           />
         </div>
       ))}

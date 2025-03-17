@@ -26,7 +26,10 @@ export const projectApi = createApi({
         method: "GET",
       }),
     }),
+    GetProjectById: build.query({
+      query: (id)=> `/projects/${id}`
+    })
     
   }),
 });
- export const {useAddProjectMutation, useGetProjectQuery} = projectApi
+ export const {useAddProjectMutation, useGetProjectQuery,useGetProjectByIdQuery} = projectApi

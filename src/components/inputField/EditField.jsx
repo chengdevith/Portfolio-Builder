@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { HiUserCircle, HiClipboardList } from "react-icons/hi";
 import { MdDashboard } from "react-icons/md";
 import { FaTools } from "react-icons/fa";
@@ -22,11 +22,14 @@ import { useAddProjectMutation } from "../../redux/services/projectSlice";
 import { useAddServiceMutation } from "../../redux/services/serviceSlice";
 import { useAddBlogMutation } from "../../redux/services/blogSlice";
 import { form } from "framer-motion/client";
+import { useCreateTemplateFolioMutation } from "../../redux/services/templateFolioSlice";
 
 export default function EditFiel() {
   const [activeTab, setActiveTab] = useState("personal");
 
+
   //SelectFiles
+  const [selectedFileTemplate, setSelectedFileTemplate] = useState([])
   const [selectedFIlesAboutMe, setSelectedFilesAboutMe] = useState([]);
   const [selectedSkillFiles, setSelectedSkillFiles] = useState([]);
   const [selectedProFiles, setSelectedProFiles] = useState([]);
@@ -34,6 +37,7 @@ export default function EditFiel() {
   const [selectedBlogFiles, setSelectedBlogFiles] = useState([]);
 
   // Preview URLs state
+  const [CreateTemplatePreviewUrl, setCreateTemplatePreviewUrl] = useState([])
   const [AboutMePreviewUrls, setABoutMePreviewUrls] = useState([]);
   const [skillPreviewUrls, setSkillPreviewUrls] = useState([]);
   const [proPreviewUrls, setProPreviewUrls] = useState([]);
@@ -41,6 +45,7 @@ export default function EditFiel() {
   const [blogPreviewUrls, setBlogPreviewUrls] = useState([]);
 
   //uploadfile
+  const [uploadFileCreateTemplate] = useUploadFileMutation();
   const [uploadAboutmeFile] = useUploadFileMutation();
   const [uploadSkillFile] = useUploadFileMutation();
   const [uploadProFile] = useUploadFileMutation();
@@ -48,6 +53,7 @@ export default function EditFiel() {
   const [uploadBlogFile] = useUploadFileMutation();
 
   //api
+  const [createTemplateFolio, {isLoading:templateLoading}] = useCreateTemplateFolioMutation();
   const [addNewAboutMe, { isLoading, isError }] = useAddAboutMeMutation();
   const [addNewSkill, { isLoading: loadingSkill }] = useAddSkillMutation();
   const [addNewWorkExperience, { isLoading: loadingWe }] =
@@ -59,6 +65,26 @@ export default function EditFiel() {
   const [addNewBlog, { isLoading: loadingBlog }] = useAddBlogMutation();
 
   //form
+  const [createTemplateForm, setCreateTemplateForm] = useState({
+    title: "d",
+    type: "d",
+    social_media_link_json: "",
+    portfolio_avatar: "",
+    biography: "d",
+    we: null,
+    project: null,
+    about_me: null,
+    status: true,
+    hero_image: "",
+    section_image: "",
+    contact: null,
+    blog: null,
+    service: null,
+    skill: null,
+    template: 6,
+    select_template: 12,
+    is_public: true
+  })
   const [AboutMeForm, setAboutMeForm] = useState({
     images: [{ url: "", alt: "" }],
     titles: [{ key: "", subtitle: "" }],
@@ -116,6 +142,9 @@ export default function EditFiel() {
   });
 
   //handleChange
+  const handleChangeCreateTemplate = (e)=>{
+    setCreateTemplateForm({...createTemplateForm, [e.target.name]: e.target.value})
+  }
   const handleChangeAboutMe = (e) => {
     const { name, value } = e.target;
     // Handle nested objects
@@ -163,6 +192,11 @@ export default function EditFiel() {
   };
 
   //handleFileChange
+  const handleFileChangeCreateTemplate = (e)=>{
+    const files = Array.from(e.target.files)
+    console.log(files)
+    setSelectedFileTemplate(files)
+  }
   const handleFileChangeAboutMe = (e) => {
     const files = Array.from(e.target.files);
     console.log(files);
@@ -187,8 +221,33 @@ export default function EditFiel() {
     console.log(files);
     setSelectedBlogFiles(files);
   };
+ //save
+ const formRef = useRef(null);
 
+  const handleSubmitButtonClick = () => {
+    if (formRef.current) {
+      formRef.current.requestSubmit(); // Submit the form
+    }
+  };
   //handleSubmit
+  const handleSubmitTemplate = async (e)=>{
+    e.preventDefault();
+    const formData = new FormData();
+    selectedFileTemplate.forEach((file)=>{
+      formData.append("file",file)
+    });
+    try{
+      const resp = await uploadFileCreateTemplate(formData).unwrap()
+      const url = resp.url;
+      const response = await createTemplateFolio({
+        ...createTemplateForm,
+        portfolio_avatar: url,
+      }).unwrap();
+      console.log(response);
+    }catch(error){
+      console.log(error)
+    }
+  }
   const handleSubmitAboutMe = async (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -207,6 +266,8 @@ export default function EditFiel() {
       };
       const response = await addNewAboutMe(updatedForm).unwrap();
       console.log(response);
+      createTemplateForm.about_me = response.id;
+      console.log(createTemplateForm.about_me);
     } catch (error) {
       alert(error);
     }
@@ -227,6 +288,7 @@ export default function EditFiel() {
         ...formSkill,
         images: [url],
       }).unwrap();
+      createTemplateForm.skill = response.id;
       console.log(formSkill);
       console.log(response);
 
@@ -247,6 +309,7 @@ export default function EditFiel() {
     try {
       const response = await addNewWorkExperience(weForm).unwrap();
       console.log(response);
+      createTemplateForm.we = response.id;
     } catch (error) {
       console.log(error);
     }
@@ -256,6 +319,8 @@ export default function EditFiel() {
     try {
       const response = await addNewConact(formData).unwrap();
       console.log(response);
+      createTemplateForm.contact = response.id;
+      console.log(createTemplateForm.contact)
     } catch (error) {
       console.log(error);
     }
@@ -276,6 +341,7 @@ export default function EditFiel() {
         project_image: url,
       }).unwrap();
       console.log(response);
+      createTemplateForm.project = response.id;
     } catch (error) {
       console.log(error);
     }
@@ -296,6 +362,8 @@ export default function EditFiel() {
         images: [url],
       }).unwrap();
       console.log(response);
+      createTemplateForm.service = response.id;
+      console.log(createTemplateForm.service = response.id)
     } catch (error) {
       alert(error);
     }
@@ -316,12 +384,27 @@ export default function EditFiel() {
         images: [url],
       }).unwrap();
       console.log(response);
+      createTemplateForm.blog = response.id;
+      console.log(createTemplateForm.blog)
     } catch (error) {
       alert(error);
     }
   };
 
   // Generate preview URLs when files are selected
+  useEffect(() => {
+    if (selectedFileTemplate.length > 0) {
+      const newPreviewUrls = selectedFileTemplate.map((file) =>
+        URL.createObjectURL(file)
+      );
+      setCreateTemplatePreviewUrl(newPreviewUrls);
+
+      // Cleanup function to revoke object URLs when component unmounts or files change
+      return () => {
+        newPreviewUrls.forEach((url) => URL.revokeObjectURL(url));
+      };
+    }
+  }, [selectedFileTemplate]);
   useEffect(() => {
     if (selectedFIlesAboutMe.length > 0) {
       const newPreviewUrls = selectedFIlesAboutMe.map((file) =>
@@ -397,6 +480,7 @@ export default function EditFiel() {
     { id: "projects", icon: <MdDashboard />, label: "Projects" },
     { id: "services", icon: <FaTools />, label: "Services" },
     { id: "blog", icon: <LuNotebookPen />, label: "Blog" },
+    { id: "create",icon: <LuNotebookPen />, label:"create"}
   ];
 
   return (
@@ -465,9 +549,10 @@ export default function EditFiel() {
                 </div>
               )}
             </div>
-            <button className="w-1/4 px-4 py-2  rounded-lg bg-color-secondary text-white shadow-md text-sm md:text-base">
+            <button onClick={handleSubmitButtonClick}  type="submit"  className="w-1/4 px-4 py-2  rounded-lg !bg-color-secondary text-white shadow-md text-sm md:!text-base">
               Save
             </button>
+            
           </div>
 
           {/* Tab Content */}
@@ -1271,12 +1356,122 @@ export default function EditFiel() {
                 </div>
                 <button
                   type="submit"
-                  className="w-full bg-color-secondary text-white p-2 rounded hover:bg-opacity-90"
+                  className="w-full !bg-color-secondary text-white p-2 rounded hover:!bg-opacity-90"
                   disabled={loadingBlog}
                 >
                   {loadingBlog ? "Submitting..." : "Create Blog"}
                 </button>
               </form>
+            )}
+            {activeTab === "create" && (
+              <form
+              ref={formRef}
+              className="mx-auto bg-white shadow-lg rounded-lg"
+              onSubmit={handleSubmitTemplate}
+              method="POST"
+            >
+              <div className="flex w-full items-center justify-center">
+                <Label
+                  htmlFor="dropzone-file"
+                  className="flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+                >
+                  {CreateTemplatePreviewUrl ? (
+                    <div className="flex flex-wrap gap-2 p-2 justify-center">
+                      <div className="relative">
+                        <img
+                          src={CreateTemplatePreviewUrl}
+                          alt="Create Template"
+                          className="h-40 w-40 object-cover rounded-lg"
+                        />
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            setBlogPreviewUrls(null);
+                            URL.revokeObjectURL(CreateTemplatePreviewUrl);
+                            setBlogPreviewUrls(null);
+                          }}
+                          className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center"
+                        >
+                          ×
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="flex flex-col items-center justify-center pb-6 pt-5">
+                      <svg
+                        className="mb-4 h-8 w-8 text-gray-500 dark:text-gray-400"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 20 16"
+                      >
+                        <path
+                          stroke="currentColor"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
+                        />
+                      </svg>
+                      <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                        <span className="font-semibold">Click to upload</span> or drag
+                        and drop
+                      </p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">
+                        SVG, PNG, JPG or GIF (MAX. 800x400px)
+                      </p>
+                    </div>
+                  )}
+                  <FileInput
+                    id="dropzone-file"
+                    className="hidden"
+                    onChange={handleFileChangeCreateTemplate}
+                  />
+                </Label>
+              </div>
+      
+              <div className="mb-4">
+                <label className="block text-color-primary font-medium">Title</label>
+                <input
+                  value={createTemplateForm.title}
+                  onChange={handleChangeCreateTemplate}
+                  name="title"
+                  type="text"
+                  className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
+                  required
+                />
+              </div>
+      
+              <div className="mb-4">
+                <label className="block text-color-primary font-medium">
+                  Biography
+                </label>
+                <input
+                  onChange={handleChangeCreateTemplate}
+                  value={createTemplateForm.biography}
+                  name="biography"
+                  type="text"
+                  className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
+                  required
+                />
+              </div>
+      
+              <div className="mb-4">
+                <label className="block text-color-primary font-medium">
+                  Link Social Media
+                </label>
+                <input
+                  onChange={handleChangeCreateTemplate}
+                  value={createTemplateForm.social_media_link_json}
+                  name="social_media_link_json"
+                  type="text"
+                  className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
+                  required
+                />
+              </div>
+            </form>
             )}
           </div>
         </div>
@@ -1285,6 +1480,7 @@ export default function EditFiel() {
       {/* Right Panel - Preview */}
       <section className="w-full md:col-span-4 h-auto md:h-screen overflow-y-auto">
         <FolioComponents3
+          
           // ... your preview component props ...
           ABoutMeImg={
             AboutMePreviewUrls.length > 0

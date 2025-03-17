@@ -26,10 +26,10 @@ export const serviceApi = createApi({
         method: "GET",
       }),
     }),
-    getBlogByById: build.query({
+    getServiceById: build.query({
       query : (id)=> `/services/${id}`
     })
   }),
 });
 
-export const {useAddServiceMutation, useGetServiceQuery  } = serviceApi;
+export const {useAddServiceMutation, useGetServiceQuery,useGetServiceByIdQuery  } = serviceApi;

@@ -31,7 +31,7 @@ export default function Login() {
       try {
         const accessTokenData = await getLogin(values).unwrap();
         if (accessTokenData) {
-          localStorage.setItem("access_token", accessTokenData?.access);
+          localStorage.setItem("accessToken", accessTokenData?.access);
         }
         navigate("/");
       } catch (error) {

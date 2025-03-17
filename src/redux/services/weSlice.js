@@ -26,7 +26,9 @@ export const weApi = createApi({
         method: "GET",
       }),
     }),
-    
+    getWorkExperienceById: build.query({
+      query: (id)=> `/work-experiences/${id}`
+    })
   }),
 });
- export const {useAddWorkExperienceMutation, useGetWorkExperienceQuery} = weApi
+ export const {useAddWorkExperienceMutation, useGetWorkExperienceQuery, useGetWorkExperienceByIdQuery} = weApi
