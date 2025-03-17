@@ -74,7 +74,7 @@ const FolioComponents3 = ({
   try {
     const payload = {
       user: data.id,
-      template: location.state+5
+      template: location.state
     };
     
     // Log the exact payload being sent

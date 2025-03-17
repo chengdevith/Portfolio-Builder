@@ -484,7 +484,7 @@ export default function EditFiel() {
     { id: "create",icon: <LuNotebookPen />, label:"create"}
   ];
 const location = useLocation()
-console.log("userid,templateid",location.state)
+console.log("selectTemplateID",location.state)
   return (
     <section className="grid grid-cols-1 md:grid-cols-6 gap-4 px-4">
       {/* Left Panel - Sidebar */}
