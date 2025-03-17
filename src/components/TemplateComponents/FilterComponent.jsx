@@ -11,30 +11,31 @@ const FilterComponent = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [CardList, setCardList] = useState(null);
   const navigate = useNavigate();
-  
+
   // Sync CardList with template when template changes
   useEffect(() => {
     if (template) {
       setCardList(template);
     }
   }, [template]);
-  
+
   const handleSearch = (e) => {
     e.preventDefault();
   };
-  console.log(CardList)
+  console.log(CardList);
   // Only filter if CardList is defined
   const handleClick = (id) => {
-    navigate(`/template/${id-5}`,{state:id-5});
+    navigate(`/template/${id - 5}`, { state: id});
   };
   const filteredData = CardList
-  ? CardList.filter((item) => {
-      // Check if description contains the search term (case-insensitive)
-      return searchTerm
-        ? item.description && item.description.toLowerCase().includes(searchTerm.toLowerCase())
-        : true; // If no search term, show all items
-    })
-  : [];
+    ? CardList.filter((item) => {
+        // Check if description contains the search term (case-insensitive)
+        return searchTerm
+          ? item.description &&
+              item.description.toLowerCase().includes(searchTerm.toLowerCase())
+          : true; // If no search term, show all items
+      })
+    : [];
   // Handle loading state with a spinner effect
   if (isLoading) {
     return (
@@ -209,21 +210,21 @@ const FilterComponent = () => {
 
         {/* Display Filtered Data */}
         <div className="max-w-screen-xl m-auto cardList grid xl:grid-cols-3 sm:grid-cols-2 gap-10">
-      {filteredData.map((e) => (
-        <div 
-          key={e.id}
-          onClick={() => handleClick(e.id)} // Pass the specific id
-          className="cursor-pointer" // Add cursor pointer for better UX
-        >
-          <TemplateCardComponent
-            id={e.id}
-            image={e.image}
-            title={e.description}
-            category={e.name}
-          />
+          {filteredData.map((e) => (
+            <div
+              key={e.id}
+              onClick={() => handleClick(e.id)} // Pass the specific id
+              className="cursor-pointer" // Add cursor pointer for better UX
+            >
+              <TemplateCardComponent
+                id={e.id}
+                image={e.image}
+                title={e.description}
+                category={e.name}
+              />
+            </div>
+          ))}
         </div>
-      ))}
-    </div>
       </div>
     </section>
   );

@@ -25,6 +25,7 @@ import FolioComponents3 from "./components/portfolioCompoenets/FolioComponents3.
 import FolioComponents4 from "./components/portfolioCompoenets/FolioComponents4.jsx";
 import UserDetailComponents from "./components/UserDetailComponents.jsx";
 import EditField from "./components/inputField/EditField.jsx";
+import SaveFolio from "./components/portfolioCompoenets/SaveFolio.jsx"
 createRoot(document.getElementById("root")).render(
   <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
     <Provider store={store}>
@@ -55,6 +56,7 @@ createRoot(document.getElementById("root")).render(
               <Route path="4" element={<FolioComponents4 />} />
             </Route>
             <Route path="/create-template" element={<EditField />} />
+            <Route path="/save-template" element={<SaveFolio/>} />
           </Routes>
         </StrictMode>
       </BrowserRouter>

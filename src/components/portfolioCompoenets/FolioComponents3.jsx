@@ -69,16 +69,29 @@ const FolioComponents3 = ({
   const navigate = useNavigate()
   const location = useLocation()
   const {data} = useGetUserProfileQuery()
-  const[createSeclectTemplate,isLoading,error]=useCreateSelectTemplateMutation()
-  const [templates,setTemplate] = useState({template:null,user:null})
-  
-  const handleSelctTemplate = async () =>{
-    setTemplate({template:location.state,user:data.id})
-    const respon= await createSeclectTemplate(templates)
-
-    navigate("/create-template",{state:respon.id})
-
+  const [createSelectTemplate, { isLoading, error }] = useCreateSelectTemplateMutation();
+  const handleSelectTemplate = async () => {
+  try {
+    const payload = {
+      user: data.id,
+      template: location.state
+    };
+    
+    // Log the exact payload being sent
+    console.log("Sending payload:", payload);
+    
+    const response = await createSelectTemplate(payload);
+    console.log("Full response:", response);
+    
+    if ('data' in response) {
+      navigate("/create-template", { state: response.data });
+    } else {
+      console.error("Error details:", response.error);
+    }
+  } catch (err) {
+    console.error("Request failed:", err);
   }
+};
   // Navigation state
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
@@ -348,7 +361,7 @@ const FolioComponents3 = ({
         className="pt-16 bg-gradient-to-r from-blue-500 to-purple-600 text-white"
       >
         <button onClick={()=>navigate("/template")} >back to template</button>
-        <button onClick={handleSelctTemplate}>create template</button>
+        <button onClick={handleSelectTemplate}>create template</button>
         <div className="max-w-6xl mx-auto px-4 py-12 md:py-24 flex flex-col md:flex-row items-center">
           <div className="md:w-1/2 mb-10 md:mb-0">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
