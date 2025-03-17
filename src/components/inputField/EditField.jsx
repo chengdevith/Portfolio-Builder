@@ -23,6 +23,7 @@ import { useAddServiceMutation } from "../../redux/services/serviceSlice";
 import { useAddBlogMutation } from "../../redux/services/blogSlice";
 import { form } from "framer-motion/client";
 import { useCreateTemplateFolioMutation } from "../../redux/services/templateFolioSlice";
+import { useLocation } from "react-router-dom";
 
 export default function EditFiel() {
   const [activeTab, setActiveTab] = useState("personal");
@@ -482,7 +483,8 @@ export default function EditFiel() {
     { id: "blog", icon: <LuNotebookPen />, label: "Blog" },
     { id: "create",icon: <LuNotebookPen />, label:"create"}
   ];
-
+const location = useLocation()
+console.log("userid,templateid",location.state)
   return (
     <section className="grid grid-cols-1 md:grid-cols-6 gap-4 px-4">
       {/* Left Panel - Sidebar */}
