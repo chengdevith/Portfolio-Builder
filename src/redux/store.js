@@ -21,7 +21,7 @@ export const store = configureStore({
     [userApi.reducerPath]: userApi.reducer,
     [authApi.reducerPath]: authApi.reducer,
     [contactApi.reducerPath]: contactApi.reducer,
-    [blogApi.reducerPath]: contactApi.reducer,
+    [blogApi.reducerPath]: blogApi.reducer,
     [weApi.reducerPath]: weApi.reducer,
     [fileUploadApi.reducerPath]: fileUploadApi.reducer,
     [skillApi.reducerPath]:skillApi.reducer,

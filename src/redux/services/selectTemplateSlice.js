@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const selectTemplateApi = createApi({
-    reducerPath: "authApi",
+    reducerPath: "selectTemplateApi",
     baseQuery: fetchBaseQuery({
       baseUrl: import.meta.env.VITE_API_PORTIFY_ENDPOINT,
       prepareHeaders: (headers) => {

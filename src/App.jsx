@@ -114,6 +114,7 @@ function App() {
             // Show actual templates when loaded
             templateList.slice(0, 6).map((e) => (
 <TemplateCardComponent
+key={e.id}
             id={e.id}
             image={e.image}
             title={e.description}

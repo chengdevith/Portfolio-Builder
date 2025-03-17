@@ -55,7 +55,6 @@ export default function Login() {
       }
     },
   });
-
   return (
     <div data-aos="zoom-in" className="flex items-center justify-center min-h-screen bg-gray-100 px-4">
       <div className="w-full max-w-[90%] sm:w-[90%] md:w-[80%] lg:w-[70%] xl:w-[50%] h-auto bg-white shadow-2xl rounded-3xl overflow-hidden flex flex-col md:flex-row">
