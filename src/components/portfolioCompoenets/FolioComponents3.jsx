@@ -84,7 +84,7 @@ const FolioComponents3 = ({
     console.log("Full response:", response);
     
     if ('data' in response) {
-      navigate("/create-template", { state: response.data.id });
+      navigate("/create-template", { state: response.data });
     } else {
       console.error("Error details:", response.error);
     }
