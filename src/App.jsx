@@ -163,7 +163,7 @@ function App() {
           title={"Why Choose Us?"}
           description={"Because your portfolio deserves to be as fabulous as you are!"}
         />
-        <div className="flex flex-col md:flex-row gap-3 lg:gap-10 justify-center items-center">
+        <div className="flex flex-col md:flex-row gap-3 lg:gap-10 justify-center items-center ">
           {chooseUses.map((e) => (
             <ChooseUsCard
               key={e.id}
