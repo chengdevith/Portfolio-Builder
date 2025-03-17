@@ -11,7 +11,7 @@ import { useGoogleLogin } from "@react-oauth/google";
 export default function SignUp() {
   const navigate = useNavigate();
   const [getRegister] = useGetRegisterMutation();
-  
+
   useEffect(() => {
     AOS.init({ duration: 1000, once: true });
   }, []);
@@ -58,7 +58,9 @@ export default function SignUp() {
     validationSchema: Yup.object({
       username: Yup.string().required("Must put username"),
       email: Yup.string().email("Invalid email").required("Must put email"),
-      password: Yup.string().min(8, "Password must be at least 8 characters").required("Password is required"),
+      password: Yup.string()
+        .min(8, "Password must be at least 8 characters")
+        .required("Password is required"),
       confirmPassword: Yup.string()
         .min(8, "Password must be at least 8 characters")
         .oneOf([Yup.ref("password"), null], "Passwords must match")
@@ -67,7 +69,9 @@ export default function SignUp() {
     onSubmit: async (values, { resetForm }) => {
       try {
         await getRegister(values).unwrap();
-        navigate("/otp", { state: { email: values.email, password: values.password } });
+        navigate("/otp", {
+          state: { email: values.email, password: values.password },
+        });
       } catch (e) {
         console.log("error :>> ", e);
       } finally {
@@ -106,8 +110,15 @@ export default function SignUp() {
           </form>
           <div className="hidden md:flex w-1/2 bg-gradient-to-r from-purple-500 to-indigo-700 text-white flex-col items-center justify-center text-center p-8">
             <h2 className="text-3xl font-bold mb-4">Hello, Friend!</h2>
-            <p className="mb-6 text-lg">Register now and embark on your extraordinary journey</p>
-            <Link to="/login" className="py-3 px-6 border border-white rounded-lg hover:bg-white hover:bg-opacity-20 text-lg transition-colors">Login</Link>
+            <p className="mb-6 text-lg">
+              Register now and embark on your extraordinary journey
+            </p>
+            <Link
+              to="/login"
+              className="py-3 px-6 border border-white rounded-lg hover:bg-white hover:bg-opacity-20 text-lg transition-colors"
+            >
+              Login
+            </Link>
           </div>
         </div>
       </div>

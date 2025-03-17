@@ -22,13 +22,7 @@ const PlusIcon = () => (
   </svg>
 );
 
-function TemplateCardComponent({ id, image, description, name, more_info }) {
-  const navigate = useNavigate();
-  
-  const handleClick = () => {
-    navigate('/p1');
-  };
-
+function TemplateCardComponent({ id, image, title, category }) {
   const cardVariants = {
     initial: { y: 20, opacity: 0 },
     animate: { y: 0, opacity: 1 },
@@ -73,7 +67,6 @@ function TemplateCardComponent({ id, image, description, name, more_info }) {
             >
               <motion.button
                 variants={buttonVariants}
-                onClick={handleClick}
                 className="relative z-10 w-10 h-10 rounded-full bg-white flex items-center justify-center text-purple-600 hover:text-white hover:bg-purple-600 transition-colors duration-300 shadow-md" // Smaller button
                 whileHover={{ 
                   scale: 1.1,

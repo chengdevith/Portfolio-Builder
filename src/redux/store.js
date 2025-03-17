@@ -11,19 +11,21 @@ import { skillApi } from "./services/skillSlice";
 import { projectApi } from "./services/projectSlice";
 import { serviceApi } from "./services/serviceSlice";
 import { aboutMeApi } from "./services/aboutMeSlice";
+import { typeTemplateApi } from "./services/typeTemplateSlice";
 
 export const store = configureStore({
   reducer: {
+    [typeTemplateApi.reducerPath]: typeTemplateApi.reducer,
     [userApi.reducerPath]: userApi.reducer,
     [authApi.reducerPath]: authApi.reducer,
     [contactApi.reducerPath]: contactApi.reducer,
     [blogApi.reducerPath]: contactApi.reducer,
     [weApi.reducerPath]: weApi.reducer,
     [fileUploadApi.reducerPath]: fileUploadApi.reducer,
-    [skillApi.reducerPath]:skillApi.reducer,
-    [projectApi.reducerPath]:projectApi.reducer,
-    [serviceApi.reducerPath]:serviceApi.reducer,
-    [aboutMeApi.reducerPath]:aboutMeApi.reducer
+    [skillApi.reducerPath]: skillApi.reducer,
+    [projectApi.reducerPath]: projectApi.reducer,
+    [serviceApi.reducerPath]: serviceApi.reducer,
+    [aboutMeApi.reducerPath]: aboutMeApi.reducer,
   },
 
   middleware: (getDefaultMiddleware) =>
@@ -37,7 +39,8 @@ export const store = configureStore({
       skillApi.middleware,
       projectApi.middleware,
       serviceApi.middleware,
-      aboutMeApi.middleware
+      aboutMeApi.middleware,
+      typeTemplateApi.middleware
     ),
 });
 

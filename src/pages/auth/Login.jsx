@@ -31,7 +31,7 @@ export default function Login() {
       try {
         const accessTokenData = await getLogin(values).unwrap();
         if (accessTokenData) {
-          localStorage.setItem("accessToken", accessTokenData.access);
+          localStorage.setItem("access_token", accessTokenData?.access);
         }
         navigate("/");
       } catch (error) {
@@ -87,7 +87,7 @@ export default function Login() {
             Login
           </button>
           <span className="text-gray-500 mt-4 text-sm">Or login with</span>
-          <button className="flex items-center gap-3 px-6 py-3 border rounded-lg hover:bg-gray-50 transition-colors">
+          <button onClick={googleLogin} className="flex items-center gap-3 px-6 py-3 border rounded-lg hover:bg-gray-50 transition-colors">
             <FcGoogle className="text-3xl" /> <span className="text-lg">Google</span>
           </button>
         </form>
