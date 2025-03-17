@@ -26,7 +26,7 @@ const GoogleCallback = () => {
         console.log("Sending authorization code to backend...");
 
         const response = await fetch(
-          "http://136.228.158.126:3037/api/google/",
+          "http://portify-api.eunglyzhia.social:3037/api/google/",
           {
             method: "POST",
             headers: {

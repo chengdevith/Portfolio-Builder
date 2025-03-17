@@ -28,23 +28,13 @@ const FilterComponent = () => {
     navigate(`/template/${id-5}`,{state:id-5});
   };
   const filteredData = CardList
-    ? CardList.filter((item) => {
-        return (
-          (filters.type ? item.type === filters.type : true) &&
-          (filters.category ? item.category === filters.category : true) &&
-          (searchTerm
-            ? item.title.toLowerCase().includes(searchTerm.toLowerCase())
-            : true) &&
-          (searchTerm
-            ? item.category.toLowerCase().includes(searchTerm.toLowerCase())
-            : true) &&
-          (searchTerm
-            ? item.type.toLowerCase().includes(searchTerm.toLowerCase())
-            : true)
-        );
-      })
-    : [];
-
+  ? CardList.filter((item) => {
+      // Check if description contains the search term (case-insensitive)
+      return searchTerm
+        ? item.description && item.description.toLowerCase().includes(searchTerm.toLowerCase())
+        : true; // If no search term, show all items
+    })
+  : [];
   // Handle loading state with a spinner effect
   if (isLoading) {
     return (

@@ -113,12 +113,12 @@ function App() {
           ) : (
             // Show actual templates when loaded
             templateList.slice(0, 6).map((e) => (
-              <TemplateCardComponent
-                key={e.id}
-                image={e.image}
-                title={e.title}
-                category={e.category}
-              />
+<TemplateCardComponent
+            id={e.id}
+            image={e.image}
+            title={e.description}
+            category={e.name}
+          />
             ))
           )}
         </div>
