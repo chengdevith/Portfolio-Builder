@@ -20,8 +20,11 @@ export const aboutMeApi = createApi({
         body:  data ,
       }),
     }),
+    getAboutMeById: build.query({
+      query : (id)=> `/aboutme/${id}`
+    })
    
   }),
 });
 
-export const {useAddAboutMeMutation } = aboutMeApi;
+export const {useAddAboutMeMutation ,useGetAboutMeByIdQuery} = aboutMeApi;

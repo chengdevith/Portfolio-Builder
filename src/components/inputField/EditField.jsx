@@ -23,12 +23,11 @@ import { useAddServiceMutation } from "../../redux/services/serviceSlice";
 import { useAddBlogMutation } from "../../redux/services/blogSlice";
 import { form } from "framer-motion/client";
 import { useCreateTemplateFolioMutation } from "../../redux/services/templateFolioSlice";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function EditFiel() {
+  const navigate = useNavigate()
   const [activeTab, setActiveTab] = useState("personal");
-
-
   //SelectFiles
   const [selectedFileTemplate, setSelectedFileTemplate] = useState([])
   const [selectedFIlesAboutMe, setSelectedFilesAboutMe] = useState([]);
@@ -67,11 +66,11 @@ export default function EditFiel() {
 
   //form
   const [createTemplateForm, setCreateTemplateForm] = useState({
-    title: "d",
-    type: "d",
+    title: "",
+    type: "",
     social_media_link_json: "",
     portfolio_avatar: "",
-    biography: "d",
+    biography: "",
     we: null,
     project: null,
     about_me: null,
@@ -82,8 +81,8 @@ export default function EditFiel() {
     blog: null,
     service: null,
     skill: null,
-    template: 6,
-    select_template: 12,
+    template: null,
+    select_template: null,
     is_public: true
   })
   const [AboutMeForm, setAboutMeForm] = useState({
@@ -243,7 +242,11 @@ export default function EditFiel() {
       const response = await createTemplateFolio({
         ...createTemplateForm,
         portfolio_avatar: url,
+        select_template: location.state.id,
+        template: location.state.template
+        
       }).unwrap();
+      navigate("/save-template",{state:response.id})
       console.log(response);
     }catch(error){
       console.log(error)
@@ -483,7 +486,7 @@ export default function EditFiel() {
     { id: "blog", icon: <LuNotebookPen />, label: "Blog" },
     { id: "create",icon: <LuNotebookPen />, label:"create"}
   ];
-const location = useLocation()
+  const location = useLocation()
 console.log("selectTemplateID",location.state)
   return (
     <section className="grid grid-cols-1 md:grid-cols-6 gap-4 px-4">
@@ -1440,6 +1443,17 @@ console.log("selectTemplateID",location.state)
                   value={createTemplateForm.title}
                   onChange={handleChangeCreateTemplate}
                   name="title"
+                  type="text"
+                  className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
+                  required
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-color-primary font-medium">Type of Template</label>
+                <input
+                  value={createTemplateForm.type}
+                  onChange={handleChangeCreateTemplate}
+                  name="type"
                   type="text"
                   className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary"
                   required

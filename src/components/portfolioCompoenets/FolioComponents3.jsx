@@ -360,8 +360,19 @@ const FolioComponents3 = ({
         id="home"
         className="pt-16 bg-gradient-to-r from-blue-500 to-purple-600 text-white"
       >
-        <button onClick={()=>navigate("/template")} >back to template</button>
-        <button onClick={handleSelectTemplate}>create template</button>
+        <button 
+  onClick={() => navigate("/template")} 
+  className="px-4 py-2 mr-3 bg-color-primary hover:bg-color-primary-dark rounded-md transition-colors"
+>
+  Back to Template
+</button>
+
+<button 
+  onClick={handleSelectTemplate} 
+  className="px-4 py-2 bg-orange-500 text-white hover:bg-orange-600 rounded-md transition-colors"
+>
+  Create Template
+</button>
         <div className="max-w-6xl mx-auto px-4 py-12 md:py-24 flex flex-col md:flex-row items-center">
           <div className="md:w-1/2 mb-10 md:mb-0">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
