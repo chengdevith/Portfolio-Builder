@@ -16,14 +16,14 @@ function ChooseUsCard({ id, image, label, title, description }) {
           alt={title}
         />
         <div className={`absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 transition-opacity duration-300 ${isHovered ? 'opacity-100' : ''}`}></div>
-        <div className={`absolute top-4 left-4 bg-indigo-600 text-white text-sm font-medium px-3 py-1 rounded-full transform transition-all duration-300 ${isHovered ? 'translate-y-0 opacity-100' : '-translate-y-8 opacity-0'}`}>
+        <div className={` absolute top-4 left-4 bg-indigo-600 text-white text-sm font-medium px-3 py-1 rounded-full transform transition-all duration-300 ${isHovered ? 'translate-y-0 opacity-100' : '-translate-y-8 opacity-0'}`}>
           {label}
         </div>
       </div>
       
       <div className="p-5 flex flex-col gap-2">
         <div className={`h-1 w-12 bg-indigo-600 transition-all duration-300 ${isHovered ? 'w-24' : ''}`}></div>
-        <h3 className="text-xl font-semibold tracking-tight transition-colors duration-300 text-gray-900">{title}</h3>
+        <h3 className="text-xl font-semibold tracking-tight transition-colors duration-300 text-gray-900 line-clamp-1">{title}</h3>
         <p className={`text-gray-600 text-sm transition-all duration-500 ${isHovered ? 'line-clamp-none' : 'line-clamp-2'}`}>
           {description}
         </p>

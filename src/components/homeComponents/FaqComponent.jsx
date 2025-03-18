@@ -28,11 +28,7 @@ const FaqComponent = () => {
   return (
     <div className="w-full flex justify-center p-6 ">
       <div className="w-full max-w-3xl">
-        <div className="text-center mb-10">
-          <h2 className="text-3xl font-bold text-gray-800 mb-2">Frequently Asked Questions</h2>
-          <div className="w-20 h-1 bg-blue-500 mx-auto mb-4 rounded-full"></div>
-          <p className="text-gray-600">Everything you need to know about our portfolio builder</p>
-        </div>
+        
         
         <div className="space-y-4">
           {frequentlyAskQuestions.map((item, i) => (
@@ -73,19 +69,13 @@ const FaqComponent = () => {
               >
                 <div className="px-6 py-5 bg-white border-t border-gray-100">
                   <div className="pl-16 pr-4">
-                    <p className="text-gray-600 leading-relaxed">{item.description}</p>
+                    <p className="text-gray-600 leading-relaxed description ">{item.description}</p>
                   </div>
                 </div>
               </div>
             </div>
           ))}
-        </div>
-        
-        <div className="flex justify-center mt-8">
-          <button className="px-6 py-3 bg-blue-500 text-white rounded-lg shadow transition-all duration-300 hover:bg-blue-600 hover:shadow-md transform hover:-translate-y-1">
-            Still have questions? Contact us
-          </button>
-        </div>
+        </div> 
       </div>
     </div>
   );
