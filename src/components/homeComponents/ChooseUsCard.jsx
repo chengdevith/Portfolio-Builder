@@ -25,7 +25,7 @@ function ChooseUsCard({ id, image, label, title, description }) {
         <div className={`h-1 w-12 bg-indigo-600 transition-all duration-300 ${isHovered ? 'w-24' : ''}`}></div>
         <h4 className="text-xl font-semibold tracking-tight transition-colors duration-300 text-gray-900">{title}</h4>
         <p className={`text-gray-600 text-sm transition-all duration-500 ${isHovered ? 'line-clamp-none' : 'line-clamp-2'}`}>
-          {description}
+         {description}
         </p>
         
       </div>
