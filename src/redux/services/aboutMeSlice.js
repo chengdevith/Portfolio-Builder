@@ -20,11 +20,17 @@ export const aboutMeApi = createApi({
         body:  data ,
       }),
     }),
+    getAllAboutMe: build.query({
+      query: (data) => ({
+        url: "/aboutme/",
+        method: "GET",
+      }),
+    }),
     getAboutMeById: build.query({
-      query : (id)=> `/${id}`
+      query : (id)=> `/aboutme/${id}`
     })
    
   }),
 });
 
-export const {useAddAboutMeMutation ,useGetAboutMeByIdQuery} = aboutMeApi;
+export const {useAddAboutMeMutation ,useGetAboutMeByIdQuery, useGetAllAboutMeQuery} = aboutMeApi;

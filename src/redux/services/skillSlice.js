@@ -27,7 +27,7 @@ export const skillApi = createApi({
       }),
     }),
     getSkillById: build.query({
-      query : (id)=> `/${id}`
+      query : (id)=> `/skills/${id}`
     })
   }),
 });
