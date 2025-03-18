@@ -1,13 +1,14 @@
 
 
 import { FaFacebook, FaGithub, FaTelegram } from 'react-icons/fa';
-import Sokneang from '../../assets/Member_images/Sokneang.png';
-import Tharath from '../../assets/Member_images/Tharath.png';
-import Sonita from '../../assets/Member_images/Sonita.png';
-import Linet from '../../assets/Member_images/Linet.png';
-import Vanlyda from '../../assets/Member_images/Vanlyda.png';
-import Devith from '../../assets/Member_images/Devith.png';
-import Tongeang from '../../assets/Member_images/Tongeang.png';
+import Sokneang from '../../assets/Member_images/sokneang.jpg';
+import Tharath from '../../assets/Member_images/tharath.jpg';
+import Sonita from '../../assets/Member_images/bansonita.jpg';
+import Linet from '../../assets/Member_images/lineth.jpg';
+import Vanlyda from '../../assets/Member_images/Vanlyda.jpg';
+import devith from '../../assets/Member_images/devith.JPG';
+import Tongeang from '../../assets/Member_images/tongeng.jpg';
+import cheata from '../../assets/Member_images/cheata.jpg';
 import React from 'react'
 
 const teamMembers = [
@@ -59,7 +60,7 @@ const teamMembers = [
     {
       name: 'Cheng Devith',
       role: 'Front-end Developer',
-      image: Devith,
+      image: devith,
       description: 'I am a Foundation student at the ISTAD. I have skills in HTML, CSS, Bootstrap, JavaScript, and React-Js.',
       github: 'https://github.com/chengdevith',
       telegram: 'https://t.me/chengdevith',
@@ -77,7 +78,7 @@ const teamMembers = [
     {
       name: 'Lay Sokneang',
       role: 'Front-end Developer',
-      image: '/path-to-image/member3.png',
+      image: cheata,
       description: 'I am a Foundation student at the ISTAD. I have skills in HTML, CSS, Bootstrap, JavaScript, and React-Js.',
       github: 'https://github.com/sokneang090824',
       telegram: 'https://t.me/Neang_8888',

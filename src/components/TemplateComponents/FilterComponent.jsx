@@ -25,7 +25,7 @@ const FilterComponent = () => {
   console.log(CardList);
   // Only filter if CardList is defined
   const handleClick = (id) => {
-    navigate(`/template/${id - 5}`, { state: id});
+    navigate(`/template/${id-5}`,{state:id});
   };
   const filteredData = CardList
     ? CardList.filter((item) => {

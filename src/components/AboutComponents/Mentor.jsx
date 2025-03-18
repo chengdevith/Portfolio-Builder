@@ -2,7 +2,7 @@
 import React from 'react'
 import { FaFacebook, FaTelegram, FaPhone, FaGithub } from 'react-icons/fa';
 import Reksmey from '../../assets/Member_images/Reksmey.png';
-import Lyzhia from '../../assets/Member_images/Lyzhia.png';
+import Lyzhia from '../../assets/Member_images/teacher.jpg';
 
 const mentors = [
     {

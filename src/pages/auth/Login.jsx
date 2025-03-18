@@ -101,7 +101,7 @@ export default function Login() {
           <button type="submit" className="w-full py-3 !bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg text-lg transition-colors">
             Login
           </button>
-          <span className="text-gray-500 mt-4 text-sm">Or login with</span>
+          <span className="text-gray-500 mt-4 text-sm">Login or Sign up with</span>
           <button onClick={googleLogin} className="flex items-center gap-3 px-6 py-3 border rounded-lg hover:bg-gray-50 transition-colors">
             <FcGoogle className="text-3xl" /> <span className="text-lg">Google</span>
           </button>

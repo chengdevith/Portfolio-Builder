@@ -90,7 +90,7 @@ function TemplateCardComponent({ id, image, title, category }) {
             transition={{ delay: 0.2 }}
           >
             <motion.h2 
-              className="text-xl font-bold text-gray-900 dark:text-white truncate bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent"
+              className="!text-2xl font-bold text-gray-900 dark:text-white truncate bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent"
               whileHover={{ x: 5 }}
               transition={{ duration: 0.3 }}
             >

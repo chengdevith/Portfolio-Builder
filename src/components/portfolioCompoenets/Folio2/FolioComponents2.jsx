@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Devith from "../../../assets/Member_images/Devith.png";
+import Devith from "../../../assets/Member_images/devith.jpg";
 
 const FolioComponents2 = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

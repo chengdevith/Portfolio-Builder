@@ -626,6 +626,7 @@ console.log("selectTemplateID",location.state)
                       id="project-file"
                       className="hidden"
                       onChange={handleFileChangeAboutMe}
+                      
                     />
                   </Label>
                 </div>
@@ -650,6 +651,7 @@ console.log("selectTemplateID",location.state)
                       placeholder={field.placeholder}
                       className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary text-sm"
                       onChange={handleChangeAboutMe}
+                      required
                     />
                   ))}
                 </div>
@@ -665,6 +667,7 @@ console.log("selectTemplateID",location.state)
                     placeholder="Contact Type"
                     className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary text-sm"
                     onChange={handleChangeAboutMe}
+                    required
                   />
                   <input
                     value={AboutMeForm.personal_info.contacts[0].value}
@@ -673,6 +676,7 @@ console.log("selectTemplateID",location.state)
                     placeholder="Contact Value"
                     className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary text-sm"
                     onChange={handleChangeAboutMe}
+                    required
                   />
                 </div>
 
@@ -695,6 +699,7 @@ console.log("selectTemplateID",location.state)
                       placeholder={field.placeholder}
                       className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary text-sm"
                       onChange={handleChangeAboutMe}
+                      required
                     />
                   ))}
                 </div>
@@ -710,6 +715,7 @@ console.log("selectTemplateID",location.state)
                     placeholder="Platform"
                     className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary text-sm"
                     onChange={handleChangeAboutMe}
+                    required
                   />
                   <input
                     value={AboutMeForm.personal_info.social_media[0].url}
@@ -718,6 +724,7 @@ console.log("selectTemplateID",location.state)
                     placeholder="URL"
                     className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary text-sm"
                     onChange={handleChangeAboutMe}
+                    required
                   />
                 </div>
 

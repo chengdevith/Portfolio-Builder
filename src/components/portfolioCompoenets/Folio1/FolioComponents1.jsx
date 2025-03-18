@@ -6,7 +6,7 @@ import AOS from "aos";
 import { gsap } from "gsap";
 import { TextPlugin } from "gsap/TextPlugin";
 import { useEffect, useState } from "react";
-import Devith from "../../../assets/Member_images/Devith.png";
+import Devith from "../../../assets/Member_images/devith.jpg";
 import { useNavigate } from "react-router-dom";
 const FolioComponents1 = ({title}) => {
   const navigate = useNavigate()

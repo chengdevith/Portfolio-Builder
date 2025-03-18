@@ -39,7 +39,11 @@ function App() {
 
   // Error state
   if (error) {
-    return <div className="text-center py-10 text-red-500">Error loading templates: {error.message}</div>;
+    return (
+      <div className="text-center py-10 text-red-500">
+        Error loading templates: {error.message}
+      </div>
+    );
   }
 
   const templateList = templates || [];
@@ -72,7 +76,9 @@ function App() {
                 style={{
                   top: `${Math.random() * 70}%`,
                   left: `${Math.random() * 100}%`,
-                  animation: `floatAnimation ${1 + Math.random() * 2}s ease-in-out infinite alternate`,
+                  animation: `floatAnimation ${
+                    1 + Math.random() * 2
+                  }s ease-in-out infinite alternate`,
                 }}
               ></span>
             ))}
@@ -105,23 +111,23 @@ function App() {
           }
         />
         <div className="max-w-screen-xl m-auto cardList grid xl:grid-cols-3 sm:grid-cols-2 gap-10">
-          {isLoading ? (
-            // Show skeleton loaders while loading
-            Array(6)
-              .fill(0)
-              .map((_, index) => <SkeletonTemplateCard key={index} />)
-          ) : (
-            // Show actual templates when loaded
-            templateList.slice(0, 6).map((e) => (
-<TemplateCardComponent
-key={e.id}
-            id={e.id}
-            image={e.image}
-            title={e.description}
-            category={e.name}
-          />
-            ))
-          )}
+          {isLoading
+            ? // Show skeleton loaders while loading
+              Array(6)
+                .fill(0)
+                .map((_, index) => <SkeletonTemplateCard key={index} />)
+            : // Show actual templates when loaded
+              templateList
+                .slice(0, 6)
+                .map((e) => (
+                  <TemplateCardComponent
+                    key={e.id}
+                    id={e.id}
+                    image={e.image}
+                    title={e.description}
+                    category={e.name}
+                  />
+                ))}
         </div>
         {/* ... rest of template section ... */}
         <div className="mt-12 flex justify-center">
@@ -162,7 +168,9 @@ key={e.id}
       <section className="each-section">
         <TitleSectionComponen
           title={"Why Choose Us?"}
-          description={"Because your portfolio deserves to be as fabulous as you are!"}
+          description={
+            "Because your portfolio deserves to be as fabulous as you are!"
+          }
         />
         <div className="flex flex-col md:flex-row gap-3 lg:gap-10 justify-center items-center">
           {chooseUses.map((e) => (
@@ -188,50 +196,50 @@ key={e.id}
         <div className="flex flex-col justify-between gap-6 md:flex-row">
           {/* ... how it works content ... */}
           <div className="text-center cursor-pointer">
-              <div className="relative bg-white inline-block px-6 py-3 rounded-lg cursor-pointer hover:bg-color-primary hover:text-white ease-in duration-200">
-                <p className="text-5xl ">1</p>
-                <div className="absolute w-48 top-6 left-1/2 transform -translate-x-1/2 lg:block hidden">
-                  <img
-                    className="w-full ml-52"
-                    src={line}
-                    alt="Line decoration"
-                  />
-                </div>
+            <div className="relative bg-white inline-block px-6 py-3 rounded-lg cursor-pointer hover:bg-color-primary hover:text-white ease-in duration-200">
+              <p className="text-5xl ">1</p>
+              <div className="absolute w-48 top-6 left-1/2 transform -translate-x-1/2 lg:block hidden">
+                <img
+                  className="w-full ml-52"
+                  src={line}
+                  alt="Line decoration"
+                />
               </div>
-              <h5 className="line-clamp-1 py-4">Explore Templates</h5>
-              <p className="description line-clamp-2">
-                Browse our extensive library of templates and find your perfect
-                match.
-              </p>
             </div>
+            <h5 className="line-clamp-1 py-4">Explore Templates</h5>
+            <p className="description line-clamp-2">
+              Browse our extensive library of templates and find your perfect
+              match.
+            </p>
+          </div>
 
-            <div className="text-center cursor-pointer">
-              <div className="relative inline-block px-6 py-3 rounded-lg cursor-pointer bg-color-primary text-white">
-                <p className="text-5xl">2</p>
-                <div className="absolute w-48 top-10 left-1/2 transform -translate-x-1/2 lg:block hidden">
-                  <img
-                    className="w-full ml-52"
-                    src={lineBottom}
-                    alt="Line decoration"
-                  />
-                </div>
+          <div className="text-center cursor-pointer">
+            <div className="relative inline-block px-6 py-3 rounded-lg cursor-pointer bg-color-primary text-white">
+              <p className="text-5xl">2</p>
+              <div className="absolute w-48 top-10 left-1/2 transform -translate-x-1/2 lg:block hidden">
+                <img
+                  className="w-full ml-52"
+                  src={lineBottom}
+                  alt="Line decoration"
+                />
               </div>
-              <h5 className="py-4">Sign Up</h5>
-              <p className="description line-clamp-2">
-                Create an account and unlock a world of possibilities. It's free
-                and easy!
-              </p>
             </div>
-            <div className="text-center cursor-pointer">
-              <div className="relative bg-white inline-block px-6 py-3 rounded-lg cursor-pointer hover:text-white hover:bg-color-primary ease-in duration-200">
-                <p className="text-5xl">3</p>
-              </div>
-              <h5 className=" py-4">Showcase Work</h5>
-              <p className="description line-clamp-2">
-                Upload your work and let the world see your talent. Shine bright
-                like a diamond!
-              </p>
+            <h5 className="py-4">Sign Up</h5>
+            <p className="description line-clamp-2">
+              Create an account and unlock a world of possibilities. It's free
+              and easy!
+            </p>
+          </div>
+          <div className="text-center cursor-pointer">
+            <div className="relative bg-white inline-block px-6 py-3 rounded-lg cursor-pointer hover:text-white hover:bg-color-primary ease-in duration-200">
+              <p className="text-5xl">3</p>
             </div>
+            <h5 className=" py-4">Showcase Work</h5>
+            <p className="description line-clamp-2">
+              Upload your work and let the world see your talent. Shine bright
+              like a diamond!
+            </p>
+          </div>
         </div>
       </section>
 
