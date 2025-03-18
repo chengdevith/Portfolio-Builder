@@ -8,6 +8,7 @@ import Linet from '../../assets/Member_images/Linet.png';
 import Vanlyda from '../../assets/Member_images/Vanlyda.png';
 import Devith from '../../assets/Member_images/Devith.png';
 import Tongeang from '../../assets/Member_images/Tongeang.png';
+import Socheata from '../../assets/Member_images/cheata.jpg';
 import React from 'react'
 
 const teamMembers = [
@@ -75,9 +76,9 @@ const teamMembers = [
       facebook: 'https://www.facebook.com/share/15XpZ7sooe/?mibextid=wwXIfr',
     },
     {
-      name: 'Lay Sokneang',
+      name: 'Seng Socheata',
       role: 'Front-end Developer',
-      image: '/path-to-image/member3.png',
+      image: Socheata,
       description: 'I am a Foundation student at the ISTAD. I have skills in HTML, CSS, Bootstrap, JavaScript, and React-Js.',
       github: 'https://github.com/sokneang090824',
       telegram: 'https://t.me/Neang_8888',
