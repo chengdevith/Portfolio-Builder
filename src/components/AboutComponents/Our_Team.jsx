@@ -6,7 +6,7 @@ import Tharath from '../../assets/Member_images/tharath.jpg';
 import Sonita from '../../assets/Member_images/bansonita.jpg';
 import Linet from '../../assets/Member_images/lineth.jpg';
 import Vanlyda from '../../assets/Member_images/Vanlyda.jpg';
-import devith from '../../assets/Member_images/devith.JPG';
+import devith from '../../assets/Member_images/devith.jpg';
 import Tongeang from '../../assets/Member_images/tongeng.jpg';
 import cheata from '../../assets/Member_images/cheata.jpg';
 import React from 'react'
