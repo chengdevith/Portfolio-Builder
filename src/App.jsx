@@ -179,14 +179,60 @@ key={e.id}
       </section>
 
       <section className="each-section relative">
-        <TitleSectionComponen
-          title={"How It Works"}
-          description={
-            "Your dream portfolio is just a click away! Join our community and start building today. Let’s make magic happen!"
-          }
-        />
-        <div className="flex flex-col justify-between gap-6 md:flex-row">
-          {/* ... how it works content ... */}
+      <div>
+          <TitleSectionComponen
+            title={"How It Works"}
+            description={
+              "Your dream portfolio is just a click away! Join our community and start building today. Let’s make magic happen!"
+            }
+          />
+          <div className="flex flex-col justify-between gap-6 md:flex-row">
+            <div className="text-center cursor-pointer">
+              <div className="relative bg-white inline-block px-6 py-3 rounded-lg cursor-pointer hover:bg-color-primary hover:text-white ease-in duration-200">
+                <p className="text-5xl ">1</p>
+                <div className="absolute w-48 top-6 left-1/2 transform -translate-x-1/2 lg:block hidden">
+                  <img
+                    className="w-full ml-52"
+                    src={line}
+                    alt="Line decoration"
+                  />
+                </div>
+              </div>
+              <h5 className="line-clamp-1 py-4">Explore Templates</h5>
+              <p className="description line-clamp-2">
+                Browse our extensive library of templates and find your perfect
+                match.
+              </p>
+            </div>
+
+            <div className="text-center cursor-pointer">
+              <div className="relative inline-block px-6 py-3 rounded-lg cursor-pointer bg-color-primary text-white">
+                <p className="text-5xl">2</p>
+                <div className="absolute w-48 top-10 left-1/2 transform -translate-x-1/2 lg:block hidden">
+                  <img
+                    className="w-full ml-52"
+                    src={lineBottom}
+                    alt="Line decoration"
+                  />
+                </div>
+              </div>
+              <h5 className="py-4">Sign Up</h5>
+              <p className="description line-clamp-2">
+                Create an account and unlock a world of possibilities. It's free
+                and easy!
+              </p>
+            </div>
+            <div className="text-center cursor-pointer">
+              <div className="relative bg-white inline-block px-6 py-3 rounded-lg cursor-pointer hover:text-white hover:bg-color-primary ease-in duration-200">
+                <p className="text-5xl">3</p>
+              </div>
+              <h5 className=" py-4">Showcase Work</h5>
+              <p className="description line-clamp-2">
+                Upload your work and let the world see your talent. Shine bright
+                like a diamond!
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 

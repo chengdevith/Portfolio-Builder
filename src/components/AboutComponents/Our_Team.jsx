@@ -13,13 +13,13 @@ import React from 'react'
 
 const teamMembers = [
     {
-      name: 'Lay Sokneang',
+      name: 'Cheng Devith',
       role: 'Front-end Developer',
-      image: Sokneang,
+      image: devith,
       description: 'I am a Foundation student at the ISTAD. I have skills in HTML, CSS, Bootstrap, JavaScript, and React-Js.',
-      github: 'https://github.com/Sokneang8888',
-      telegram: 'https://t.me/Neang_8888',
-      facebook: 'https://www.facebook.com/share/163Bdm46QM/?mibextid=wwXIfr',
+      github: 'https://github.com/chengdevith',
+      telegram: 'https://t.me/chengdevith ',
+      facebook: 'https://www.facebook.com/cheng.devith.1',
     },
     {
       name: 'Rann Tharath',
@@ -58,13 +58,13 @@ const teamMembers = [
       facebook: 'https://www.facebook.com/vanlyda.hor?mibextid=wwXIfr&mibextid=wwXIfr',
     },
     {
-      name: 'Cheng Devith',
+      name: 'Lay Sokneang',
       role: 'Front-end Developer',
-      image: devith,
+      image: Sokneang,
       description: 'I am a Foundation student at the ISTAD. I have skills in HTML, CSS, Bootstrap, JavaScript, and React-Js.',
-      github: 'https://github.com/chengdevith',
-      telegram: 'https://t.me/chengdevith',
-      facebook: 'https://www.facebook.com/cheng.devith.1',
+      github: ' https://github.com/Sokneang8888',
+      telegram: 'https://t.me/Neang_8888',
+      facebook: 'https://www.facebook.com/share/163Bdm46QM/?mibextid=wwXIfr',
     },
     {
       name: 'Thet Tongeang',
