@@ -10,7 +10,7 @@ import Template from "./pages/Template.jsx";
 
 import Login from "./pages/auth/Login.jsx";
 import SignUp from "./pages/auth/SignUp.jsx";
-import GoogleCallback from "./pages/auth/GoogleCallBack.jsx";
+import GoogleCallback from "./pages/auth/GoogleCallback.jsx";
 
 import { StrictMode } from "react";
 import { OTPVerifyComponent } from "./pages/auth/OTPVerifyComponent.jsx";
