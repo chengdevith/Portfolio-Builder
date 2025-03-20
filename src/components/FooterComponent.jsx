@@ -161,16 +161,16 @@ export default function FooterComponent() {
               </span>
               <div className="h-1 w-12 bg-gradient-to-r from-pink-400 to-purple-400 rounded-full mt-2"></div>
             </h3>
-            <ul className="space-y-3 text-base">
+            {/* <ul className="space-y-3 text-base">
               <li className="flex items-center transition-all duration-300 hover:translate-x-2">
                 <span className="text-white/80">laysokneang@gmail.com</span>
               </li>
               <li className="flex items-center transition-all duration-300 hover:translate-x-2">
                 <span className="text-white/80">+123 456 7890</span>
               </li>
-            </ul>
+            </ul> */}
 
-            <div className="mt-6">
+            {/* <div className="mt-6">
               <h4 className="text-sm font-semibold mb-3 text-white/90">
                 Follow Us
               </h4>
@@ -186,7 +186,7 @@ export default function FooterComponent() {
                   </div>
                 ))}
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
 

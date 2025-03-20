@@ -241,7 +241,7 @@ export default function EditFiel() {
       const url = resp.url;
       const response = await createTemplateFolio({
         ...createTemplateForm,
-        portfolio_avatar: url,
+        hero_image: url,
         select_template: location.state.id,
         template: location.state.template
         
@@ -651,7 +651,7 @@ console.log("selectTemplateID",location.state)
                       placeholder={field.placeholder}
                       className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary text-sm"
                       onChange={handleChangeAboutMe}
-                      required
+                      
                     />
                   ))}
                 </div>
@@ -667,7 +667,7 @@ console.log("selectTemplateID",location.state)
                     placeholder="Contact Type"
                     className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary text-sm"
                     onChange={handleChangeAboutMe}
-                    required
+                    
                   />
                   <input
                     value={AboutMeForm.personal_info.contacts[0].value}
@@ -676,7 +676,7 @@ console.log("selectTemplateID",location.state)
                     placeholder="Contact Value"
                     className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary text-sm"
                     onChange={handleChangeAboutMe}
-                    required
+
                   />
                 </div>
 
@@ -699,7 +699,7 @@ console.log("selectTemplateID",location.state)
                       placeholder={field.placeholder}
                       className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary text-sm"
                       onChange={handleChangeAboutMe}
-                      required
+                      
                     />
                   ))}
                 </div>
@@ -715,7 +715,7 @@ console.log("selectTemplateID",location.state)
                     placeholder="Platform"
                     className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary text-sm"
                     onChange={handleChangeAboutMe}
-                    required
+                    
                   />
                   <input
                     value={AboutMeForm.personal_info.social_media[0].url}
@@ -724,7 +724,7 @@ console.log("selectTemplateID",location.state)
                     placeholder="URL"
                     className="w-full p-2 border rounded focus:ring-2 focus:ring-color-primary text-sm"
                     onChange={handleChangeAboutMe}
-                    required
+                    
                   />
                 </div>
 
@@ -1510,6 +1510,10 @@ console.log("selectTemplateID",location.state)
               ? AboutMePreviewUrls
               : AboutMeForm.images
           }
+          heroImage={CreateTemplatePreviewUrl.length > 0 
+            ? CreateTemplatePreviewUrl
+            : createTemplateForm.hero_image
+          }
           firstName={AboutMeForm.personal_info.first_name}
           Lastname={AboutMeForm.personal_info.last_name}
           dob={AboutMeForm.personal_info.date_of_birth}
@@ -1547,7 +1551,8 @@ console.log("selectTemplateID",location.state)
           serviceTitle={formService.title}
           serviceDescription={formService.description}
           blogImage={
-            blogPreviewUrls.length > 0 ? blogPreviewUrls : formBlog.images
+            blogPreviewUrls.length > 0 
+            ? blogPreviewUrls : formBlog.images
           }
           blogTitle={formBlog.title}
           blogDescription={formBlog.description}

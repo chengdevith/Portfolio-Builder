@@ -4,13 +4,13 @@ const frequentlyAskQuestions = [
     title: "Do I need coding skills to use this portfolio builder?",
     description:
       "You don't need coding skills to use this portfolio builder. Our platform is designed to be simple and intuitive, letting you create a professional portfolio with easy-to-use tools—no coding required.",
-    icon: "💻",
+    icon: "",
   },
   {
     title: "Does my portfolio work on mobile devices?",
     description:
       "Yes, your portfolio works on mobile devices. Our platform is fully optimized to ensure your site looks great and functions smoothly on smartphones, tablets, and desktops alike. You can also preview how it appears on different screen sizes before publishing.",
-    icon: "📱",
+    icon:"",
   },
 ];
 
@@ -29,15 +29,7 @@ const FaqComponent = () => {
   return (
     <div className="w-full flex justify-center p-6 ">
       <div className="w-full max-w-3xl">
-        <div className="text-center mb-10">
-          <h2 className="text-3xl font-bold text-gray-800 mb-2">
-            Frequently Asked Questions
-          </h2>
-          <div className="w-20 h-1 bg-blue-500 mx-auto mb-4 rounded-full"></div>
-          <p className="text-gray-600">
-            Everything you need to know about our portfolio builder
-          </p>
-        </div>
+        
 
         <div className="space-y-4">
           {frequentlyAskQuestions.map((item, i) => (
@@ -64,9 +56,7 @@ const FaqComponent = () => {
                 onClick={() => togglerFunction(i)}
               >
                 <div className="flex items-center space-x-4">
-                  <span className="text-2xl bg-white p-2 rounded-lg shadow-sm">
-                    {item.icon}
-                  </span>
+                  
                   <h6 className="font-medium text-gray-800 text-lg">
                     {item.title}
                   </h6>
@@ -101,8 +91,8 @@ const FaqComponent = () => {
                 }`}
               >
                 <div className="px-6 py-5 bg-white border-t border-gray-100">
-                  <div className="pl-16 pr-4">
-                    <p className="text-gray-600 leading-relaxed">
+                  <div className=" pr-4">
+                    <p className="text-gray-600 leading-relaxed description ">
                       {item.description}
                     </p>
                   </div>
@@ -112,11 +102,7 @@ const FaqComponent = () => {
           ))}
         </div>
 
-        <div className="flex justify-center mt-8">
-          <button className="px-6 py-3 bg-blue-500 text-white rounded-lg shadow transition-all duration-300 hover:bg-blue-600 hover:shadow-md transform hover:-translate-y-1">
-            Still have questions? Contact us
-          </button>
-        </div>
+        
       </div>
     </div>
   );

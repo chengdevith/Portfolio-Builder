@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { Send, MapPin, Phone, Mail, CheckCircle } from "lucide-react";
+import React, { useState, useRef } from "react";
+import { Send, MapPin, Phone, Mail, CheckCircle, XCircle, Loader } from "lucide-react";
+import emailjs from "@emailjs/browser";
 
 export default function Contact_Us() {
   const [formState, setFormState] = useState({
@@ -7,29 +8,58 @@ export default function Contact_Us() {
     email: "",
     message: "",
     submitted: false,
+    loading: false,
+    success: false,
+    error: false,
   });
 
   const [focusedField, setFocusedField] = useState(null);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setFormState({ ...formState, submitted: true });
-    // Here you would typically handle the actual form submission
-    setTimeout(() => {
-      setFormState({
-        name: "",
-        email: "",
-        message: "",
-        submitted: false,
-      });
-    }, 3000);
-  };
+  const form = useRef();
 
   const handleChange = (e) => {
     setFormState({
       ...formState,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+    setFormState({ ...formState, loading: true, success: false, error: false });
+
+    emailjs
+      .sendForm("service_czlib9c", "template_ve4ia6r", form.current, {
+        publicKey: "8IwfGumgGlxkRxL2L",
+      })
+      .then(
+        () => {
+          setFormState({
+            ...formState,
+            name: "",
+            email: "",
+            message: "",
+            submitted: true,
+            loading: false,
+            success: true,
+            error: false,
+          });
+          setTimeout(() => {
+            setFormState((prevState) => ({
+              ...prevState,
+              submitted: false,
+            }));
+          }, 3000);
+        },
+        (error) => {
+          setFormState({
+            ...formState,
+            loading: false,
+            success: false,
+            error: true,
+          });
+          console.log("FAILED...", error.text);
+        }
+      );
   };
 
   return (
@@ -39,7 +69,7 @@ export default function Contact_Us() {
         <div className="w-full lg:w-1/2 flex flex-col gap-6">
           {/* Contact Form */}
           <div className="bg-white backdrop-blur-sm bg-opacity-80 text-color-primary p-8 rounded-2xl shadow-xl shadow-purple-300 transform transition-all duration-500 hover:shadow-purple-400">
-            {formState.submitted ? (
+            {formState.submitted && formState.success ? (
               <div className="flex flex-col items-center justify-center h-full py-16 text-center">
                 <CheckCircle className="w-16 h-16 text-green-500 mb-4 animate-bounce" />
                 <h2 className="text-3xl font-bold mb-4 bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">
@@ -48,6 +78,16 @@ export default function Contact_Us() {
                 <p className="text-lg text-gray-600">
                   Your message has been sent successfully. We'll get back to you
                   soon!
+                </p>
+              </div>
+            ) : formState.error ? (
+              <div className="flex flex-col items-center justify-center h-full py-16 text-center">
+                <XCircle className="w-16 h-16 text-red-500 mb-4 animate-bounce" />
+                <h2 className="text-3xl font-bold mb-4 bg-gradient-to-r from-red-600 to-pink-600 bg-clip-text text-transparent">
+                  Oops!
+                </h2>
+                <p className="text-lg text-gray-600">
+                  Something went wrong. Please try again later.
                 </p>
               </div>
             ) : (
@@ -59,7 +99,7 @@ export default function Contact_Us() {
                 <p className="text-center text-gray-600 lg:text-lg mb-6">
                   Have questions or ideas? We'd love to hear from you!
                 </p>
-                <form className="space-y-5" onSubmit={handleSubmit}>
+                <form className="space-y-5" ref={form} onSubmit={sendEmail}>
                   <div
                     className={`relative transition-all duration-300 ${
                       focusedField === "name" ? "transform -translate-y-1" : ""
@@ -124,10 +164,17 @@ export default function Contact_Us() {
                   </div>
                   <button
                     type="submit"
+                    disabled={formState.loading}
                     className="w-full !bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg flex items-center justify-center gap-2"
                   >
-                    Send Message
-                    <Send className="w-4 h-4 animate-pulse" />
+                    {formState.loading ? (
+                      <Loader className="w-4 h-4 animate-spin" />
+                    ) : (
+                      <>
+                        Send Message
+                        <Send className="w-4 h-4 animate-pulse" />
+                      </>
+                    )}
                   </button>
                 </form>
               </>
