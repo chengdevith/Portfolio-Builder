@@ -17,8 +17,10 @@ import { useCreateSelectTemplateMutation } from "../../redux/services/selectTemp
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useGetUserProfileQuery } from "../../redux/services/authSlice";
 const FolioComponents3 = ({
+  biography,
   firstName,
   Lastname,
+  heroImage,
   ABoutMeImg,
   skillImg,
   skillTitle,
@@ -66,32 +68,33 @@ const FolioComponents3 = ({
     select_template: 4,
     is_public: true,
   };
-  const navigate = useNavigate()
-  const location = useLocation()
-  const {data} = useGetUserProfileQuery()
-  const [createSelectTemplate, { isLoading, error }] = useCreateSelectTemplateMutation();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { data } = useGetUserProfileQuery();
+  const [createSelectTemplate, { isLoading, error }] =
+    useCreateSelectTemplateMutation();
   const handleSelectTemplate = async () => {
-  try {
-    const payload = {
-      user: data.id,
-      template: location.state
-    };
-    
-    // Log the exact payload being sent
-    console.log("Sending payload:", payload);
-    
-    const response = await createSelectTemplate(payload);
-    console.log("Full response:", response);
-    
-    if ('data' in response) {
-      navigate("/create-template", { state: response.data });
-    } else {
-      console.error("Error details:", response.error);
+    try {
+      const payload = {
+        user: data.id,
+        template: location.state,
+      };
+
+      // Log the exact payload being sent
+      console.log("Sending payload:", payload);
+
+      const response = await createSelectTemplate(payload);
+      console.log("Full response:", response);
+
+      if ("data" in response) {
+        navigate("/create-template", { state: response.data });
+      } else {
+        console.error("Error details:", response.error);
+      }
+    } catch (err) {
+      console.error("Request failed:", err);
     }
-  } catch (err) {
-    console.error("Request failed:", err);
-  }
-};
+  };
   // Navigation state
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
@@ -119,11 +122,10 @@ const FolioComponents3 = ({
                 className="flex-shrink-0 flex items-center"
                 onClick={() => setActiveSection("home")}
               >
-                <img
+                {/* <img
                   className="h-8 w-auto"
                   src={portfolio.portfolio_avatar}
-                  alt="Logo"
-                />
+                /> */}
                 <span className="ml-2 text-xl font-bold text-gray-800">
                   {portfolio.title}
                 </span>
@@ -360,25 +362,25 @@ const FolioComponents3 = ({
         id="home"
         className="pt-16 bg-gradient-to-r from-blue-500 to-purple-600 text-white"
       >
-        <button 
-  onClick={() => navigate("/template")} 
-  className="px-4 py-2 mr-3 bg-color-primary hover:bg-color-primary-dark rounded-md transition-colors"
->
-  Back to Template
-</button>
+        <button
+          onClick={() => navigate("/template")}
+          className="px-4 py-2 mr-3 bg-color-primary hover:bg-color-primary-dark rounded-md transition-colors"
+        >
+          Back to Template
+        </button>
 
-<button 
-  onClick={handleSelectTemplate} 
-  className="px-4 py-2 bg-orange-500 text-white hover:bg-orange-600 rounded-md transition-colors"
->
-  Create Template
-</button>
+        <button
+          onClick={handleSelectTemplate}
+          className="px-4 py-2 bg-orange-500 text-white hover:bg-orange-600 rounded-md transition-colors"
+        >
+          Create Template
+        </button>
         <div className="max-w-6xl mx-auto px-4 py-12 md:py-24 flex flex-col md:flex-row items-center">
           <div className="md:w-1/2 mb-10 md:mb-0">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              Welcome {portfolio.title}
+              {firstName +  Lastname || "Chan Dara"}
             </h1>
-            <p className="text-xl mb-6">{portfolio.biography}</p>
+            <p className="text-xl mb-6">{biography || "biography"}</p>
             <div className="flex space-x-4">
               <a
                 href="#contact"
@@ -395,17 +397,19 @@ const FolioComponents3 = ({
             </div>
           </div>
           <div className="md:w-1/2 flex justify-center">
-            <img
-              src={portfolio.hero_image}
+            <img 
+              src={
+                heroImage || "https://images.unsplash.com/photo-1633332755192-727a05c4013d?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D"
+              }
               alt="Hero"
-              className="rounded-lg shadow-xl max-w-full h-auto"
+              className="rounded-full w-80 h-80 shadow-xl max-w-full "
             />
           </div>
         </div>
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-16 bg-white">
+      {/* <section id="about" className="py-16 bg-white">
         <div className="max-w-6xl mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-800">About Me</h2>
@@ -466,7 +470,7 @@ const FolioComponents3 = ({
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Skills Section */}
       <section id="skills" className="py-16 bg-gray-50">
@@ -480,21 +484,23 @@ const FolioComponents3 = ({
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="flex gap-6 justify-center">
             {/* {skills.map((skill, index) => ( */}
             <div
               // key={index}
               className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300"
             >
-              <div className="mb-4 text-blue-500 flex justify-center">
-                <div className="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center">
-                  <img src={skillImg} alt="" />
+              <div className="mb-4 text-blue-500 flex justify-center w-96">
+                <div className="w-96 h-32 bg-blue-50  flex items-center justify-center">
+                  <img src={skillImg} alt="skill image" />
                 </div>
               </div>
-              <h3 className="text-xl font-semibold mb-2 text-gray-800 text-center">
-                {skillTitle}
-              </h3>
-              <p className="text-gray-600 text-center">{skillDes}</p>
+              <h5 className="text-xl font-semibold mb-2 text-gray-800  text-start">
+                {skillTitle || "Skill Title"}
+              </h5>
+              <p className="text-gray-600 text-start">
+                {skillDes || "Skill Description"}
+              </p>
             </div>
             {/* ))} */}
           </div>
@@ -524,25 +530,33 @@ const FolioComponents3 = ({
               <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
                 <div>
                   <h3 className="text-xl font-bold text-gray-800">{job}</h3>
-                  <p className="text-blue-600">{companyName}</p>
+                  <p className="text-blue-600">
+                    {companyName || "Company Name"}
+                  </p>
                 </div>
-                <span className="text-gray-500 mt-2 md:mt-0">{hireDate}</span>
+                <span className="text-gray-500 mt-2 md:mt-0">
+                  {hireDate || "Hire Date"}
+                </span>
               </div>
 
               <p className="text-gray-600 mb-4">{jobDes}</p>
 
               <div className="bg-gray-50 p-4 rounded">
-                <h4 className="font-semibold text-gray-700 mb-2">
-                  Responsibilities:
-                </h4>
-                <p className="text-gray-600">{responsibility}</p>
+                <h6 className="font-semibold text-gray-700 mb-2">
+                  Responsibilities
+                </h6>
+                <p className="text-gray-600">
+                  {responsibility || "repair printer"}
+                </p>
               </div>
 
               <div className="mt-4 bg-blue-50 p-4 rounded">
-                <h4 className="font-semibold text-blue-700 mb-2">
-                  Key Achievements:
-                </h4>
-                <p className="text-gray-700">{achievements}</p>
+                <h6 className="font-semibold text-blue-700 mb-2">
+                  Key Achievements
+                </h6>
+                <p className="text-gray-700">
+                  {achievements || "got alot of achievements"}
+                </p>
               </div>
             </div>
             {/* ))} */}
@@ -563,13 +577,13 @@ const FolioComponents3 = ({
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="flex justify-center gap-8">
             {/* {projects.map((project, index) => ( */}
             <div
               // key={index}
               className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition duration-300"
             >
-              <div className="relative">
+              <div className="relative w-96">
                 <img
                   src={projectImage}
                   alt={projectTitle}
@@ -585,11 +599,13 @@ const FolioComponents3 = ({
                   </a>
                 </div>
               </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-800 mb-2">
-                  {projectTitle}
-                </h3>
-                <p className="text-gray-600">{projectescription}</p>
+              <div className="p-3">
+                <h6 className="text-xl font-bold text-gray-800 mb-2">
+                  {projectTitle || "Project Title"}
+                </h6>
+                <p className="text-gray-600">
+                  {projectescription || "project Description"}
+                </p>
               </div>
             </div>
             {/* ))} */}
@@ -611,22 +627,24 @@ const FolioComponents3 = ({
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="flex justify-center gap-6">
             {/* {services.map((service, index) => ( */}
             <div
               // key={index}
-              className="bg-gray-50 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-300"
+              className="bg-gray-50 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-300 w-80"
             >
               <img
                 src={serviceImage}
                 alt={serviceTitle}
                 className="w-full h-40 object-cover"
               />
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-800 mb-2">
-                  {serviceTitle}
-                </h3>
-                <p className="text-gray-600">{serviceDescription}</p>
+              <div className="p-3">
+                <h6 className="text-xl font-bold text-gray-800 mb-2">
+                  {serviceTitle || "Service Title"}
+                </h6>
+                <p className="text-gray-600">
+                  {serviceDescription || "Service Description"}
+                </p>
               </div>
             </div>
             {/* ))} */}
@@ -648,11 +666,11 @@ const FolioComponents3 = ({
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="flex justify-center gap-8">
             {/* {blogs.map((blog, index) => ( */}
             <div
               // key={index}
-              className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-300"
+              className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-300 w-80"
             >
               <img
                 src={blogImage}
@@ -660,10 +678,12 @@ const FolioComponents3 = ({
                 className="w-full h-40 object-cover"
               />
               <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-800 mb-3">
-                  {blogTitle}
-                </h3>
-                <p className="text-gray-600 mb-4">{blogDescription}</p>
+                <h6 className="text-xl font-bold text-gray-800 mb-3">
+                  {blogTitle || "Blog Title"}
+                </h6>
+                <p className="text-gray-600 mb-4">
+                  {blogDescription || "Blog Description"}
+                </p>
                 <button className="text-blue-600 font-medium hover:text-blue-700 flex items-center">
                   Read More <ChevronRight size={16} className="ml-1" />
                 </button>

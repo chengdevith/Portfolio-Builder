@@ -54,15 +54,15 @@ const SaveFolio = () => {
   const aboutMeArray = [aboutMe];
   const aboutMeById = aboutMe?.filter((e) => e.id === saveFolio?.about_me);
 
-  console.log("service", service);
-  console.log("saveFolio", saveFolio);
-  console.log("skill", skill);
-  console.log("project", project);
-  console.log("blog", blog);
-  console.log("we", we);
-  console.log("contact", contact);
-  console.log("aboutMe", aboutMe);
-  console.log("terst", aboutMeById);
+  // console.log("service", service);
+  // console.log("saveFolio", saveFolio);
+  // console.log("skill", skill);
+  // console.log("project", project);
+  // console.log("blog", blog);
+  // console.log("we", we);
+  // console.log("contact", contact);
+  // console.log("aboutMe", aboutMe);
+  // console.log("terst", aboutMeById);
   const isLoading = [
     folioLoading,
     skillLoading,
@@ -81,7 +81,7 @@ const SaveFolio = () => {
   return (
     <section>
       <FolioComponents3
-        ABoutMeImg={saveFolio?.portfolio_avatar}
+        heroImage={saveFolio?.portfolio_avatar}
         firstName={aboutMeById[0]?.personal_info?.first_name}
         Lastname={aboutMeById[0]?.personal_info?.last_name}
         dob={aboutMeById[0]?.personal_info?.date_of_birth}

@@ -33,9 +33,9 @@ const NavComponent = () => {
         />
       </NavbarBrand>
       <div className="flex md:order-2 gap-4">
-        <Button className="!bg-color-primary hover:!bg-color-secondary">
+        {/* <Button className="!bg-color-primary hover:!bg-color-secondary">
           Get started
-        </Button>
+        </Button> */}
         <DropDownProfile />
         <NavbarToggle />
       </div>

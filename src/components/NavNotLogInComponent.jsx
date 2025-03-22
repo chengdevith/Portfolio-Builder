@@ -36,9 +36,9 @@ const NavNotLogInComponent = () => {
         <Button className="!bg-transparent text-color-primary !border-color-primary hover:!bg-purple-100">
           <Link to={"/login"}>Login</Link>
         </Button>
-        <Button className="!bg-color-primary hover:!bg-color-secondary">
+        {/* <Button className="!bg-color-primary hover:!bg-color-secondary">
           Get started
-        </Button>
+        </Button> */}
         <NavbarToggle />
       </div>
       <NavbarCollapse>

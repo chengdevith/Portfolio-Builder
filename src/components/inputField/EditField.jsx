@@ -6,6 +6,7 @@ import { LuNotebookPen } from "react-icons/lu";
 import { IoMdContact } from "react-icons/io";
 import FolioComponents3 from "../portfolioCompoenets/FolioComponents3";
 import { FileInput, Label } from "flowbite-react";
+import { LuLayoutTemplate } from "react-icons/lu";
 import {
   useGetFileQuery,
   useUploadFileMutation,
@@ -297,13 +298,13 @@ export default function EditFiel() {
       console.log(response);
 
       // Clear form and previews after successful submission
-      setSelectedSkillFiles([]);
-      setSkillPreviewUrls([]);
-      setFormSkill({
-        title: "",
-        description: "",
-        images: [],
-      });
+      // setSelectedSkillFiles([]);
+      // setSkillPreviewUrls([]);
+      // setFormSkill({
+      //   title: "",
+      //   description: "",
+      //   images: [],
+      // });
     } catch (error) {
       console.log(error);
     }
@@ -484,7 +485,7 @@ export default function EditFiel() {
     { id: "projects", icon: <MdDashboard />, label: "Projects" },
     { id: "services", icon: <FaTools />, label: "Services" },
     { id: "blog", icon: <LuNotebookPen />, label: "Blog" },
-    { id: "create",icon: <LuNotebookPen />, label:"create"}
+    { id: "create",icon: <LuLayoutTemplate />, label:"Create Template"}
   ];
   const location = useLocation()
 console.log("selectTemplateID",location.state)
@@ -837,7 +838,7 @@ console.log("selectTemplateID",location.state)
                   className="w-full !bg-color-secondary !text-white p-2 rounded hover:!bg-opacity-90"
                   disabled={loadingSkill}
                 >
-                  {loadingSkill ? "Submitting..." : "Create Blog"}
+                  {loadingSkill ? "Submitting..." : "Create Skill"}
                 </button>
               </form>
             )}
@@ -1498,7 +1499,7 @@ console.log("selectTemplateID",location.state)
         <FolioComponents3
           
           // ... your preview component props ...
-          ABoutMeImg={
+          heroImage={
             AboutMePreviewUrls.length > 0
               ? AboutMePreviewUrls
               : AboutMeForm.images
